@@ -1,0 +1,22 @@
+<div class="mt-3">
+    <h6 class="fw-700" [translate]="'PORTFOLIO.DETAIL.TIME_HORIZON'"></h6>
+    <hr/>
+    <p class="mb-0" [translate]="'PORTFOLIO.DETAIL.TIME_HORIZON_CONTAIN'"></p>
+    <div class=" mr-5 time-horizon">
+        <p-accordion>
+            <p-accordionTab header="Time horizon" [selected]="true">
+                <p class="mr-5" [translate]="'PORTFOLIO.DETAIL.TIME_HORIZON_ACCORDIN_DESC'"></p>
+                <div class="composure-box" *ngIf="!isEditableRoute">
+                    <ul class="composure-list">
+                        <li class="active">7 to 9 years</li>
+                    </ul>
+                </div>
+                <div *ngIf="isEditableRoute && timeHorizons">
+                    <div class="form-group w-300">
+                        <p-dropdown [options]="timeHorizons" optionLabel="description" name="selectedTimeHorizon" [(ngModel)]="selectedTimeHorizon" (onChange)="changeTimeHorizon(selectedTimeHorizon)"></p-dropdown>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+:host {
+    background:#fff;
+    position: fixed;
+    left: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 30%;
+    min-width: 250px;
+    z-index: 100; 
+}
+
+h4 a {
+    position: relative;
+}
+
+h4 a i {
+    width: 20px;
+    left: -25px;
+    height: 20px;
+    padding: 2px 4px;
+    font-size: 14px;
+    color: #FFFFFF;
+    border-radius: 50%;
+    position: absolute;
+    text-align: center;
+    font-weight: bold;
+    background: #88aa33;
+}

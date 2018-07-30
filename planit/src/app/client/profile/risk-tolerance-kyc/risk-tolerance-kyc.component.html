@@ -1,0 +1,128 @@
+<div class="bg-white pt-4 pb-4">
+    <div class="container" *ngIf="personDetail">
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <h4 class="mb-1">
+                    <a [routerLink]="['/client',clientId,'profile']" [translate]="'BREADCRUMB.CLIENT_PROFILE'"></a> /
+                    <a [routerLink]="['/client',clientId,'profile','risk-tolerance']" [translate]="'BREADCRUMB.RISK_TOLERANCE'"></a> /
+                </h4>
+                <h1 class="d-inline-block fw-500">
+                    <app-family-member-dropdown [clientId]="clientId" [personalId]="personalId" typeId="risk" (memberSwitch)="memberSwitch($event)"></app-family-member-dropdown>
+                </h1>
+                <div class="risk-toler-top d-inline-block" *ngIf="personDetail['memberRisk']">
+                    <h6 [translate]="'KYC.RISK_TOLERANCE'"></h6>
+                    <div class="tolerance-box">
+                        <span class="tolerance-number">{{personDetail['memberRisk']['calculatedScore']}}</span>
+                        <button type="button" class="tolerance-text">{{riskGroup[personDetail['memberRisk']['calculatedRiskGroup']]}}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-12 text-right dropdown-right">
+                <app-profile-module-drop-down [clientId]="clientId"></app-profile-module-drop-down>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <hr>
+            </div>
+            <div class="col-12">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a [routerLink]="['/client',clientId,'profile','risk-tolerance',personalId,'results']" class="nav-link" data-toggle="tab"
+                            [translate]="'RISK_RESULTS_PAGE.TITLE'"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a [routerLink]="['/client',clientId,'profile','risk-tolerance',personalId,'know-your-client']" class="nav-link active" data-toggle="tab"
+                            [translate]="'RISK_KYC_PAGE.TITLE'"></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-12">
+                <hr>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="answerProcessed">
+            <div class="col-12">
+                <div class="d-flex current-main mb-3">
+                    <h4 class="m-0">{{personDetail['firstName']}} {{personDetail['lastName']}}</h4>
+                    <span>Current age: {{personDetail['age']}}</span>
+                    <p (click)="toggleEdit()" *ngIf="!allowEdit" class="btn btn-success btn-small ml-auto m-0">Edit</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-12 pr-md-4">
+
+                <div class="composure-box" *ngFor="let questionId of pageLayout['left']; let i = index;">
+                    <div class="subheader d-flex">
+                        <h4>{{questionsArrId[questionId]['title']}}</h4>
+                        <a *ngIf="!allowEdit && i === 0" (click)="toggleExpand()" class="ml-auto">
+                            <span *ngIf="!expandAll" [translate]="'KYC.EXPAND_ALL'"></span>
+                            <span *ngIf="expandAll" [translate]="'KYC.COLLAPSE_ALL'"></span>
+                            <i [ngClass]="{'ion-ios-arrow-down' : !expandAll, 'ion-ios-arrow-up':expandAll}"></i>
+                        </a>
+                    </div>
+                    <section>
+                        <div class="income-box" *ngIf="allowEdit">
+                            <h6>{{questionsArrId[questionId].text}}</h6>
+                            <div class="form-group m-0" *ngIf="!questionsArrId[questionId].multipleSelect">
+                                <p-dropdown [options]="questionsArrId[questionId].options" optionLabel="text" [(ngModel)]="kycAnswers[questionsArrId[questionId].id]"
+                                    (onChange)="onDropDownChange(questionsArrId[questionId].id)"></p-dropdown>
+                            </div>
+                            <div class="experience-box" *ngIf="questionsArrId[questionId].multipleSelect">
+                                <div class="form-group" *ngFor="let option of questionsArrId[questionId].options">
+                                    <div class="form-check">
+                                        <p-checkbox name="group1" value="{{option.id}}" label="{{option.text}}" [(ngModel)]="kycAnswers[questionsArrId[questionId].id]"
+                                            inputId="{{option.text}}"></p-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p-accordion *ngIf="!allowEdit" (onOpen)="currTabIndex = i" (onClose)="currTabIndex = -1">
+                            <p-accordionTab header="{{questionsArrId[questionId].text}}" [selected]="expandAll">
+                                <ul class="composure-list" *ngIf="!questionsArrId[questionId].multipleSelect">
+                                    <li *ngFor="let option of questionsArrId[questionId].options;" [ngClass]="{'active' : kycAnswers[questionsArrId[questionId].id]['id'] === option.id}">{{option.text}}</li>
+                                </ul>
+                                <ul class="composure-list experience-list" *ngIf="questionsArrId[questionId].multipleSelect">
+                                    <li *ngFor="let option of questionsArrId[questionId].options" [ngClass]="{'show' : isExist(questionId, option) >= 0 }">{{option.text}}</li>
+                                </ul>
+                            </p-accordionTab>
+                        </p-accordion>
+                        <ng-container *ngFor="let option of questionsArrId[questionId].options">
+                            <ul class="composure-list" *ngIf="!questionsArrId[questionId].multipleSelect && !expandAll && !allowEdit" [hidden]="i === currTabIndex">
+                                <li *ngIf="kycAnswers[questionsArrId[questionId].id]['id'] === option.id" class="active">{{option.text}}</li>
+                            </ul>
+                        </ng-container>
+                    </section>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-12 pl-md-4">
+
+                <div class="composure-box">
+                    <div class="subheader d-lg-flex">
+                        <h4>{{questionsArrId[pageLayout['right'][0]]['title']}}</h4>
+                    </div>
+
+                    <div class="income-box half" *ngFor="let questionId of pageLayout['right']; let i = index; let odd=odd; let even=even;" [ngClass]="{ 'pl-lg-4': odd, 'pr-lg-4': even }">
+                        <h6>{{questionsArrId[questionId].text}}</h6>
+                        <p>{{personDetail['firstName']}}’s {{questionsArrId[questionId].text}}: $80,000</p>
+                        <div class="form-group m-0" *ngIf="allowEdit">
+                            <p-dropdown [options]="questionsArrId[questionId].options" [(ngModel)]="kycAnswers[questionsArrId[questionId].id]" optionLabel="text"
+                                (onChange)="onDropDownChange(questionsArrId[questionId].id)"></p-dropdown>
+                        </div>
+                        <span class="price" *ngIf="!allowEdit">{{kycAnswers[questionsArrId[questionId].id]['text']}}</span>
+                        <!-- <span class="price" *ngIf="!allowEdit"><small>Use actual</small> $622,000</span> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-12" *ngIf="allowEdit">
+                <div class="form-group text-right">
+                    <hr>
+                    <button (click)="toggleEdit()" class="btn btn-secondary mr-2" [translate]="'FORM.ACTION.CANCEL'"></button>
+                    <button (click)="editkyc()" class="btn btn-success" [translate]="'FORM.ACTION.SAVE_CHANGES'"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

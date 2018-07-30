@@ -1,0 +1,20 @@
+.dropdown-common {
+  margin-top: 2.7rem;  
+}
+/* responsive */
+
+@media (max-width: 1199px) {
+
+}
+
+@media (max-width: 992px) {
+  .dropdown-common {margin-top: 2.4rem;}
+}
+
+@media (max-width: 767px) {
+  .dropdown-common {margin-top: 1rem;}
+}
+
+@media (max-width: 575px) {
+
+}

@@ -1,0 +1,111 @@
+<div class="col-12" *ngIf="noSavings">
+    <h4 [translate]="'SAVINGS.NO_SAVINGS_TO_DISPLAY'"></h4>
+</div>
+<div class="col-12" *ngIf="!noSavings">
+    <table class="table savingsData-table">
+        <thead>
+            <tr>
+                <th width="5%" class="pt-0 text-left hidden-xs-down">&nbsp;</th>
+                <th width="20%" class="pt-0 text-left" [translate]="'SAVINGS.ACCOUNT_NAME'"></th>
+                <th width="10%" class="pt-0 text-left hidden-xs-down" [translate]="'SAVINGS.ACCOUNT_TYPE'"></th>
+                   
+                <th width="65%"  class="pt-0 text-left">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="25%" class="p-0 text-left hidden-xs-down" [translate]="'SAVINGS.GOAL'"></th>
+                                <th width="20%" class="p-0 text-right">
+                                    <span style="display: block;" [translate]="'SAVINGS.CLIENT_SAVINGS'"></span>
+                                </th>
+                                <th width="20%" class="p-0 text-right">
+                                    <span style="display: block;" [translate]="'SAVINGS.THIRD_PARTY_SAVINGS'"></span>
+                                </th>
+                                <th width="15%" class="p-0 text-right" [translate]="'SAVINGS.START'"></th>
+                                <th width="15%" class="p-0 text-right" [translate]="'SAVINGS.END'"></th>
+                                <th width="5%" class="p-0 text-center">&nbsp;</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let accId of accountIds">
+                <ng-container>
+                    <td width="5%" class="text-left hidden-xs-down">
+                        <span class="client-avatars">
+                            <span class="initials client-icon" [ngClass]="{'spouse': owner.relation == 2, 'childs': owner.relation == 3}" *ngFor="let owner of linkedAccountDetails[accId].ownership">{{owner.initials}}</span>
+                        </span> 
+                    </td>
+                    <td width="20%" class="text-left">
+                        <span class="fw-400">{{linkedAccountDetails[accId].description}}</span>
+                    </td>
+                    <td width="10%" class="text-left hidden-xs-down">
+                        <div class="fw-400">{{linkedAccountDetails[accId].regulatoryTypeDTO.description}}</div>
+                    </td>
+                    <td width="65%" class="text-left p-0">
+                        <table class="savings-goal-table" *ngFor="let saving of savingsData[accId]; index as savingIndex">
+                            <tbody>
+                                <tr *ngFor="let tier of saving.tierKeys; index as tierindex">
+                                    <td width="30%" class="fw-400 hidden-xs-down">
+                                        <div *ngIf="saving.linkedGoal && goals && goals[saving.linkedGoal] && tierindex == 0">{{goals[saving.linkedGoal]['description']}}</div>
+                                        <div *ngIf="!saving.linkedGoal && tierindex == 0" class="text-red">Unallocated</div>
+                                        <span *ngIf="tierindex > 0">&nbsp;</span>
+                                    </td>
+                                    <td width="15%" class="text-right">
+                                        <div class="fw-400">{{saving.tierDetail[tier].AmountPerYear}}</div>
+                                    </td>
+                                    <td width="20%" class="text-right">
+                                        <div class="fw-400">{{saving.tierDetail[tier].EmployerContribAmt > 0 ? saving.tierDetail[tier].EmployerContribAmt
+                                            : '-'}}</div>
+                                    </td>
+                                    <td width="15%" class="text-right">
+                                        <span class="fw-400">
+                                            {{ (selectedViewBy.id==1) ? saving.tierDetail[tier].StartYear : saving.tierDetail[tier].startAge.join(" / ") }}
+                                        </span>
+                                    </td>
+                                    <td width="15%" class="text-right">
+                                        <span class="fw-400">
+                                            {{ (selectedViewBy.id==1) ? saving.tierDetail[tier].EndYear : saving.tierDetail[tier].endAge.join(" / ") }}
+                                        </span>
+                                    </td>
+                                    <td width="5%" class="text-center">
+                                        <div class="dropdown-relative" *ngIf="tierindex == 0">
+                                            <button class="btn-floating" (click)="toggleActionMenu('dropdownAssetsAction', saving.key)">
+                                                <span class="ion-android-more-vertical"></span>
+                                            </button>
+                                            <div [id]="'dropdownAssetsAction_'+saving.key" class="dropdown-portfolio-action dropdown-floating hide-ele">
+                                                <ul class="floating-dropdown">
+                                                    <li (click)="toggleActionMenu('dropdownAssetsAction', saving.key)" class="add-btn">
+                                                        <a [routerLink]="accountId ? ['add-savings'] : [saving.linkedAccountKey, 'add-savings']">
+                                                            <i class="ion-android-add-circle"></i>
+                                                            <span [translate]="'ASSETS_SUMMARY.ACTION.ADD_SAVINGS'"></span>
+                                                        </a>
+                                                    </li>
+                                                    <li (click)="toggleActionMenu('dropdownAssetsAction', saving.key)">
+                                                        <a [routerLink]="['/client', this.clientId, 'planning', 'assets-liabilities-savings' , saving.key, 'edit-savings']">
+                                                            <i class="ion-android-create"></i>
+                                                            <span [translate]="'ASSETS_SUMMARY.ACTION.EDIT_SAVINGS'"></span>
+                                                        </a>
+                                                    </li>
+                                                    <li (click)="toggleActionMenu('dropdownAssetsAction', saving.key); delete(saving.key, accId, savingIndex)" class="delete-btn">
+                                                        <a>
+                                                            <i class="ion-android-cancel"></i>
+                                                            <span [translate]="'SAVINGS.ACTION.DELETE_SAVINGS'"></span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <span *ngIf="tierindex > 0">&nbsp;</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
+</div>

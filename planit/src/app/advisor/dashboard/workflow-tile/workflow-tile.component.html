@@ -1,0 +1,60 @@
+<div class="panel mt-0">
+  <div class="d-flex flex-wrap panel-header mb-xl-3 mb-3">
+    <h4>{{'ADVISOR.DASHBOARD.WORKFLOW_TILE.TITLE' | translate}}</h4>    
+  </div>
+
+  <div class="panel-body workflow-box">
+    <div class="row">
+      <div class="col-12 col-md-8">
+        <app-common-drop-down [itemList]="timePeriodList" [defaultSelected]="selectedtimePeriod" dropDownLabel="Period" (OnSelect)="getFilterWorkflow($event)"></app-common-drop-down>
+        <table class="table mt-3" *ngIf="workflowSummary">
+            <tbody>
+                <tr>
+                  <td width="150">
+                    <span class="bg-mauve square mr-2"></span>
+                    <span class="fw-700">{{'ADVISOR.DASHBOARD.WORKFLOW_TILE.IN_PROGRESS' | translate}}</span>
+                  </td>
+                  <td class="text-right fw-400">{{(workflowSummary.inProgress/workflowSummary.totalGoals) | percent : '1.0-2'}}</td>
+                  <td class="text-right">{{ workflowSummary.inProgress}}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="bg-violet square mr-2"></span>
+                    <span class="fw-700">{{'ADVISOR.DASHBOARD.WORKFLOW_TILE.UNDER_REVIEW' | translate}}</span>
+                  </td>
+                  <td class="text-right fw-400"> {{(workflowSummary.underReview/workflowSummary.totalGoals)| percent : '1.0-2' }}</td>
+                  <td class="text-right"> {{ workflowSummary.underReview}} </td>
+                </tr>
+                <tr>
+                  <td>
+                      <span class="bg-gray square mr-2"></span>
+                      <span class="fw-700">{{'ADVISOR.DASHBOARD.WORKFLOW_TILE.COMPLETED' | translate}}</span>
+                  </td>
+                  <td class="text-right fw-400"> {{(workflowSummary.completed/workflowSummary.totalGoals)| percent : '1.0-2' }} </td>
+                  <td class="text-right"> {{ workflowSummary.completed}} </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="bg-cyan square mr-2"></span>
+                    <span class="fw-700">{{'ADVISOR.DASHBOARD.WORKFLOW_TILE.SHARED' | translate}}</span>
+                  </td>
+                  <td class="text-right fw-400"> {{(workflowSummary.shared/workflowSummary.totalGoals)| percent : '1.0-2'}} </td>
+                  <td class="text-right"> {{ workflowSummary.shared}} </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="bg-blue square mr-2"></span>
+                    <span class="fw-700">{{'ADVISOR.DASHBOARD.WORKFLOW_TILE.MONITORING' | translate}}</span>
+                  </td>
+                  <td class="text-right fw-400"> {{(workflowSummary.monitoring/workflowSummary.totalGoals)| percent : '1.0-2'}}</td>
+                  <td class="text-right"> {{ workflowSummary.monitoring}} </td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+      <div class="col-12 col-md-4 mt-xl-0 mt-lg-0 mt-md-0 mt-sm-4 mt-4">
+          <div id="chartWorkFlow" style="height:187px"></div>
+      </div>
+    </div>
+  </div>
+</div>

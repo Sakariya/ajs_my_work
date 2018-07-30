@@ -1,0 +1,123 @@
+<header class="navbar navbar-expand sticky-top" role="navigation">
+    <div class="main-container">
+        <!-- Logo -->
+        <a class="navbar-brand">
+            <span class="logo">
+                {{'HEADER.PLANPLUS' | translate}}<span>{{'HEADER.PLAN' | translate}}<i>{{'HEADER.IT' | translate}}</i></span>
+            </span>
+        </a>
+
+        <div class="navbar-collapse">
+            <!-- Nav links -->
+            <ul class="navbar-nav left-navbar mr-auto hidden-xs-down">
+                <li class="nav-item" routerLinkActive="active">
+                    <a [routerLink]="['/advisor', 'dashboard']" [translate]="'HEADER.DASHBOARD'"></a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a [routerLink]="['/client', 'CLIENT']" [translate]="'HEADER.CLIENTS'"> </a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav right-navbar ml-auto">
+                <li class="nav-item">
+                    <a class="ion-android-chat top-chat"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="ion-help-circled"></a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a [routerLink]="['/task-notification']" class="ion-ios-bell top-bell" data-badge="4"></a>
+                </li>
+
+                <!-- User Account Menu -->
+                <li class="nav-item user-menu">
+                    <!-- Menu Toggle Button -->
+                    <div class="user-profile hidden-md-down" ngbDropdown>
+                        <div class="user-main" ngbDropdownToggle id="advisorMenu">
+                            <div class="user-box">
+                                <div class="user-img">
+                                    <img src="https://almsaeedstudio.com/themes/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                </div>
+                                <span class="user-name">Alexander Pierce</span>
+                                <a class="ion-gear-a"></a>
+                            </div>
+                            <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="advisorMenu">
+                                <ul>
+                                    <li>
+                                        <a class="dropdown-item active" [translate]="'HEADER.MY_PROFILE'"></a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" [translate]="'HEADER.SETTINGS'"></a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" [translate]="'HEADER.SWITCH_TO_CLASSIC'"></a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" (click)="onLogout()" [translate]="'HEADER.LOGOUT'"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="language hidden-md-down" ngbDropdown>
+                        <div class="language-text" ngbDropdownToggle id="langMenu">
+                            <a>{{translate.currentLang}}</a>
+                        </div>
+
+                        <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="langMenu">
+                            <ul>
+                                <li *ngFor="let lang of translate.getLangs()">
+                                    <a class="dropdown-item" [ngClass]="{'active': lang === translate.currentLang}" (click)="translate.use(lang)">
+                                        {{lang}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="user-profile hidden-lg-up" ngbDropdown placement="bottom-right">
+                        <div class="user-main" ngbDropdownToggle id="smallMenu">
+                            <div class="user-box">
+                                <div class="user-img hidden-xs-down">
+                                    <img src="https://almsaeedstudio.com/themes/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                </div>
+                                <a class="ion-android-menu"></a>
+                            </div>
+
+                            <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="smallMenu">
+                                <ul>
+                                    <li>
+                                        <a [routerLink]="['/advisor', 'dashboard']" [translate]="'HEADER.DASHBOARD'" class="dropdown-item" routerLinkActive="active"></a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/client', 'CLIENT']" [translate]="'HEADER.CLIENTS'" class="dropdown-item" routerLinkActive="active"></a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" [translate]="'HEADER.MY_PROFILE'"></a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" [translate]="'HEADER.SETTINGS'"></a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" [translate]="'HEADER.SWITCH_TO_CLASSIC'"></a>
+                                    </li>
+                                    <li *ngFor="let lang of translate.getLangs()">
+                                        <a class="dropdown-item" [ngClass]="{'active': lang === translate.currentLang}" (click)="translate.use(lang)" i18n="Short English Language@@language.en">
+                                            {{lang}}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" (click)="onLogout()" [translate]="'HEADER.LOGOUT'"></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</header>

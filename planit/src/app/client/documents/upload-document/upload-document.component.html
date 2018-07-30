@@ -1,0 +1,61 @@
+<div class="side-form">
+    <div class="box">
+        <div class="box-header">
+            <span class="sidebar_title">{{'DOCUMENT.DOCUMENT_UPLOAD.TITLE' | translate}} </span>
+            <span (click)="back()" class="sidebar_action_icon ion-close-circled float-right"></span>
+        </div>
+
+        <div class="box-body">
+            <form name="form" *ngIf="!isDocumentUploaded && !loading" (ngSubmit)="f.form.valid && uploadDocument()" #f="ngForm" novalidate>
+
+                <div  class="form-group" [ngClass]="{ 'has-error': f.submitted && !fileUnderType.valid }">
+                    <label class="custom-form-label">{{'DOCUMENT.DOCUMENT_UPLOAD.FILE_UNDER' | translate}}</label>
+               
+                        <p-dropdown  [options]="fileUnderList"  name="fileUnderType"  [(ngModel)]="model.fileUnderType" #fileUnderType="ngModel" required placeholder="{{ 'DOCUMENT.DOCUMENT_UPLOAD.CHOOSE_FILE_UNDER' | translate }}"
+                        optionLabel="categoryId"></p-dropdown>
+
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !documentName.valid }">
+                    <label class="custom-form-label">{{'DOCUMENT.DOCUMENT_UPLOAD.DOCUMENT_NAME' | translate}}</label>
+                    <input type="text" class="form-control" name="documentName" [(ngModel)]="model.documentName"  pattern="^[a-zA-Z0-9]+( [a-zA-Z0-9]+)*$" #documentName="ngModel" required
+                    />
+
+                </div>
+                <div class="form-group text-center">
+                    <app-file-upload *ngIf="!loading" dropHereLabel="{{ 'FILEUPLOAD.DROP_FILE_HERE' | translate }}" fileExt="doc,docx,xls,xlsx,pdf" maxFiles="1" [isBase64]="false" maxSize="10" isFileNamePreview="true"
+                        iconClass="ion-android-upload" (fileSelected)="uploadeImage($event)">
+                    </app-file-upload>
+                </div>
+                <div class="form-group text-center">
+                    <button (click)="back()" type="button" class="btn btn-small btn-secondary mr-2">{{ 'FORM.ACTION.CANCEL' | translate }}</button>
+                    <button [disabled]="loading || !f.form.valid ||  !uploadedImage" class="btn btn-small btn-success">{{ 'FORM.ACTION.UPLOAD' | translate }}</button>
+
+                </div>
+            </form>
+            <div *ngIf="loading">
+                <div class="form-group text-center">
+                    <img class="load" [src]="imageUrl" />
+                </div>
+                <div class="form-group text-center">
+                    <span> {{ 'FORM.PROCESS.UPLOADING' | translate }}</span>
+                </div>
+                <div class="form-group text-center">
+                    <button (click)="cancel()" type="button" class="btn btn-small btn-secondary mr-2">{{ 'FORM.ACTION.CANCEL' | translate }}</button>
+                </div>
+            </div>
+            <div *ngIf="isDocumentUploaded">
+                <div class="form-group text-center">
+                    <div class="upload-image-icon">
+                        <i class="ion-ios-checkmark-outline"></i>
+                    </div>
+                    <span> {{ 'DOCUMENT.DOCUMENT_UPLOAD.UPLOADED_SUCCESS_MESSAGE' | translate }} </span>
+                </div>
+                <div class="form-group text-center">
+                    <button (click)="uploadNew()" class="btn btn-small btn-secondary mr-2 ">{{ 'FORM.ACTION.UPLOAD_NEW' | translate }}</button>
+                    <button (click)="back()" type="button" class="btn btn-small btn-success">{{ 'FORM.ACTION.CLOSE' | translate }}</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

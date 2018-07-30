@@ -1,0 +1,77 @@
+<div class="panel" *ngIf="collaboration">
+
+    <div class="d-flex flex-wrap panel-header mb-2">
+        <h4 [translate]="'ADVISOR.DASHBOARD.COLLABORATION_TILE.TITLE'"></h4>
+        <div class="d-flex ml-auto">
+            <span class="initials btn-circle-orange ml-2 cursor-p" *ngIf="collaboration.badges[1].value > 0" ngbTooltip="Pending" placement="bottom" triggers="click" #pending="ngbTooltip" (click)="inconsistent.close();">
+                {{collaboration.badges[1].value}}
+            </span>
+            <span class="initials btn-circle-red ml-2 cursor-p" *ngIf="collaboration.badges[0].value > 0" ngbTooltip="Inconsistent" placement="bottom" triggers="click" #inconsistent="ngbTooltip" (click)="pending.close();">
+                {{collaboration.badges[0].value}}
+            </span>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        <app-common-drop-down [itemList]="filterOptions" [defaultSelected]="selectedFilter" dropDownLabel="View" (OnSelect)="getFilterCollaboration($event)"></app-common-drop-down>
+                    </th>
+                    <th class="text-center hidden-xs-down" [translate]="'CUSTOM.STATUS'"></th>
+                    <th class="text-center" [style.width.px]="99" [translate]="'CUSTOM.ACTIONS'"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let collaboration of collaboration.collborations; let i = index;">
+                    <tr *ngIf="selectedFilterOption === 'All' || selectedFilterOption === collaboration.status">
+                        <td>Client1 & Client2</td>
+                        <td class="fw-400">
+                            <span *ngIf="collaboration.collaborationType == 'RISK'" [translate]="'CLIENT_OVERVIEW.RISK_TOLERANCE'"></span>
+                            <span *ngIf="collaboration.collaborationType == 'RISKKYC'" [translate]="'CLIENT_OVERVIEW.RISK_TOLERANCEKYC'"></span>
+                            <span *ngIf="collaboration.collaborationType == 'DOC'" [translate]="'CLIENT_OVERVIEW.DOCUMENT_VAULT'"></span>
+                        </td>
+                        <td valign="middle" class="text-center hidden-xs-down">
+                            <div class="mr-1 mt-1" [ngClass]="{'orange-dot-indicator' : (collaboration.status === 'INPROGRESS'), 'red-dot-indicator' : (collaboration.status === 'INVITED'), 'green-dot-indicator' : (collaboration.status === 'COMPLETED') }"></div>
+                        </td>
+                        <td class="text-center">
+                            <div class="dropdown-relative">
+                                <button class="btn-floating" (click)="changeCollaborationAction(i)">
+                                    <span class="ion-android-more-vertical"></span>
+                                </button>
+                                <div [id]="'dropdownCollaborationAction'+i" class="dropdown-collaboration-action dropdown-floating hide-ele">
+                                    <ul class="floating-dropdown">
+                                        <li (click)="changeCollaborationAction(i)">
+                                            <a [routerLink]="['/client','CLIENT','coming-soon']">
+                                                <i class="ion-android-notifications"></i>
+                                                <span [translate]="'CUSTOM.SEND_REMINDER'"></span>
+                                            </a>
+                                        </li>
+                                        <li (click)="changeCollaborationAction(i)">
+                                            <a [routerLink]="['/client','CLIENT','coming-soon']">
+                                                <i class="ion-unlocked"></i>
+                                                <span [translate]="'CUSTOM.UNLOCK_RESET'"></span>
+                                            </a>
+                                        </li>
+                                        <li (click)="changeCollaborationAction(i)">
+                                            <a [routerLink]="['/client','CLIENT','coming-soon']">
+                                                <i class="ion-link"></i>
+                                                <span [translate]="'CUSTOM.REMOVE_ACCESS'"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex flex-wrap panel-footer" *ngIf="collaboration.totalRecords">
+        <app-pagination [PageSize]='pageSize' [TotalItem]="collaboration.totalRecords" (OnPageChange)="getPageFilterCollaboration($event)"></app-pagination>
+    </div>
+
+</div>

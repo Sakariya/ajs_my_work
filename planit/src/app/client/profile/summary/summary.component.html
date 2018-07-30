@@ -1,0 +1,45 @@
+<div class="summary-main bg-white">
+    <div class="row no-gutters h-100">
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+            <div class="profile_summary">
+                <h1 class="profile_title">Profile summary</h1>
+                <p class="profile_text">You are a few minutes away from builiding a goal-based investment plan for this client. These are the modules you must populate before you start planning ( some of them may be populated automatically, depanding on your back-office setup).</p>
+                <p class="profile_text">Once this is complete, go to the planning section.</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-8 col-xl-9">
+            <div class="profile_actions" *ngIf='progressSummary'>
+                <div class="profile_action" [routerLink]="['/client',clientId,'profile','personal-info']">
+                    <span class="profile_icon" [ngClass]="{'complete_profile ion-ios-checkmark-empty': progressSummary.personalProgress == 100, 'zero_profile': progressSummary.personalProgress == 0, 'inprogress_profile': (progressSummary.personalProgress > 0 && progressSummary.personalProgress < 100)}"></span>
+                    <div class="content">
+                        <h5>Personal info</h5>
+                        <p>Document your client’s personal data as well as siblings, business entities, etc.</p>
+                    </div>
+                    <a>
+                        <span class="action_icon ion-chevron-right"></span>
+                    </a>
+                </div>
+                <div class="profile_action" [routerLink]="['/client',clientId,'profile','engagement']">
+                    <span class="profile_icon" [ngClass]="{'complete_profile ion-ios-checkmark-empty': progressSummary.engagementProgress == 100, 'zero_profile': progressSummary.engagementProgress == 0, 'inprogress_profile': (progressSummary.engagementProgress > 0 && progressSummary.engagementProgress < 100) }"></span>
+                    <div class="content">
+                        <h5>Engagement</h5>
+                        <p>Define your engagement with this client and start the conversation.</p>
+                    </div>
+                    <a>
+                        <span class="action_icon ion-chevron-right"></span>
+                    </a>
+                </div>
+                <div class="profile_action" [routerLink]="['/client',clientId,'profile','risk-tolerance']">
+                    <span class="profile_icon" [ngClass]="{'complete_profile ion-ios-checkmark-empty': progressSummary.riskKYCProgress == 100, 'zero_profile': progressSummary.riskKYCProgress == 0, 'inprogress_profile': (progressSummary.riskKYCProgress > 0 && progressSummary.riskKYCProgress < 100)}"></span>
+                    <div class="content">
+                        <h5>Risk tolerance and KYC</h5>
+                        <p>Invite your client to establish his/her risk tolerance and discuss the results. xyz.</p>
+                    </div>
+                    <a>
+                        <span class="action_icon ion-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

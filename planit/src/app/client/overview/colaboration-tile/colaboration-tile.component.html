@@ -1,0 +1,48 @@
+<div class="panel mt-md-0">
+    <div class="d-flex flex-wrap panel-header">
+        <h4 [translate]="'CLIENT_OVERVIEW.COLLABORATION'"></h4>
+    </div>
+
+    <div class="panel-body">
+        <table class="table" *ngIf="client1 && client2">
+            <thead>
+                <tr>
+                    <th width="200">&nbsp;</th>
+                    <th class="text-center">
+                        <app-member-avatar [firstName]="client1.firstName" [lastName]="client1.lastName" [relationClass]="client1.btnColor" avatarClass="initials" [avatarUrl]="">
+                        </app-member-avatar>
+                    </th>
+                    <th class="text-center">
+                        <app-member-avatar [firstName]="client2.firstName" [lastName]="client2.lastName" [relationClass]="client2.btnColor" avatarClass="initials" [avatarUrl]="">
+                        </app-member-avatar>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td width="200" class="fw-600" [translate]="'CLIENT_OVERVIEW.RISK_TOLERANCE'"></td>
+                    <td class="text-center">
+                        <div class="circle" [ngClass]="{ 'bg-green' : client1.riskInviteStatus === 0, 'bg-orange': client1.riskInviteStatus ===1 , 'bg-blank': !client1.riskInviteStatus}"></div>
+                    </td>
+                    <td class="text-center">
+                        <div class="circle" [ngClass]="{ 'bg-green' : client2.riskInviteStatus === 0, 'bg-orange': client2.riskInviteStatus ===1 , 'bg-blank': !client2.riskInviteStatus}"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="200" class="fw-600" [translate]="'CLIENT_OVERVIEW.DOCUMENT_VAULT'"></td>
+                    <td class="text-center">
+                        <div class="circle" [ngClass]="{ 'bg-green' : client1.docInviteStatus === 0, 'bg-orange': client1.docInviteStatus ===1 , 'bg-blank': !client1.docInviteStatus}"></div>
+                    </td>
+                    <td class="text-center">
+                        <div class="circle" [ngClass]="{ 'bg-green' : client2.docInviteStatus === 0, 'bg-orange': client2.docInviteStatus ===1 , 'bg-blank': !client2.docInviteStatus}"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel-footer d-flex flex-wrap">
+        <a [routerLink]="['/client',clientId,'coming-soon']" class="btn btn-link ion-arrow-right-b" [translate]="'CUSTOM.VIEW_MORE'"></a>
+    </div>
+</div>

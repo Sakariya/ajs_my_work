@@ -1,0 +1,45 @@
+:host {z-index: 9}
+.side-form-large {position: fixed; z-index: 100; top: 0; right: 0; bottom: 0px; max-width: 70%; min-width: 70%; overflow: auto; background: #fff; padding: 0; border-left: 1px solid #e0e0e0; }
+.advanced-link {font-size: 14px; color: #58d !important; text-decoration: none; font-weight: 400; padding: 0px; display: inline-block; }
+
+.valign-bottom {vertical-align: bottom;}
+.eye-wrapper{
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    background: #9b4;
+    border-radius: 50%;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    display: inline-block;
+}
+.eye-wrapper i{
+    font-size: 16px;
+    color: #fff;
+    line-height: inherit;
+}
+
+
+/* responsive */
+
+@media (max-width: 1199px) {
+  .side-form-large {min-width: 90%; max-width: 90%;}
+  .side-form-large .table {max-width: 900px; width: 900px;}
+
+}
+
+@media (max-width: 992px) {
+}
+
+@media (max-width: 767px) {
+    .side-form-large {min-width: 100%; max-width: 100%;}
+  .side-form-large .table {max-width: 100%; width: 100%;}
+  .product-code-xs{width: 20%;}
+  .prod-description-xs{width: 60%; padding-right: 10px;}
+    
+}
+
+@media (max-width: 575px) {
+  .side-form-large .table {max-width: 100%; width: 100%;}
+}

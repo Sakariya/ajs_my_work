@@ -1,0 +1,44 @@
+<div class="panel" *ngIf="netWorth">
+    <div class="flex-wrap panel-header">
+        <h4 [translate]="'CLIENT_OVERVIEW.NET_WORTH'"></h4>
+        <div class="row dashboard-box pt-4">
+            <div class="col-xl-8 col-lg-7 col-12">
+                <span class="price">{{netWorth.totalAsset - netWorth.totalLiability | currency: '' : 'symbol' : '1.0-0'}}</span>
+            </div>
+            <div class="col-xl-4 col-lg-5 col-12 mt-xl-0 mt-lg-0 mt-md-0 mt-sm-3 mt-3">
+                <div class="total-box">
+                    <span class="fw-700" [translate]="'CUSTOM.ASSETS'"></span>
+                    <span class="fl-right">{{netWorth.totalAsset | currency : '' : 'symbol' : '1.0-0'}}</span>
+                </div>
+                <div class="total-box">
+                    <span class="fw-700" [translate]="'CUSTOM.LIABILITIES'"></span>
+                    <span class="fl-right">{{netWorth.totalLiability | currency: '' : 'symbol' : '1.0-0'}}</span>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-12">
+                <h5 class="mt-3 mb-3 fw-700" [translate]="'CUSTOM.ASSETS'"></h5>
+            </div>
+            <div class="col-12">
+                <h6 [translate]="'CUSTOM.ACCOUNT_TYPES'"></h6>
+                <div id="networthchartdiv" class="stacked-chart"></div>
+                <table class="table account-table mt--15">
+                    <tbody>
+                        <tr *ngFor="let asset of netWorth.accountTypeRollup;let i = index">
+                            <td class="fw-600" width="250">
+                                <span class="square bg-{{getColorByIndexOddColumn(asset.displayOrder)}} mr-2"></span> {{asset.ssid.split('id of ')[1]}}
+                            </td>
+                            <td width="150" class="fw-500 text-right">{{asset.amount | currency:'':'symbol':'1.0-0'}}</td>
+                            <td class="text-right">{{asset.amount/netWorth.accountTypeTotal | percent}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

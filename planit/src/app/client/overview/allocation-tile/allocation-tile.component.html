@@ -1,0 +1,94 @@
+<div class="panel pb-3">
+    <div class="d-flex flex-wrap panel-header border-bottom pb-3 mb-4">
+        <h4 [translate]="'CLIENT_OVERVIEW.ASSET_ALLOCATION'"></h4>
+    </div>
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-12 col-lg-6 mb-md-3">
+                <h5 class="allc-current-title current-title mb-3" [translate]="'CUSTOM.CURRENT'"></h5>
+                <div class="current-table d-flex" *ngIf="currentTotal">
+                    <div class="asset-list mt-3">
+                        <ul>
+                            <li>
+                                <span class="square bg-mauve mr-2"></span>
+                                <span [translate]="'CUSTOM.CASH'"></span>
+                            </li>
+                            <li>
+                                <span class="square bg-green mr-2"></span>
+                                <span [translate]="'CUSTOM.FIXED_INCOME'"></span>
+                            </li>
+                            <li>
+                                <span class="square bg-cyan mr-2"></span>
+                                <span [translate]="'CUSTOM.EQUITY'"></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="percurr-list mt-3">
+                        <ul>
+                            <li>
+                                <span class="per-text">{{currentData[0].per | number : '0.0-0'}}%</span>
+                                <span class="currency-text">{{currentData[0]['column-1'] | currency : 'CAD' : 'symbol-narrow':'0.0-0'}}</span>
+                            </li>
+                            <li>
+                                <span class="per-text">{{currentData[1].per | number : '0.0-0'}}%</span>
+                                <span class="currency-text">{{currentData[1]['column-1'] | currency : 'CAD' : 'symbol-narrow':'0.0-0'}}</span>
+                            </li>
+                            <li>
+                                <span class="per-text">{{currentData[2].per | number : '0.0-0'}}%</span>
+                                <span class="currency-text">{{currentData[2]['column-1'] | currency : 'CAD' : 'symbol-narrow':'0.0-0'}}</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="chartContainer text-center">
+                        <div id="chartdiv1" style="height:177px; width: 155px; display: inline-block;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <h5 class="text-left current-title mb-3" [translate]="'CUSTOM.TARGET'"></h5>
+                <div class="current-table last d-flex" *ngIf="targetTotal">
+                    <div class="asset-list mt-3 hidden-lg-up">
+                        <ul>
+                            <li>
+                                <span class="square bg-mauve mr-2"></span>
+                                <span [translate]="'CUSTOM.CASH'"></span>
+                            </li>
+                            <li>
+                                <span class="square bg-green mr-2"></span>
+                                <span [translate]="'CUSTOM.FIXED_INCOME'"></span>
+                            </li>
+                            <li>
+                                <span class="square bg-cyan mr-2"></span>
+                                <span [translate]="'CUSTOM.EQUITY'"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="percurr-list mt-3">
+                        <ul>
+                            <li>
+                                <span class="per-text">{{targetData[0].per | number : '0.0-0'}}%</span>
+                                <span class="currency-text">{{targetData[0]['column-1'] | currency : 'CAD' : 'symbol-narrow':'0.0-0'}}</span>
+                            </li>
+                            <li>
+                                <span class="per-text">{{targetData[1].per | number : '0.0-0'}}%</span>
+                                <span class="currency-text">{{targetData[1]['column-1'] | currency : 'CAD' : 'symbol-narrow':'0.0-0'}}</span>
+                            </li>
+                            <li>
+                                <span class="per-text">{{targetData[2].per | number : '0.0-0'}}%</span>
+                                <span class="currency-text">{{targetData[2]['column-1'] | currency : 'CAD' : 'symbol-narrow':'0.0-0'}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="chartContainer text-center">
+                        <div id="chartdiv2" style="height:177px; width: 155px; display: inline-block;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

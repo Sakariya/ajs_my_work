@@ -1,0 +1,29 @@
+<div class="side-form">
+    <div class="box">
+        <div class="box-header">
+            <span class="sidebar_title" [translate]="'PORTFOLIOS.ACTIONS.ADD_PORTFOLIO'"></span>
+            <span (click)="back()" class="sidebar_action_icon ion-close-circled"></span>
+        </div>
+        <br/>
+        <div class="box-body">
+            <form name="form" (ngSubmit)="addPortfolio() && f.form.valid" #f="ngForm" novalidate>
+                <div class="form-group" [ngClass]="{'has-error': !description.valid && (description.dirty || description.touched || f.submitted)}">
+                    <label class=custom-form-label [translate]="'PORTFOLIOS.NAME'"></label>
+                    <input type="text" class="form-control" name="description" [(ngModel)]="portfolio.description" #description="ngModel" required />
+                </div>
+                <div class="form-group">
+                    <h4 class="text-right">
+                        <a [routerLink]="['/client', clientId, 'coming-soon']" class="fs-12">
+                            <i class="action_icon ion-link"></i>
+                            <span>LINK GOALS</span>
+                        </a>
+                    </h4>
+                </div>
+                <div class="form-group text-right pt-2">
+                    <button class="btn btn-secondary btn-small mr-2" type="button" (click)="back()" [translate]="'FORM.ACTION.CANCEL'"></button>
+                    <button type="submit" class="btn btn-success btn-small" [disabled]="!f.form.valid" [translate]="'FORM.ACTION.ADD_PORTFOLIO'"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

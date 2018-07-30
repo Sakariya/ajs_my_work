@@ -1,0 +1,82 @@
+<div class="panel">
+
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="pt-0">
+                        <h4 [translate]="'CUSTOM.GOALS'"></h4>
+                    </th>
+                    <th class="pt-0" [translate]="'CUSTOM.YEAR'"></th>
+                    <th class="pt-0 hidden-xs-down" [translate]="'CUSTOM.START_DATE'"></th>
+                    <th class="pt-0 text-left hidden-sm-down" [translate]="'CUSTOM.END_DATE'"></th>
+                    <th class="pt-0 text-left hidden-sm-down" [translate]="'CUSTOM.FUNDED_BY'"></th>
+                    <th class="pt-0 text-left hidden-sm-down" [translate]="'CUSTOM.PLANTRAC_STATUS'"></th>
+                    <th class="pt-0 text-center" [translate]="'CUSTOM.ACTIONS'" width="50"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let goal of data; let i = index;">
+                    <td>
+                        <span class="ellipsis-text" [appNoOverflowTooltip]="goal.description" triggers="manual" placement="bottom">{{goal.description}}</span>
+                    </td>
+                    <td class="fw-400">{{goal.goalTier1Amount | currency:'CAD':'symbol-narrow':'0.0-0'}}</td>
+                    <td class="hidden-xs-down">{{goal.goalStartYear}}</td>
+                    <td class="text-left hidden-sm-down">{{goal.goalTier1EndYear}}</td>
+                    <td class="text-left hidden-sm-down">
+                        <span class="ellipsis-text">Family portfolio</span>
+                    </td>
+                    <td class="text-left hidden-sm-down">
+                        <div class="circle bg-green mr-2"></div>on track
+                    </td>
+                    <td class="text-center" width="50">
+                        <div class="dropdown-relative">
+                            <button class="btn-floating" (click)="changeGoalAction(i)">
+                                <span class="ion-android-more-vertical"></span>
+                            </button>
+                            <div [id]="'dropdownGoalAction'+i" class="dropdown-goal-action dropdown-floating hide-ele">
+                                <ul class="floating-dropdown">
+                                    <li (click)="changeGoalAction(i)">
+                                        <a [routerLink]="['/client',clientId,'coming-soon']">
+                                            <i class="ion-android-create"></i>
+                                            <span [translate]="'CUSTOM.EDIT_GOAL'"></span>
+                                        </a>
+                                    </li>
+                                    <li (click)="changeGoalAction(i)">
+                                        <a [routerLink]="['/client',clientId,'coming-soon']">
+                                            <i class="ion-pie-graph"></i>
+                                            <span [translate]="'CUSTOM.EDIT_GOAL_REVENUES'"></span>
+                                        </a>
+                                    </li>
+                                    <li (click)="changeGoalAction(i)">
+                                        <a [routerLink]="['/client',clientId,'coming-soon']">
+                                            <i class="ion-link"></i>
+                                            <span [translate]="'CUSTOM.LINK_PORTFOLIO_GOALS'"></span>
+                                        </a>
+                                    </li>
+                                    <li (click)="changeGoalAction(i)">
+                                        <a [routerLink]="['/client',clientId,'coming-soon']">
+                                            <i class="ion-stats-bars"></i>
+                                            <span [translate]="'CUSTOM.GOAL_RESULT'"></span>
+                                        </a>
+                                    </li>
+                                    <li (click)="changeGoalAction(i)">
+                                        <a [routerLink]="['/client',clientId,'coming-soon']">
+                                            <i class="ion-ios-eye"></i>
+                                            <span [translate]="'CUSTOM.VIEW_PLAN_TRAC'"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex flex-wrap panel-footer">
+        <a [routerLink]="['/client',clientId,'coming-soon']" class="btn btn-link ion-arrow-right-b" [translate]="'CUSTOM.VIEW_MORE'">View more</a>
+    </div>
+
+</div>

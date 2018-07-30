@@ -1,0 +1,43 @@
+<div class="panel">
+    <div class="d-flex flex-wrap panel-header">
+        <h4 class="mt-xl-3">{{'ADVISOR.DASHBOARD.RISK_TOLERANCE_DISTRIBUTION_TILE.TITLE' | translate}}</h4>
+        <div class="ml-xl-auto ml-sm-auto d-flex flex-wrap mt-xl-0 mt-lg-3 mt-md-0 mt-sm-0 mt-3">
+            <img [src]="'assets/images/finaMetrica.png'" width='116' height="30" alt="FinaMetrica">
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+          <div class="col-12 mt-4 mb-3">
+            <app-common-drop-down class="mr-lg-5 mr-sm-3 mr-0" [itemList]="timePeriodList" [defaultSelected]="selectedtimePeriod" dropDownLabel="Period" (OnSelect)="getFilterByTimePeriod($event)"></app-common-drop-down>
+            <app-common-drop-down [itemList]="riskGroups" [defaultSelected]="selectedRiskGroup"  (OnSelect)="getFilterByRiskGroup($event)"></app-common-drop-down>
+          </div>
+          <div class="col-12" #widgetParentDiv>
+            <div id="chartdiv1" [style.width.%]="100" [style.height.px]="200"></div>
+          </div>
+          
+          <div class="col-12 mt-3">
+            <div class="row" *ngIf="behaviouralRiskToleranceData">
+              <div class="col-12 col-sm-4">
+                <div class="behavioural-box">
+                  <h3 class="text-center"> {{behaviouralRiskToleranceData.sent}}</h3>
+                  <span [translate]="'ADVISOR.DASHBOARD.QUESTIONNAIRES_SENT'"></span>
+                </div>
+              </div>
+              <div class="col-12 col-sm-4">
+                <div class="behavioural-box">
+                  <h3 class="text-center">{{behaviouralRiskToleranceData.completed}}</h3>
+                  <span [translate]="'ADVISOR.DASHBOARD.QUESTIONNAIRES_COMPLETED'"></span>
+                </div>
+              </div>
+              <div class="col-12 col-sm-4">
+                <div class="behavioural-box">
+                  <h3 class="text-center">{{behaviouralRiskToleranceData.adjusted}}</h3>
+                  <span [translate]="'ADVISOR.DASHBOARD.QUESTIONNAIRES_ADJUSTED'"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+</div>

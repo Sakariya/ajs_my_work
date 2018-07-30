@@ -1,0 +1,123 @@
+<div class="bg-white pt-4 pb-4 assets-summary-bg">
+    <div class="container" *ngIf="currentAccount">
+        <app-assets-header [clientId]="clientId" currentPage="details" [accountId]="accountId" (switchAccount)="changeAccount($event)"></app-assets-header>
+        <form name="form" (ngSubmit)="updateAccount() && f.form.valid" #f="ngForm" novalidate>
+            <div class="row">
+                <div class="col-lg-4 col-12">
+                    <div class="form-group" [ngClass]="{'has-error': !description.valid && (description.dirty || description.touched || f.submitted)}">
+                        <label class=custom-form-label [translate]="'FORM.ACCOUNT_NAME'"></label>
+                        <input type="text" class="form-control" name="description" [(ngModel)]="account.description" #description="ngModel" required />
+                    </div>
+                    <div class="form-group" *ngIf="accountTypeData" [ngClass]="{'has-error': !accountType.valid && (accountType.dirty || accountType.touched || f.submitted)}">
+                        <label class=custom-form-label [translate]="'FORM.ACCOUNT_TYPE'"></label>
+                        <p-dropdown placeholder="Select account type" [options]="accountTypeData" optionLabel="description" name="accountType" [(ngModel)]="account.accountType" #accountType="ngModel" required (onChange)="allowMultipleOwner(account.accountType)"></p-dropdown>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="custom-form-label" [translate]="'FORM.OWNERSHIP'"></label>
+                        <label class="custom-error" *ngIf="ownerShipTotal !== 100 && isOwnerShipMultiple">Ownership must total 100%</label>
+                        <table class="table ownership-table">
+                            <tbody *ngIf="familyMembers">
+                                <tr *ngFor="let member of familyMembers; let i = index;">
+                                    <td [style.width.px]="30" *ngIf="isOwnerShipMultiple">
+                                        <p-checkbox name="member_chk_{{i}}" [(ngModel)]="account.ownerList[i].isOwned" binary="true" (onChange)="checkOwnership(i)"></p-checkbox>
+                                    </td>
+                                    <td class="form-group mb-0" [style.width.px]="30" *ngIf="!isOwnerShipMultiple">
+                                        <p-radioButton name="member_rdb" [value]="account.ownerList[i].externalKey" label="" [(ngModel)]="individualOwnerShip" inputId="opt{{i}}"></p-radioButton>
+                                    </td>
+                                    <td>
+                                        <span class="initials mr-2" [ngClass]="member.btnColor">{{member.firstName[0]}}{{member.lastName[0]}}</span>
+                                        <span class="fw-400">{{member.firstName}} {{member.lastName}}</span>
+                                    </td>
+                                    <ng-container *ngIf="isOwnerShipMultiple">
+                                        <td width="50" class="pt-2 pb-2" *ngIf="account.ownerList[i].isOwned">
+                                            <div class="form-group mb-0" [ngClass]="{'has-error': ((!ownership.valid && f.submitted) || (account.ownerList[i].isOwned && ownerShipTotal !== 100))}">
+                                                <input type="text" class="form-control mb-0 h-25 text-right" name="member_{{i}}" [(ngModel)]="account.ownerList[i].owned" #ownership="ngModel" pattern="^[1-9][0-9]?$|^100$" (keyup)="changeOwnerShip($event, i)" required />
+                                            </div>
+                                        </td>
+                                        <td width="50" class="pt-2 pb-2" *ngIf="!account.ownerList[i].isOwned">
+                                            <div class="form-group mb-0">
+                                                <input type="text" class="form-control mb-0 h-25 text-right" name="member_{{i}}" [(ngModel)]="account.ownerList[i].owned" #ownership="ngModel" pattern="^[1-9][0-9]?$|^100$" readonly />
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container *ngIf="!isOwnerShipMultiple">
+                                        <td width="50" class="text-right">
+                                            <span>100</span>
+                                        </td>
+                                    </ng-container>
+                                    <td width="10" class="pr-0 pl-2">%</td>
+                                </tr>
+                                <tr *ngIf="isOwnerShipMultiple">
+                                    <td colspan="2">
+                                        Total of ownership
+                                    </td>
+                                    <td width="50" class="text-right">
+                                        <span> {{ownerShipTotal}}</span>
+                                    </td>
+                                    <td width="10" class="pr-0 pl-2">%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-12">
+                    <div class="form-group" [ngClass]="{'has-error': !accountNumber.valid && (accountNumber.dirty || accountNumber.touched || f.submitted)}">
+                        <label class=custom-form-label [translate]="'FORM.ACCOUNT_NUMBER'"></label>
+                        <input type="text" class="form-control" name="accountNumber" [(ngModel)]="account.accountNumber" #accountNumber="ngModel" required />
+                    </div>
+                    <div class="form-group ui-fluid" [ngClass]="{'has-error': !created.valid && (created.dirty || created.touched || f.submitted)}">
+                        <label class=custom-form-label [translate]="'FORM.DATE_OF_CREATION'"></label>
+                        <p-calendar [monthNavigator]="true" required='true' [yearNavigator]="true" yearRange="1900:2020" name="created" [(ngModel)]="account.created" #created="ngModel" dateFormat="yy-mm-dd" required></p-calendar>
+                    </div>
+                    <div class="form-group text-lg-right price-box mb-4">
+                        <label class=custom-form-label [translate]="'FORM.TOTAL_HOLDING_VALUE'"></label>
+                        <h3>{{totalHoldings | currency:'CAD':'symbol-narrow':'0.2-2'}}</h3>
+                    </div>
+                    <div class="form-group text-lg-right price-box mb-4">
+                        <label class=custom-form-label [translate]="'FORM.TOTAL_LIABILITY'"></label>
+                        <h3>{{totalLiability | currency:'CAD':'symbol-narrow':'0.2-2'}}</h3>
+                    </div>
+                    <div class="form-group content-box">
+                        <p class="content-small" [translate]="'CONTENT.TOTAL_LIABILITY_DETAIL'"></p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-12">
+                    <div class="form-group" [ngClass]="{'has-error': !portfolio_id.valid && (portfolio_id.dirty || portfolio_id.touched || f.submitted)}">
+                        <label class=custom-form-label [translate]="'FORM.ASSOCIATED_PORTFOLIO'"></label>
+                        <p-dropdown placeholder="Select Portfolio" [options]="portfolioType" optionLabel="description" name="portfolio_id" [(ngModel)]="account.portfolio_id" #portfolio_id="ngModel" required></p-dropdown>
+                    </div>
+                    <div class="form-group">
+                        <p class="content-small" [translate]="'CONTENT.FAMILY_PORTFOLIO_DETAIL'"></p>
+                    </div>
+                    <div class="form-group">
+                        <a [routerLink]="['/client',clientId,'coming-soon']" class="btn-add">
+                            <i class="ion-ios-plus"></i>
+                            <span [translate]="'PORTFOLIOS.ACTIONS.ADD_PORTFOLIO'"></span>
+                        </a>
+                    </div>
+                    <div class="form-group">
+                        <p-checkbox name="managed" [(ngModel)]="account.managed" binary="true" label="Managed"></p-checkbox>
+                    </div>
+                    <div class="form-group">
+                        <p-checkbox name="planning" value="val2" label="Include in planning"></p-checkbox>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <hr>
+                </div>
+
+                <div class="col-md-12 col-12">
+                    <div class="form-group text-right">
+                        <button (click)="back()" type="button" class="btn btn-secondary btn-small" [translate]="'FORM.ACTION.BACK_TO_ASSETS'"></button>
+                        <button type="submit" [disabled]="f.form.invalid || ownerShipTotal !== 100" class="btn btn-success btn-small" [translate]="'FORM.ACTION.SAVE_CHANGES'"></button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>

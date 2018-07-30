@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-12">
+        <h4 class="mb-1">
+            <a [routerLink]="['/client', clientId, 'planning']" [translate]="'BREADCRUMB.PLANNING'"></a> /
+            <a [routerLink]="['/client', clientId, 'planning', 'portfolios']" [translate]="'BREADCRUMB.PORTFOLIOS'"></a>
+        </h4>
+        <h1 class="d-sm-inline-block d-block fw-500" *ngIf="portfolioData">
+            <div ngbDropdown class="dropdown-common m-0">
+                <a id="accountsDropdown" ngbDropdownToggle>
+                    {{portfolioName}}
+                    <i class="ion-arrow-down-b fs-18"></i>
+                </a>
+                <div ngbDropdownMenu aria-labelledby="accountsDropdown">
+                    <ul>
+                        <li *ngFor="let portfolio of portfolioData">
+                            <a class="dropdown-item" [ngClass]="{ 'active' : portfolioId === portfolio.id }" (click)="changePortfolio(portfolio.id)">
+                                <span></span>{{portfolio.description}}
+                            </a>
+                        </li>
+                    </ul>
+                    <a routerLink="add-portfolio" class="btn-add pl-15 pb-10">
+                        <i class="ion-android-add-circle fs-22"></i>
+                        <span class="d-inline-block va-middle fs-12" [translate]="'PORTFOLIOS.ACTIONS.ADD_PORTFOLIO'">
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="d-inline-block ml-3">
+                <a [routerLink]="['rename']" class="ion-icon">
+                    <i class="action_icon ion-edit"></i>
+                </a>
+            </div>
+        </h1>
+    </div>
+    <div class="col-lg-4 col-md-4 col-12 text-right">
+        <div class="d-inline-block nextprive-box mr-lg-5 mr-3">
+            <i class="ion-android-arrow-dropleft-circle mr-4"></i>
+            <i class="ion-android-arrow-dropright-circle"></i>
+        </div>
+        <app-planning-module-drop-down class="dropdown-right" [clientId]="clientId"></app-planning-module-drop-down>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <hr>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-sm-6 col-xs-6">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a [routerLink]="['/client',clientId,'planning', 'portfolios', portfolioId, 'details']" class="nav-link" [ngClass]="{'active': currentPage === 'details'}" data-toggle="tab">Details</a>
+            </li>
+            <li class="nav-item">
+                <a [routerLink]="['/client',clientId,'planning', 'portfolios', portfolioId, 'objectives']" class="nav-link" [ngClass]="{'active': currentPage === 'objectives'}" data-toggle="tab">Objectives</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-lg-6 col-sm-6 col-xs-6 text-right">
+        <a [routerLink]="['edit']" [translate]="'PORTFOLIO.ACTION.EDIT'" class="btn btn-success btn-small p-lr-25 ml-auto mr-15 mb-0" *ngIf="!isEditableRoute"></a>
+        <a href="javascript:void();" (click)="deletePortfolio()" class="delete-link text-uppercase">
+            <i class="ion-android-cancel delete-portfolio"></i>
+            <span [translate]="'PORTFOLIO.ACTION.DELETE_PORTFOLIO'"></span>
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <hr>
+    </div>
+</div>

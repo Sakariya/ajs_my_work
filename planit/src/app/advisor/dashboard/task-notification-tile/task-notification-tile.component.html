@@ -1,0 +1,46 @@
+<div class="panel" *ngIf="tasks">
+
+    <div class="d-flex flex-wrap panel-header mb-2">
+        <h4 [translate]="'ADVISOR.DASHBOARD.TASK_NOTIFICATION_TILE.TITLE'"></h4>
+        <div class="d-flex ml-auto">
+            <span class="initials btn-circle-orange ml-2 cursor-p" *ngIf="tasks['badges'][1].value > 0" ngbTooltip="System Task" placement="bottom" triggers="click" #system="ngbTooltip" (click)="manual.close();">
+                {{tasks.badges[1].value}}
+            </span>
+            <span class="initials btn-circle-red ml-2 cursor-p" *ngIf="tasks['badges'][0].value > 0" ngbTooltip="Manual Task" placement="bottom" triggers="click" #manual="ngbTooltip" (click)="system.close();">
+                {{tasks.badges[0].value}}
+            </span>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th colspan="5">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let task of tasks.messages">
+                    <td valign="middle">
+                        <div class="mr-1 mt-1" [ngClass]="{'orange-dot-indicator' : (task.type === 'TASK'), 'red-dot-indicator' : (task.type === 'NOTIFICATION') }"></div>
+                    </td>
+                    <td>
+                        <span class="mr-1 fs-22" [ngClass]="{'ion-android-checkbox-outline' : task.complete, 'ion-android-checkbox-outline-blank' : !task.complete}" (click)="toggleClass(task)"> </span>
+                    </td>
+                    <td width="90" class="hidden-xs-down">{{task.dueDate | date: 'yyyy.MM.dd' }}</td>
+                    <td class="text-left" class="hidden-xs-down">
+                        <span class="ellipsis-text ellipsis-small" [appNoOverflowTooltip]="task.client" triggers="manual" placement="bottom">{{task.client}}</span>
+                    </td>
+                    <td class="text-left">
+                        <span class="ellipsis-text" [appNoOverflowTooltip]="task.detail" triggers="manual" placement="bottom">{{task.detail}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex flex-wrap panel-footer">
+        <a [routerLink]="['/task-notification']" class="btn btn-link ion-arrow-right-b" [translate]="'CUSTOM.VIEW_MORE'"></a>
+    </div>
+
+</div>

@@ -1,0 +1,46 @@
+<div class="text-center">
+    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+            <a (click)="setPage(1)">
+                <i class="ion-ios-skipbackward"></i>
+            </a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+            <a (click)="setPage(pager.currentPage - 1)">
+                <i class="ion-arrow-left-b"></i>
+            </a>
+        </li>
+        <li *ngIf="(pager.totalPages!==pager.pageSize && pager.currentPage-1 >=  (pager.pageSize/2)+1)  && pager.pageSize<=pager.currentPage ">
+            <a (click)="setPage(1)">1</a>
+        </li>
+        <li *ngIf="(pager.totalPages!==pager.pageSize && pager.currentPage-1 >=  (pager.pageSize/2)+1)  && pager.pageSize<=pager.currentPage ">
+            <a (click)="setPage(pager.currentPage - 1)">
+                <i class="ion-more"></i>
+            </a>
+        </li>
+
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+            <a (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li *ngIf="pager.currentPage < pager.endPage && pager.totalPages !==pager.pageSize && pager.pageSize/2< pager.totalPages-pager.currentPage && (pager.currentPage<=( pager.endPage- (pager.pageSize/2)+1) || pager.currentPage < pager.endPage  ) ">
+            <a (click)="setPage(pager.currentPage + 1)">
+                <i class="ion-more"></i>
+            </a>
+        </li>
+        <li *ngIf="pager.currentPage < pager.endPage && pager.totalPages !==pager.pageSize && pager.pageSize/2< pager.totalPages-pager.currentPage && (pager.currentPage<=( pager.endPage- (pager.pageSize/2)+1) || pager.currentPage < pager.endPage  ) ">
+            <a (click)="setPage(pager.totalPages)">
+                {{pager.totalPages}}
+            </a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a (click)="setPage(pager.currentPage + 1)">
+                <i class="ion-arrow-right-b"></i>
+            </a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a (click)="setPage(pager.totalPages)">
+                <i class="ion-ios-skipforward"></i>
+            </a>
+        </li>
+    </ul>
+</div>

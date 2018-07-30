@@ -1,0 +1,649 @@
+<div class="bg-white pt-4 pb-4" *ngIf="portfoliosData">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-12">
+                <h4>
+                    <a [routerLink]="['/client',clientId,'planning']" [translate]="'BREADCRUMB.PLANNING'"></a> /
+                </h4>
+                <h1 class="d-inline-block fw-500" [translate]="'PORTFOLIOS.TITLE'"></h1>
+            </div>
+            <div class="col-md-4 col-12 text-right dropdown-right">
+                <div class="d-inline-block nextprive-box mr-lg-5 mr-3">
+                    <i class="ion-android-arrow-dropleft-circle mr-4"></i>
+                    <i class="ion-android-arrow-dropright-circle"></i>
+                </div>
+                <app-planning-module-drop-down class="dropdown-right" [clientId]="clientId"></app-planning-module-drop-down>
+            </div>
+            <div class="col-12 mt-3">
+                <hr/>
+            </div>
+            <div class="col-12">
+                <a class="btn-add" [routerLink]="['add-portfolio']">
+                    <i class="ion-android-add-circle"></i>
+                    <span class="ml-1" [translate]="'PORTFOLIOS.ACTIONS.ADD_PORTFOLIO'"></span>
+                </a>
+            </div>
+            <div class="col-12">
+                <hr>
+            </div>
+            <div class="col-12">
+                <table class="table portfolios-table">
+                    <thead>
+                        <tr>
+                            <th width="30%" [translate]="'CUSTOM.PORTFOLIO'"></th>
+                            <th width="100" class="hidden-md-down" [translate]="'CUSTOM.CLIENT'"></th>
+                            <th width="150" class="hidden-sm-down" [translate]="'RISK_TOLERANCE_PAGE.TABLE.HEADING.RISK_TOLERANCE'"></th>
+                            <th [translate]="'CUSTOM.GOALS_FUNDED'" width="230" class="text-left hidden-md-down"></th>
+                            <th [translate]="'CUSTOM.SUITABILITY'" class="text-left hidden-xs-down"></th>
+                            <th [translate]="'CUSTOM.TOTAL_ASSETS'" class="text-left"></th>
+                            <th width="60">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let portfolio of portfoliosData; let i = index">
+                            <td width="30%">
+                                <h3 class="fw-500 p-0 d-inline-block">{{portfolio.description}}</h3>
+                            </td>
+
+                            <td width="100" class="hidden-md-down">
+                                <!-- <div class="dropdown-relative-full">
+                                    <span class="d-flex">
+                                        <button type="button" class="btn-default btn-circle btn-circle-blue ion-ios-person mr-2" [ngClass]="{ 'btn-circle-blue' : portfolio.portfolioOwned[0].relation  == 'CLIENT','btn-circle-lightblue': portfolio.portfolioOwned[0].relation =='SPOUSE', 'btn-circle-lightblue2': portfolio.portfolioOwned[0].relation =='SON'} ">
+                                        </button>
+
+                                        <button type="button" *ngIf="portfolio.portfolioOwned.length>1" class="btn-default btn-circle ion-ios-person mr-2" [ngClass]="{ 'btn-circle-blue' : portfolio.portfolioOwned[1].relation  == 'CLIENT','btn-circle-lightblue': portfolio.portfolioOwned[1].relation =='SPOUSE', 'btn-circle-lightblue2': portfolio.portfolioOwned[1].relation =='SON'} ">
+                                        </button>
+
+                                        <span *ngIf="portfolio.portfolioOwned.length>2" (click)="changePortfolioOwnedAction(i)" class="ion-android-more-horizontal action-ellipses-icon-color set-ellipses"></span>
+                                    </span>
+
+                                    <div *ngIf="portfolio.portfolioOwned.length>2" [id]="'dropdownPortfolioOwnedAction'+i" class="dropdown-portfolio-owned-action dropdown-floating hide-ele">
+                                        <div class="floating-dropdown">
+                                            <ng-container *ngFor="let portOwned of portfolio.portfolioOwned; let i = index">
+                                                <button type="button" class="btn-default btn-circle ion-ios-person" [ngClass]="{ 'btn-circle-blue' : portOwned.relation  == 'CLIENT','btn-circle-lightblue':portOwned.relation =='SPOUSE', 'btn-circle-lightblue2': portOwned.relation =='SON'} "></button>&nbsp;
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                --------
+                            </td>
+
+                            <td width="150" class="hidden-sm-down" *ngIf="portfolio['portfolioDetails']">
+                                <div class="tolerance-box">
+                                    <span class="tolerance-number">
+                                        {{portfolio['portfolioDetails']['portfolioRiskLevel']['riskScore']}}
+                                    </span>
+                                    <button type="button" class="tolerance-text">{{getRiskBadge(portfolio['portfolioDetails']['portfolioRiskLevel']['riskScore'])}}</button>
+                                </div>
+                            </td>
+
+                            <td class="text-left hidden-md-down" width="230" *ngIf="portfolio['portfolioGoalSimulation']">
+                                <div class="dropdown-relative-full">
+                                    <span *ngIf="portfolio['portfolioGoalSimulation']['goals'].length>1" class="d-flex">
+                                        Multiple
+                                        <span [ngbTooltip]="multipleGoals" #t="ngbTooltip" class="ion-android-more-horizontal action-ellipses-icon-color pt-1 pl-1"></span>
+                                    </span>
+                                    <ng-template #multipleGoals>
+                                        <ng-container *ngFor="let goal of portfolio['portfolioGoalSimulation']['goals']; let i = index">
+                                            <p>{{goal.description}}</p>
+                                        </ng-container>
+                                    </ng-template>
+                                    <span *ngIf="portfolio['portfolioGoalSimulation']['goals'].length == 1" class="d-flex">
+                                        {{portfolio['portfolioGoalSimulation']['goals'][0]['description'] | slice:0:10}}
+                                        <span *ngIf="portfolio['portfolioGoalSimulation']['goals'][0]['description'].length>10" [ngbTooltip]="truncatedGoal" #t="ngbTooltip"
+                                            class="ion-android-more-horizontal action-ellipses-icon-color pt-1 pl-1"></span>
+                                    </span>
+                                    <ng-template #truncatedGoal>
+                                        <p>portfolio['portfolioGoalSimulation']['goals'][0]['description']</p>
+                                    </ng-template>
+                                </div>
+                            </td>
+
+                            <td class="text-left hidden-xs-down">
+                                <div class="images-box">
+                                    <img [src]=portfolio.badge>
+                                </div>
+                            </td>
+
+                            <td class="text-left">
+                                {{ 74000 | currency:'CAD':'symbol-narrow':'0.0-0'}}
+                            </td>
+
+                            <td width="60" class="text-center">
+                                <div class="dropdown-relative">
+                                    <button class="btn-floating" (click)="changePortfolioAction(i)">
+                                        <span class="ion-android-more-vertical"></span>
+                                    </button>
+                                    <div [id]="'dropdownPortfolioAction'+i" class="dropdown-portfolio-action dropdown-floating hide-ele">
+                                        <ul class="floating-dropdown">
+                                            <li (click)="changePortfolioAction(i)">
+                                                <a [routerLink]="['/client',clientId,'planning', 'portfolios', portfolio.id, 'details']">
+                                                    <i class="ion-chevron-right"></i>
+                                                    <span [translate]="'PORTFOLIOS.ACTIONS.PORTFOLIO_DETAILS'"></span>
+                                                </a>
+                                            </li>
+                                            <li (click)="changePortfolioAction(i)">
+                                                <a [routerLink]="['/client',clientId,'coming-soon']">
+                                                    <i class="ion-pie-graph"></i>
+                                                    <span [translate]="'PORTFOLIOS.ACTIONS.IMPLEMENTATION'"></span>
+                                                </a>
+                                            </li>
+                                            <li (click)="changePortfolioAction(i)">
+                                                <a [routerLink]="['/client',clientId,'coming-soon']">
+                                                    <i class="ion-link"></i>
+                                                    <span [translate]="'PORTFOLIOS.ACTIONS.LINK_GOALS'"></span>
+                                                </a>
+                                            </li>
+                                            <li (click)="changePortfolioAction(i)">
+                                                <a [routerLink]="[portfolio.id, 'rename']">
+                                                    <i class="ion-android-create"></i>
+                                                    <span [translate]="'PORTFOLIOS.ACTIONS.RENAME_PORTFOLIO'"></span>
+                                                </a>
+                                            </li>
+                                            <li (click)="changePortfolioAction(i); delete(portfolio.id)" class="delete-btn">
+                                                <a>
+                                                    <i class="ion-android-cancel"></i>
+                                                    <span [translate]="'PORTFOLIOS.ACTIONS.DELETE_PORTFOLIO'"></span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="fw-600 text-right total-text hidden-lg-down" [translate]="'PORTFOLIOS.TOTAL'"></td>
+                            <td colspan="3" class="fw-600 text-right d-md-table-cell total-text hidden-lg-up" [translate]="'PORTFOLIOS.TOTAL'"></td>
+                            <td colspan="2" class="fw-600 text-right d-sm-table-cell total-text hidden-md-up" [translate]="'PORTFOLIOS.TOTAL'"></td>
+                            <td class="fw-600 text-right d-table-cell total-text hidden-sm-up" [translate]="'PORTFOLIOS.TOTAL'"></td>
+                            <td colspan="2" class="fw-400 d-table-cell text-left">{{12345 | currency:'CAD':'symbol-narrow':'0.0-0'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-12 mt-4 mb-4 allocation-box">
+                <div class="row">
+                    <div class="col-12 col-lg-3 col-md-4">
+                        <h3 class="fw-800" [translate]="'PORTFOLIO_ALLOCATION.TITLE'"> </h3>
+                    </div>
+                    <div class="col-12 col-lg-9 col-md-8" *ngIf="portfoliosDropDownArr">
+                        <div class="d-flex flex-wrap mt-md-0 mt-sm-4 mt-4 dropdown-right">
+                            <div ngbDropdown class="dropdown-common mr-auto mt-0">
+                                <a id="dropdownBasic1" ngbDropdownToggle *ngIf="selectedPortfolio">
+                                    {{selectedPortfolio.name}}
+                                    <i class="ion-arrow-down-b"></i>
+                                </a>
+                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                    <ul *ngIf='portfoliosDropDownArr'>
+                                        <li *ngFor="let item of portfoliosDropDownArr">
+                                            <a [ngClass]="{active : selectedPortfolio.id == item.id}" class="dropdown-item" (click)="selectedPortfolio=item; getAllocationData();">
+                                                <span>{{item.name}}</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <hr/>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-flex flex-wrap pb-2 hidden-xs-down">
+                            <div class="sort-dropdown ml-0">
+                                <app-common-drop-down [itemList]="viewBy" [defaultSelected]="selectedViewBy" dropDownLabel="{{'PORTFOLIOS.VIEW_DROPDOWN' | translate}}"
+                                    (OnSelect)="changeView($event)"></app-common-drop-down>
+                            </div>
+                            <div class="ml-auto mt-0">
+                                <app-common-drop-down class="dropdown-right" [itemList]="classesOptions" [defaultSelected]="selectedClass" dropDownLabel="{{'PORTFOLIOS.ASSET_CLASSES_DROPDOWN' | translate}}"
+                                    (OnSelect)="changeAssets($event)"></app-common-drop-down>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4 row-flex" *ngIf="allocationsData">
+            <div class="col-12 col-sm-6 col-lg-3 text-left" [ngClass]="{'col-lg-5 col-sm-5': selectedViewBy.id == 1 || selectedViewBy.id == 3, 'col-lg-4 col-sm-4': selectedViewBy.id == 2 || selectedViewBy.id == 4}">
+                <div class="allocationsdata-box mt-216">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th colspan="4" class="text-left" [translate]="'PORTFOLIO_ALLOCATION.TABLE.ASSET_CLASS'"></th>
+                            </tr>
+                            <tr>
+                                <th class="text-left" [translate]="'PORTFOLIO_ALLOCATION.TABLE.CLASS'"></th>
+                                <th class="text-right" [translate]="'PORTFOLIO_ALLOCATION.TABLE.RETURN'"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let allocation of allocationsData; let i = index">
+                                <td class="text-left">
+                                    <span class="square mr-2" [style.background]="graphColors[i]"></span> {{ allocation.id }}
+                                </td>
+                                <td class="text-right fw-400">{{ allocation.rateOfReturn }}%</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right fw-700 border-bottom-0 pb-0" colspan="2" [translate]="'PORTFOLIOS.TOTAL'"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-8 text-center" [ngClass]="{'m-custom col-lg-5 col-sm-5': selectedViewBy.id == 1, 'm-6 col-lg-4 col-sm-4': selectedViewBy.id == 2 }"
+                *ngIf="selectedViewBy.id == 1 || selectedViewBy.id == 2 || selectedViewBy.id == 5 || selectedViewBy.id == 6">
+                <h5 [translate]="'PORTFOLIO_ALLOCATION.CURRENT'" class="graph-upper-lable"></h5>
+                <div id="chartdiv1" style="height:195px; width: 175px; display: inline-block;"></div>
+                <div class="allocationsdata-box">
+                    <table class="table current-table current-table-w-range">
+                        <thead>
+                            <tr>
+                                <th class="text-left" [translate]="'PORTFOLIO_ALLOCATION.CURRENT'"></th>
+                                <th class="text-right" colSpan="{{selectedViewBy.id == 2 ? '3' : ''}}">
+                                    <h4>
+                                        <a [routerLink]="['/client', clientId, 'planning', 'portfolios', selectedPortfolio.id, 'analytics', 'current']" class="fs-12">
+                                            <i class="action_icon ion-ios-pulse"></i>
+                                            <span>ANALYTICS</span>
+                                        </a>
+                                    </h4>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th width="15%"class="text-center" *ngIf="selectedViewBy.id == 2">Min %</th>
+                                <th width="25%"[ngClass]="{'text-right': selectedViewBy.id == 1 || selectedViewBy.id == 5 || selectedViewBy.id == 6, 'text-center': selectedViewBy.id == 2}">%</th>
+                                <th width="45%"[ngClass]="{'text-right': selectedViewBy.id == 1 || selectedViewBy.id == 5 || selectedViewBy.id == 6, 'text-center': selectedViewBy.id == 2}"
+                                    [translate]="'PORTFOLIO_ALLOCATION.TABLE.AMOUNT'"></th>
+                                <th width="15%"[ngClass]="{'text-right pr-15': selectedViewBy.id == 2}" *ngIf="selectedViewBy.id == 2">Max %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let allocation of allocationsData; let i = index">
+                                <td width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 2}" *ngIf="selectedViewBy.id == 2" class="blue-bg">{{allocation.minimumRange}}%</td>
+                                <td width="25%" [ngClass]="{'text-right': selectedViewBy.id == 1 || selectedViewBy.id == 5 || selectedViewBy.id == 6, 'text-center': selectedViewBy.id == 2}">{{allocation.standardDeviation}}%</td>
+                                <td width="45%" [ngClass]="{'text-right ': selectedViewBy.id == 1 || selectedViewBy.id == 5 || selectedViewBy.id == 6, 'text-center': selectedViewBy.id == 2}"
+                                    class="fw-400 pr-0">{{ allocation.currentAmount | currency:'CAD':'symbol-narrow':'0.0-0'}}</td>
+                                <td width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 2}" *ngIf="selectedViewBy.id == 2" class="blue-bg">{{allocation.maximumRange}}%</td>
+                            </tr>
+                            <!-- <tr>
+                                <td *ngIf="selectedViewBy.id == 2" rowspan="3" class="text-center blue-bg" width="70px">10.0%</td>
+                                <td class="text-center">5.0%</td>
+                                <td class="text-center fw-400 pr-0">$25000</td>
+                                <td *ngIf="selectedViewBy.id == 2" rowspan="3" class="text-center blue-bg" width="70px">90.0%</td>
+                            </tr>
+                            <tr>
+
+                                <td class="text-center">5.0%</td>
+                                <td class="text-center fw-400 pr-0">$25000</td>
+
+                            </tr>
+                            <tr>
+
+                                <td class="text-center">5.0%</td>
+                                <td class="text-center fw-400 pr-0">$25000</td>
+
+                            </tr>
+                            <tr>
+                                <td *ngIf="selectedViewBy.id == 2" rowspan="3" class="text-center blue-bg" width="70px">10.0%</td>
+                                <td class="text-center">5.0%</td>
+                                <td class="text-center fw-400 pr-0">$25000</td>
+                                <td *ngIf="selectedViewBy.id == 2" rowspan="3" class="text-center blue-bg" width="70px">90.0%</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">5.0%</td>
+                                <td class="text-center fw-400 pr-0">$25000</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">5.0%</td>
+                                <td class="text-center fw-400 pr-0">$25000</td>
+                            </tr> -->
+                            <tr>
+                                <td class="border-bottom-0 pb-0" width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 2}" *ngIf="selectedViewBy.id == 2"></td>
+                                <td width="25%" [ngClass]="{'text-right': selectedViewBy.id == 1 || selectedViewBy.id == 5 || selectedViewBy.id == 6, 'text-center': selectedViewBy.id == 2}"
+                                    class="fw-700 border-bottom-0 pb-0">{{totalsd}}%</td>
+                                <td width="45%" [ngClass]="{'text-right': selectedViewBy.id == 1 || selectedViewBy.id == 5 || selectedViewBy.id == 6, 'text-center': selectedViewBy.id == 2}"
+                                    class="fw-700 border-bottom-0 pb-0">{{totalca | currency:'CAD':'symbol-narrow':'0.0-0'}}</td>
+                                <td class="border-bottom-0 pb-0" width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 2}" *ngIf="selectedViewBy.id == 2"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-8 text-center" [ngClass]="{'m-custom col-lg-4 col-sm-4': selectedViewBy.id == 3}" *ngIf="selectedViewBy.id == 3 || selectedViewBy.id == 5 || selectedViewBy.id == 7">
+                <h5 [translate]="'PORTFOLIO_ALLOCATION.TARGET'" class="graph-upper-lable"></h5>
+                <div id="chartdiv2" style="height:195px; width: 175px; display: inline-block;"></div>
+                <div class="allocationsdata-box">
+                    <table class="table current-table current-table-w-range">
+                        <thead>
+                            <tr>
+                                <th class="text-left" [translate]="'PORTFOLIO_ALLOCATION.TARGET'"></th>
+                                <th colSpan="{{selectedViewBy.id == 3 ? '2' : ''}}" class="text-right">
+                                    <h4>
+                                        <a [routerLink]="['/client', clientId, 'planning', 'portfolios', selectedPortfolio.id, 'analytics', 'target']" class="fs-12">
+                                            <i class="action_icon ion-ios-pulse"></i>
+                                            <span>ANALYTICS</span>
+                                        </a>
+                                    </h4>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th width="15%" *ngIf="selectedViewBy.id == 3" class="text-center">Min %</th>
+                                <th width="25%" [ngClass]="{'text-right': selectedViewBy.id == 5 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 3}">%</th>
+                                <th width="45%" [ngClass]="{'text-right': selectedViewBy.id == 5 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 3}" *ngIf="selectedViewBy.id == 5 || selectedViewBy.id == 7"
+                                    [translate]="'PORTFOLIO_ALLOCATION.TABLE.AMOUNT'"></th>
+                                <th width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 3}" *ngIf="selectedViewBy.id == 3">Max %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let allocation of allocationsData; let i = index">
+                                <td width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 3}" *ngIf="selectedViewBy.id == 3" class="blue-bg">{{allocation.minimumRange}}%</td>
+                                <td width="25%" [ngClass]="{'text-right': selectedViewBy.id == 5 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 3}">{{allocation.suggestedPercent}}%</td>
+                                <td width="45%" [ngClass]="{'text-right': selectedViewBy.id == 5 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 3}" *ngIf="selectedViewBy.id == 5 || selectedViewBy.id == 7"
+                                    class="fw-400 pr-0">{{allocation.targetAmount | currency:'CAD':'symbol-narrow':'0.0-0'}}</td>
+                                <td width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 3}" *ngIf="selectedViewBy.id == 3" class="blue-bg">{{allocation.maximumRange}}%</td>
+                            </tr>
+                            <!-- <tr>
+                                <td *ngIf="selectedViewBy.id == 3" class="text-center blue-bg" width="70px">10.0%</td>
+                                <td class="text-center">5.0%</td>
+                                <td *ngIf="selectedViewBy.id == 5 || selectedViewBy.id == 7" class="text-center fw-400 pr-0">$25000</td>
+                                <td *ngIf="selectedViewBy.id == 3" class="text-center blue-bg" width="70px">90.0%</td>
+                            </tr>
+                            <tr>
+
+                                <td *ngIf="selectedViewBy.id == 3" class="text-center blue-bg" width="70px">10.0%</td>
+                                <td class="text-center">5.0%</td>
+                                <td *ngIf="selectedViewBy.id == 5 || selectedViewBy.id == 7" class="text-center fw-400 pr-0">$25000</td>
+                                <td *ngIf="selectedViewBy.id == 3" class="text-center blue-bg" width="70px">90.0%</td>
+
+                            </tr>
+                            <tr>
+
+                                <td *ngIf="selectedViewBy.id == 3" class="text-center blue-bg" width="70px">10.0%</td>
+                                <td class="text-center">5.0%</td>
+                                <td *ngIf="selectedViewBy.id == 5 || selectedViewBy.id == 7" class="text-center fw-400 pr-0">$25000</td>
+                                <td *ngIf="selectedViewBy.id == 3" class="text-center blue-bg" width="70px">90.0%</td>
+
+                            </tr>
+                            <tr>
+                                <td *ngIf="selectedViewBy.id == 3" class="text-center blue-bg" width="70px">10.0%</td>
+                                <td class="text-center">5.0%</td>
+                                <td *ngIf="selectedViewBy.id == 5 || selectedViewBy.id == 7" class="text-center fw-400 pr-0">$25000</td>
+                                <td *ngIf="selectedViewBy.id == 3" class="text-center blue-bg" width="70px">90.0%</td>
+                            </tr>
+                            <tr>
+                                <td *ngIf="selectedViewBy.id == 3" class="text-center blue-bg" width="70px">10.0%</td>
+                                <td class="text-center">5.0%</td>
+                                <td *ngIf="selectedViewBy.id == 5 || selectedViewBy.id == 7" class="text-center fw-400 pr-0">$25000</td>
+                                <td *ngIf="selectedViewBy.id == 3" class="text-center blue-bg" width="70px">90.0%</td>
+                            </tr>
+                            <tr>
+                                <td *ngIf="selectedViewBy.id == 3" class="text-center blue-bg" width="70px">10.0%</td>
+                                <td class="text-center">5.0%</td>
+                                <td *ngIf="selectedViewBy.id == 5 || selectedViewBy.id == 7" class="text-center fw-400 pr-0">$25000</td>
+                                <td *ngIf="selectedViewBy.id == 3" class="text-center blue-bg" width="70px">90.0%</td>
+                            </tr> -->
+                            <tr>
+                                <td width="15%" class="border-bottom-0 pb-0" [ngClass]="{'text-right pr-15': selectedViewBy.id == 3}" *ngIf="selectedViewBy.id == 3"></td>
+                                <td width="25%" [ngClass]="{'text-right': selectedViewBy.id == 5 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 3}"
+                                    class="fw-700 border-bottom-0 pb-0">{{totalsp}}%</td>
+                                <td width="45%" [ngClass]="{'text-right': selectedViewBy.id == 5 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 3}" *ngIf="selectedViewBy.id == 5 || selectedViewBy.id == 7"
+                                    class="fw-700 border-bottom-0 pb-0">{{totalta | currency:'CAD':'symbol-narrow':'0.0-0'}}</td>
+                                <td width="15%" class="border-bottom-0 pb-0" [ngClass]="{'text-right pr-15': selectedViewBy.id == 3}" *ngIf="selectedViewBy.id == 3"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-8 text-center" [ngClass]="{'m-6 col-lg-4 col-sm-4': selectedViewBy.id == 4}" *ngIf="selectedViewBy.id == 4 || selectedViewBy.id == 6 || selectedViewBy.id == 7">
+                <h5 [translate]="'PORTFOLIO_ALLOCATION.IMPLEMENTED'" class="graph-upper-lable"></h5>
+                <div id="chartdiv3" style="height:195px; width: 175px; display: inline-block;"></div>
+                <div class="allocationsdata-box">
+                    <table class="table current-table current-table-w-range">
+                        <thead>
+                            <tr>
+                                <th class="text-left" colspan="2" [translate]="'PORTFOLIO_ALLOCATION.IMPLEMENTED'"></th>
+                            </tr>
+                            <tr>
+                                <th class="text-center" width="15%" *ngIf="selectedViewBy.id == 4">Min %</th>
+                                <th width="25%" [ngClass]="{'text-right': selectedViewBy.id == 6 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 4}">%</th>
+                                <th width="45%" [ngClass]="{'text-right': selectedViewBy.id == 6 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 4}"
+                                    [translate]="'PORTFOLIO_ALLOCATION.TABLE.AMOUNT'"></th>
+                                <th width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 4}" *ngIf="selectedViewBy.id == 4">Max %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let allocation of allocationsData; let i = index">
+                                <td width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 4}" *ngIf="selectedViewBy.id == 4" class="blue-bg">{{allocation.minimumRange}}%</td>
+                                <td width="25%" [ngClass]="{'text-right': selectedViewBy.id == 6 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 4}">{{allocation.recommendedPercent}}%</td>
+                                <td width="45%" [ngClass]="{'text-right': selectedViewBy.id == 6 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 4}"
+                                    class="fw-400 pr-0">{{allocation.implementedAmount | currency:'CAD':'symbol-narrow':'0.0-0'}}</td>
+                                <td width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 4}" *ngIf="selectedViewBy.id == 4" class="blue-bg">{{allocation.maximumRange}}%</td>
+                            </tr>
+                            <!-- <tr>
+                                <td *ngIf="selectedViewBy.id == 4" rowspan="3" class="text-center blue-bg" width="70px">10.0%</td>
+                                <td class="text-center">5.0%</td>
+                                <td class="text-center fw-400 pr-0">$25000</td>
+                                <td *ngIf="selectedViewBy.id == 4" rowspan="3" class="text-center blue-bg" width="70px">90.0%</td>
+                            </tr>
+                            <tr>
+
+                                <td class="text-center">5.0%</td>
+                                <td class="text-center fw-400 pr-0">$25000</td>
+
+                            </tr>
+                            <tr>
+
+                                <td class="text-center">5.0%</td>
+                                <td class="text-center fw-400 pr-0">$25000</td>
+
+                            </tr>
+                            <tr>
+                                <td *ngIf="selectedViewBy.id == 4" rowspan="3" class="text-center blue-bg" width="70px">10.0%</td>
+                                <td class="text-center">5.0%</td>
+                                <td class="text-center fw-400 pr-0">$25000</td>
+                                <td *ngIf="selectedViewBy.id == 4" rowspan="3" class="text-center blue-bg" width="70px">90.0%</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">5.0%</td>
+                                <td class="text-center fw-400 pr-0">$25000</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">5.0%</td>
+                                <td class="text-center fw-400 pr-0">$25000</td>
+                            </tr> -->
+                            <tr>
+                                <td width="15%" class="border-bottom-0 pb-0" [ngClass]="{'text-right pr-15': selectedViewBy.id == 4}" *ngIf="selectedViewBy.id == 4"></td>
+                                <td width="25%" [ngClass]="{'text-right': selectedViewBy.id == 6 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 4}"
+                                    class="fw-700 border-bottom-0 pb-0">{{totalrp}}%</td>
+                                <td width="45%" [ngClass]="{'text-right': selectedViewBy.id == 6 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 4}" class="fw-700 border-bottom-0 pb-0">{{totalimp | currency:'CAD':'symbol-narrow':'0.0-0'}}</td>
+                                <td  width="15%" class="border-bottom-0 pb-0" [ngClass]="{'text-right pr-15': selectedViewBy.id == 4}" *ngIf="selectedViewBy.id == 4"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-12 col-sm-1 col-lg-1 text-center" *ngIf="selectedViewBy.id == 5 || selectedViewBy.id == 6 || selectedViewBy.id == 7">
+                <div class="allocationsdata-box mt-216">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-right" [translate]="'PORTFOLIO_ALLOCATION.TABLE.VARIANCE'"></th>
+                            </tr>
+                            <tr>
+                                <th class="text-right" [translate]="'PORTFOLIO_ALLOCATION.TABLE.AMOUNT'"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let allocation of allocationsData; let i = index">
+                                <td class="text-right pr-0" [ngClass]="{'orange-text': allocation.currentAmount - allocation.targetAmount < 0}" *ngIf="selectedViewBy.id == 5">{{makePositive(allocation.currentAmount - allocation.targetAmount) | currency:'CAD':'symbol-narrow':'0.0-0'}}</td>
+                                <td class="text-right pr-0" [ngClass]="{'orange-text': allocation.currentAmount - allocation.implementedAmount < 0}" *ngIf="selectedViewBy.id == 6">{{makePositive(allocation.currentAmount - allocation.implementedAmount) | currency:'CAD':'symbol-narrow':'0.0-0'}}</td>
+                                <td class="text-right pr-0" [ngClass]="{'orange-text': allocation.targetAmount - allocation.implementedAmount < 0}" *ngIf="selectedViewBy.id == 7">{{makePositive(allocation.targetAmount - allocation.implementedAmount) | currency:'CAD':'symbol-narrow':'0.0-0'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-12 col-sm-1 col-lg-1 text-center" *ngIf="selectedViewBy.id == 2 || selectedViewBy.id == 4">
+                <div class="allocationsdata-box mt-216">
+                    <table class="table" width="500px">
+                        <thead>
+                            <tr>
+                                <th class="text-left" [translate]="'PORTFOLIO_ALLOCATION.TABLE.OUT_OF_RANGE'"></th>
+                            </tr>
+                            <tr>
+                                <th class="text-right" [translate]="'PORTFOLIO_ALLOCATION.TABLE.AMOUNT'"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let allocation of allocationsData; let i = index">
+                                <td class="text-right pr-0" [ngClass]="{'orange-text': allocation.currentOutOfRange < 0}" *ngIf="selectedViewBy.id == 2">
+                                    <span *ngIf="allocation.currentOutOfRange !== 0">
+                                        {{makePositive(allocation.currentOutOfRange) | currency:'CAD':'symbol-narrow':'0.0-0'}}
+                                    </span>
+                                    <span *ngIf="allocation.currentOutOfRange == 0">&nbsp;</span>
+                                </td>
+                                <td class="text-right pr-0" [ngClass]="{'orange-text': allocation.implementedOutOfRange < 0}" *ngIf="selectedViewBy.id == 4">
+                                    <span *ngIf="allocation.implementedOutOfRange !== 0">
+                                        {{makePositive(allocation.implementedOutOfRange) | currency:'CAD':'symbol-narrow':'0.0-0'}}
+                                    </span>
+                                    <span *ngIf="allocation.implementedOutOfRange == 0">&nbsp;</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="moreDetails" [ngbCollapse]="isCollapsed">
+            <div class="row mt-4 row-flex" *ngIf="allocationsData">
+                <div class="col-12 col-sm-6 col-lg-3 text-left" [ngClass]="{'col-lg-5 col-sm-5': selectedViewBy.id == 1 || selectedViewBy.id == 3, 'col-lg-4 col-sm-4': selectedViewBy.id == 2 || selectedViewBy.id == 4}">
+                    <div class="allocationsdata-box">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td class="border-0 pt-1 pb-1" [translate]="'PORTFOLIO_ALLOCATION.TABLE.RETURN'"></td>
+
+                                </tr>
+                                <tr>
+                                    <td class="border-0 pt-1 pb-1" [translate]="'PORTFOLIO_ALLOCATION.TABLE.RISK'"></td>
+                                </tr>
+                                <tr>
+                                    <td class="border-0 pt-1 pb-1" [translate]="'PORTFOLIO_ALLOCATION.TABLE.SHARPE_RATIO'"></td>
+
+                                </tr>
+                                <tr>
+                                    <td class="border-0 pt-1 pb-1" [translate]="'PORTFOLIO_ALLOCATION.TABLE.FEES_COSTS'"></td>
+
+                                </tr>
+                                <tr>
+                                    <td colspan="6" class="border-top-0">
+                                        <h3 class="bold" [translate]="'PORTFOLIO_ALLOCATION.INVESTMENT_DETAILS.HEADING'"></h3>
+                                    </td>
+                                </tr>
+                                <tr *ngFor="let item of investmentSummary">
+                                    <td >{{ item.id }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-8 text-center" [ngClass]="{'m-custom col-lg-5 col-sm-5': selectedViewBy.id == 1, 'm-6 col-lg-4 col-sm-4': selectedViewBy.id == 2 }"
+                    *ngIf="selectedViewBy.id == 1 || selectedViewBy.id == 2 || selectedViewBy.id == 5 || selectedViewBy.id == 6">
+                    <div class="allocationsdata-box">
+                        <table class="table current-table current-table-w-range">
+                            <tbody>
+                                <tr *ngFor="let key of moreDetailsArr">
+                                    <td class="border-0 pt-1 pb-1" width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 2}" *ngIf="selectedViewBy.id == 2">&nbsp;</td>
+                                    <td class="border-0 pt-1 pb-1" width="25%" [ngClass]="{'text-right': selectedViewBy.id == 1 || selectedViewBy.id == 5 || selectedViewBy.id == 6, 'text-center': selectedViewBy.id == 2}">{{ currentSummary[key] }}%</td>
+                                    <td width="45%" [ngClass]="{'text-right ': selectedViewBy.id == 1 || selectedViewBy.id == 5 || selectedViewBy.id == 6, 'text-center': selectedViewBy.id == 2}"
+                                        class="fw-400 pr-0 border-0 pt-1 pb-1">&nbsp;</td>
+                                    <td class="border-0 pt-1 pb-1" width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 2}" *ngIf="selectedViewBy.id == 2">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td class="border-top-0">&nbsp;</td>
+                                </tr>
+                                <tr *ngFor="let item of investmentSummary">
+                                    <td width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 2}" *ngIf="selectedViewBy.id == 2">&nbsp;</td>
+                                    <td width="25%" [ngClass]="{'text-right': selectedViewBy.id == 1 || selectedViewBy.id == 5 || selectedViewBy.id == 6, 'text-center': selectedViewBy.id == 2}">{{ item.currentPercent }}%</td>
+                                    <td width="45%" [ngClass]="{'text-right ': selectedViewBy.id == 1 || selectedViewBy.id == 5 || selectedViewBy.id == 6, 'text-center': selectedViewBy.id == 2}"
+                                        class="fw-400 pr-0">&nbsp;</td>
+                                    <td width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 2}" *ngIf="selectedViewBy.id == 2">&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-8 text-center" [ngClass]="{'m-custom col-lg-4 col-sm-4': selectedViewBy.id == 3}" *ngIf="selectedViewBy.id == 3 || selectedViewBy.id == 5 || selectedViewBy.id == 7">
+                    <div class="allocationsdata-box">
+                        <table class="table current-table current-table-w-range">
+                            <tbody>
+                                <tr *ngFor="let key of moreDetailsArr">
+                                    <td class="border-0 pt-1 pb-1" width="15%"  [ngClass]="{'text-right pr-15': selectedViewBy.id == 3}" *ngIf="selectedViewBy.id == 3">&nbsp;</td>
+                                    <td class="border-0 pt-1 pb-1" width="25%" [ngClass]="{'text-right': selectedViewBy.id == 5 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 3}">{{ suggestedSummary[key] }}%</td>
+                                    <td width="45%" [ngClass]="{'text-right': selectedViewBy.id == 5 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 3}" *ngIf="selectedViewBy.id == 5 || selectedViewBy.id == 7"
+                                        class="fw-400 pr-0 border-0 pt-1 pb-1">&nbsp;</td>
+                                    <td class="border-0 pt-1 pb-1" width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 3}" *ngIf="selectedViewBy.id == 3">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td class="border-top-0">&nbsp;</td>
+                                </tr>
+                                <tr *ngFor="let item of investmentSummary">
+                                    <td width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 3}" *ngIf="selectedViewBy.id == 3">&nbsp;</td>
+                                    <td width="25%" [ngClass]="{'text-right': selectedViewBy.id == 5 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 3}">{{ item.suggestedPercent }}%</td>
+                                    <td width="45%" [ngClass]="{'text-right': selectedViewBy.id == 5 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 3}" *ngIf="selectedViewBy.id == 5 || selectedViewBy.id == 7"
+                                        class="fw-400 pr-0">&nbsp;</td>
+                                    <td width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 3}" *ngIf="selectedViewBy.id == 3">&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-8 text-center" [ngClass]="{'m-6 col-lg-4 col-sm-4': selectedViewBy.id == 4}" *ngIf="selectedViewBy.id == 4 || selectedViewBy.id == 6 || selectedViewBy.id == 7">
+                    <div class="allocationsdata-box">
+                        <table class="table current-table current-table-w-range">
+                            <tbody>
+                                <tr *ngFor="let key of moreDetailsArr">
+                                    <td class="border-0 pt-1 pb-1" width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 4}" *ngIf="selectedViewBy.id == 4">&nbsp;</td>
+                                    <td class="border-0 pt-1 pb-1" width="25%" [ngClass]="{'text-right': selectedViewBy.id == 6 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 4}">{{ recommendedSummary[key] }}%</td>
+                                    <td width="45%" [ngClass]="{'text-right': selectedViewBy.id == 6 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 4}"
+                                        class="fw-400 pr-0 border-0 pt-1 pb-1">&nbsp;</td>
+                                    <td class="border-0 pt-1 pb-1" width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 4}" *ngIf="selectedViewBy.id == 4">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td class="border-top-0">&nbsp;</td>
+                                </tr>
+                                <tr *ngFor="let item of investmentSummary">
+                                    <td width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 4}" *ngIf="selectedViewBy.id == 4">&nbsp;</td>
+                                    <td width="25%" [ngClass]="{'text-right': selectedViewBy.id == 6 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 4}">{{ item.recommendedPercent }}%</td>
+                                    <td width="45%" [ngClass]="{'text-right': selectedViewBy.id == 6 || selectedViewBy.id == 7, 'text-center': selectedViewBy.id == 4}"
+                                        class="fw-400 pr-0">&nbsp;</td>
+                                    <td width="15%" [ngClass]="{'text-right pr-15': selectedViewBy.id == 4}" *ngIf="selectedViewBy.id == 4">&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-1 col-lg-1 text-center" *ngIf="selectedViewBy.id == 2 || selectedViewBy.id == 4 || selectedViewBy.id == 5 || selectedViewBy.id == 6 || selectedViewBy.id == 7">
+                    <div class="allocationsdata-box">
+                        <table class="table">
+                            <tr>
+                                <td class="border-top-0">&nbsp;</td>
+                            </tr>
+                            <tr *ngFor="let key of moreDetailsArr">
+                                <td class="text-right border-0">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <a href="javascript:void(0)" class="moredetail-button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+                aria-controls="collapseExample">{{ isCollapsed === false? 'Less detail': 'More detail' }}</a>
+        </div>
+        <ng-template #Elseblock>N/A</ng-template>
+    </div>
+</div>
+<div class="view-side-form">
+    <router-outlet></router-outlet>
+</div>

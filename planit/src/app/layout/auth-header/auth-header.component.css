@@ -1,0 +1,16 @@
+/* header.navbar.navbar-expand {background: #345; line-height: normal; height: auto;z-index: 9;}
+
+header.navbar.navbar-expand .main-container {background: none; display: -webkit-box; display: -ms-flexbox; display: flex; -ms-flex-wrap: wrap; flex-wrap: wrap; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; width: 100%; position: relative; z-index: 9;}
+header.navbar.navbar-expand .main-container .navbar-brand {line-height: 1; padding-top: 1.2rem; padding-bottom: 1.3rem;}
+header.navbar.navbar-expand .main-container .navbar-brand .logo {line-height: 1; color: #fff; font-family: 'Montserrat', sans-serif;}
+header.navbar.navbar-expand .main-container .navbar-brand .logo span, header.navbar.navbar-expand .main-container .navbar-brand .logo span i {color: #a0c242;}
+
+
+header .user-menu .language {position: relative;}
+header .user-menu .language .language-text {position: relative; display: block; text-transform: capitalize;}
+header .user-menu .language .language-text:after {display: none;}
+header.navbar.navbar-expand .main-container .navbar-nav.right-navbar li.user-menu .language .language-text a {display: block; color: #CCDDEE; font-size: 16px; font-family: 'Montserrat', sans-serif; cursor: pointer;} */
+header.navbar.navbar-expand .main-container .navbar-nav.right-navbar li.user-menu,
+header.navbar.navbar-expand:after {
+    background: #345 !important;
+}

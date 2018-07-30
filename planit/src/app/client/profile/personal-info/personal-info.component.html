@@ -1,0 +1,78 @@
+<div class="bg-white pt-4 pb-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <h4 class="mb-1">
+                    <a [routerLink]="['/client',clientId,'profile']">{{'BREADCRUMB.CLIENT_PROFILE' | translate}} </a> /
+                </h4>
+                <h1>{{ 'PERSONAL_INFO.TITLE' | translate }}</h1>
+            </div>
+            <div class="col-md-6 col-12 text-right">
+                <app-profile-module-drop-down class="dropdown-right" [clientId]="clientId"></app-profile-module-drop-down>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-12">
+                <hr>
+            </div>
+
+            <div class="col-12">
+                <a routerLink="add" class="btn-add">
+                    <i class="ion-android-add-circle"></i>
+                    <span>{{'BREADCRUMB.ADD_FAMILY_MEMBER' | translate}}</span>
+                </a>
+            </div>
+            <div class="col-12">
+                <hr>
+            </div>
+
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>{{ 'FORM.NAME' | translate }} </th>
+                            <th>{{ 'FORM.STATUS' | translate }}</th>
+                            <th class="hidden-xs-down text-center">{{ 'FORM.GENDER' | translate }}</th>
+                            <th class="text-center">{{ 'FORM.AGE' | translate }}</th>
+                            <th class="w-40px">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="6">
+                                <h3 class="bold">{{ 'PERSONAL_INFO.FAMILY_MEMBERS' | translate }}</h3>
+                            </td>
+                        </tr>
+
+                        <tr *ngFor="let person of familyMembers;">
+                            <td width="54">
+                                <span *ngIf="!person.uploadAvatar" class="initials" [ngClass]="person.btnColor">{{person.firstName[0]}}{{person.lastName[0]}}</span>
+                                <img class="client-icon" height="50" *ngIf="person.uploadAvatar" src="{{person.uploadAvatar}}" />
+                            </td>
+                            <td>
+                                <span class="fw-700">{{person.firstName}} {{person.lastName}}</span>
+                            </td>
+                            <td>{{person.relation_staus}}</td>
+                            <td class="hidden-xs-down text-center">{{person.gender}}</td>
+                            <td class="text-center">{{person.age}}</td>
+                            <td class="w-40px text-right">
+                                <a [routerLink]="['/client',clientId,'profile','personal-info',person.id,'edit']">
+                                    <i class="right-arrow ion-chevron-right"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="view-side-form">
+    <router-outlet></router-outlet>
+</div>

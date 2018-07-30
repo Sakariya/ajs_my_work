@@ -1,0 +1,107 @@
+<div class="panel">
+    <div class="d-flex flex-wrap panel-header mb-3">
+        <h4 [translate]="'CLIENT_OVERVIEW.RISK_TOLERANCE'"></h4>
+    </div>
+
+    <div class="panel-body">
+        <table class="table" *ngIf="familyMembers">
+            <thead>
+                <tr>
+                    <th [translate]="'CUSTOM.CLIENT'"></th>
+                    <th [translate]="'CLIENT_OVERVIEW.RISK_TOLERANCE'"></th>
+                    <th class="hidden-xs-down" [translate]="'CLIENT_OVERVIEW.LAST_UPDATE'"></th>
+                    <th [translate]="'CUSTOM.ACTIONS'"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let person of familyMembers; let i = index;">
+                    <tr *ngIf="person.relation === 1 || person.relation === 2">
+                        <td>
+                            <app-member-avatar [firstName]="person.firstName" [lastName]="person.lastName" [relationClass]="person.btnColor" avatarClass="initials" [avatarUrl]=""></app-member-avatar>
+                            <span class="fw-700 pl-md-3 pl-1">{{person.firstName + ' ' + person.lastName}}</span>
+                        </td>
+                        <td>
+                            <div *ngIf="person.memberRisk; else tdbRiskTolerance" class="tolerance-box mt-0">
+                                <span class="tolerance-number"> {{person.memberRisk['calculatedScore']}} </span>
+                                <button type="button" class="tolerance-text">{{person.memberRisk['calculatedScore']
+                                    <=25 ? 'Very Low' : 'Average'}}</button>
+                            </div>                            
+                            <ng-template #tdbRiskTolerance><span class="tbd-lbl">TBD</span></ng-template>
+                        </td>
+                        <td class="hidden-xs-down">
+                            <div *ngIf="person.memberRisk; else notCompleted">{{person.memberRisk['completedDate'] | date:'yyyy.MM.dd'}}</div>
+                            <ng-template #notCompleted>N/A</ng-template>
+                        </td>
+                        <td width="50">
+                            <div class="dropdown-relative">
+                                <button class="btn-floating" (click)="changeRiskAction(i)">
+                                    <span class="ion-android-more-vertical"></span>
+                                </button>
+                                <div [id]="'dropdownRiskAction'+i" class="dropdown-risk-action dropdown-floating hide-ele">
+                                    <ul class="floating-dropdown">
+                                        <li (click)="changeRiskAction(i)">
+                                            <i class="ion-eye"></i>
+                                            <a [routerLink]="['/client', clientId , 'profile', 'risk-tolerance', person.id, 'results']">
+                                                <span [translate]="'RISK_TOLERANCE_PAGE.TABLE.ACTIONS.VIEW_RESULTS'"></span>
+                                            </a>
+                                        </li>
+                                        <li *ngIf="person.relation !== 1" (click)="changeRiskAction(i)">
+                                            <a [routerLink]="[person.id, 'send-invitation']">
+                                                <i class="ion-android-send"></i>
+                                                <span [translate]="'RISK_TOLERANCE_PAGE.TABLE.ACTIONS.SEND_INVITE'"></span>
+                                            </a>
+                                        </li>
+                                        <li *ngIf="person.relation === 1">
+                                            <button class="btn-floating" (click)="changeQuestionnaire(i); changeRiskAction(i);">
+                                                <i class="ion-android-send"></i>
+                                                <span [translate]="'RISK_TOLERANCE_PAGE.TABLE.ACTIONS.SEND_INVITE'"></span>
+                                            </button>
+                                        </li>
+                                        <li (click)="changeRiskAction(i)">
+                                            <a [routerLink]="[person.id, 'send-reminder']">
+                                                <i class="ion-android-notifications"></i>
+                                                <span [translate]="'RISK_TOLERANCE_PAGE.TABLE.ACTIONS.SEND_REMINDER'"></span>
+                                            </a>
+                                        </li>
+                                        <li (click)="changeRiskAction(i)">
+                                            <a [routerLink]="['/client',clientId,'coming-soon']">
+                                                <i class="ion-android-clipboard"></i>
+                                                <span [translate]="'RISK_TOLERANCE_PAGE.TABLE.ACTIONS.COMPLETE_QUEST'"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div [id]="'dropdownQuestionnaire'+i" class="dropdown-floating hide-ele">
+                                    <div class="floating-dropdown">
+                                        <h6 [translate]="'RISK_TOLERANCE_PAGE.TABLE.ACTIONS.SEND_INVITE'"></h6>
+                                        <div class="floating-body">
+                                            <form name="form" #f="ngForm" novalidate>
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" name="optradio" id="optradio1">
+                                                    <label class="form-check-label" for="optradio1">FinaMetrica 12</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" name="optradio" id="optradio2">
+                                                    <label class="form-check-label" for="optradio2">FinaMetrica 25</label>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="form-group text-right mb-0">
+                                            <button class="btn btn-secondary btn-small" (click)="changeQuestionnaire(i);" [translate]="'FORM.ACTION.CANCEL'"></button>
+                                            <a class="btn btn-success btn-small" [routerLink]="[person.id, 'send-invitation']" (click)="changeQuestionnaire(i);" [translate]="'FORM.ACTION.SEND'"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex flex-wrap panel-footer">
+        <a [routerLink]="['/client',clientId,'profile','risk-tolerance']" class="btn btn-link ion-arrow-right-b" [translate]="'CUSTOM.VIEW_MORE'"></a>
+    </div>
+</div>

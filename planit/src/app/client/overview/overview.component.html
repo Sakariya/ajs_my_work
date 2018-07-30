@@ -1,0 +1,44 @@
+<div class="overview-main">
+    <div class="container">
+        <div class="row" id="client_overview">
+            <div class="col-md-6 col-lg-4 col-12">
+                <app-family-tile class="grid" [clientId]="clientId"></app-family-tile>
+            </div>
+            <div class="col-md-6 col-lg-4 col-12">
+                <app-colaboration-tile class="grid" [clientId]="clientId"></app-colaboration-tile>
+            </div>
+            <div class="col-lg-4 col-12">
+                <app-document-tile class="grid" [clientId]="clientId"></app-document-tile>
+            </div>
+
+            <div class="col-lg-6 col-12">
+                <app-risk-tile class="grid" [clientId]="clientId"></app-risk-tile>
+            </div>
+            <div class="col-lg-6 col-12">
+                <app-task-tile class="grid" [clientId]="clientId"></app-task-tile>
+            </div>
+
+            <div class="col-12">
+                <app-goal-tile [clientId]="clientId"></app-goal-tile>
+            </div>
+
+            <div class="col-lg-6 col-12">
+                <app-net-worth-tile class="grid" [clientId]="clientId"></app-net-worth-tile>
+            </div>
+            <div class="col-lg-6 col-12">
+                <app-investments-tile class="grid" [clientId]="clientId"></app-investments-tile>
+            </div>
+
+            <div class="col-12">
+                <app-portfolio-tile [clientId]="clientId"></app-portfolio-tile>
+            </div>
+            
+            <div class="col-12">
+                <app-allocation-tile [clientId]="clientId"></app-allocation-tile>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="view-side-form">
+    <router-outlet></router-outlet>
+</div>

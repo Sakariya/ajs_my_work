@@ -1,0 +1,53 @@
+<div class="dashboard-main overview-main">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-6 col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <app-workflow-tile class="grid"></app-workflow-tile>
+                    </div>
+                    <div class="col-12">
+                        <app-risk-tolerance-distribution-tile class="grid"></app-risk-tolerance-distribution-tile>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-12">
+                <app-clients-tile class="grid"></app-clients-tile>
+            </div>
+
+            <div class="col-lg-6 col-12">
+                <app-net-worth-tile class="grid"></app-net-worth-tile>
+            </div>
+
+            <div class="col-lg-6 col-12">
+                <app-task-notification-tile class="grid"></app-task-notification-tile>
+            </div>
+
+            <div class="col-lg-6 col-12">
+                <app-investments-tile class="grid"></app-investments-tile>
+            </div>
+            <div class="col-lg-6 col-12">
+                <app-collaboration-center-tile class="grid"></app-collaboration-center-tile>
+            </div>
+
+            <div class="col-12">
+                <app-suitability-bands-tile class="grid"></app-suitability-bands-tile>
+            </div>
+        </div>
+
+        <div class="row" id="advisor_dashboard">
+            <div class="col-lg-6 col-12">
+                <app-demographics-tile class="grid"></app-demographics-tile>
+            </div>
+            <div class="col-lg-6 col-12">
+                <app-documents-center-tile class="grid"></app-documents-center-tile>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="view-side-form">
+    <router-outlet></router-outlet>
+</div>

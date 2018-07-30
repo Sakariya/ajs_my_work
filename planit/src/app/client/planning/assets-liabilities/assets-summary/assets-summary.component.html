@@ -1,0 +1,309 @@
+<div class="bg-white pt-4 pb-4 assets-summary-bg">
+    <div class="container">
+        <form name="form" (ngSubmit)="updateAccount() && f.form.valid" #f="ngForm" novalidate>
+            <div class="row">
+                <div class="col-lg-7 col-12">
+                    <h4 class="mb-1">
+                        <a [routerLink]="['/client',clientId,'planning']" [translate]="'BREADCRUMB.PLANNING'"></a> /
+                    </h4>
+                    <h1 class="d-inline-block fw-500" [translate]="'BREADCRUMB.ASSETS_LIABILITIES'">
+                    </h1>
+                </div>
+                <div class="col-lg-5 col-12 text-right">
+                    <app-planning-module-drop-down class="dropdown-right" [clientId]="clientId"></app-planning-module-drop-down>
+                </div>
+                <div class="col-12">
+                    <hr>
+                </div>
+                <div class="col-12">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item mb-lg-0">
+                            <a [routerLink]="['/client',clientId,'planning', 'assets-liabilities']" data-toggle="tab" class="nav-link active p-lr-40" [translate]="'ASSETS.SUMMARY'"></a>
+                        </li>
+                        <li class="nav-item mb-lg-0">
+                            <a [routerLink]="['/client',clientId,'planning', 'assets-liabilities-savings']" class="nav-link p-lr-40" data-toggle="tab" [translate]="'ASSETS.SAVINGS'"></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12">
+                    <hr>
+                </div>
+                <div class="col-12">
+                    <div class="d-flex flex-wrap">
+                        <a routerLink="add-account" class="btn-add">
+                            <i class="ion-android-add-circle"></i>
+                            <span [translate]="'ASSETS_SUMMARY.ADD_AN_ACCOUNT'"></span>
+                        </a>
+                        <div class="sort-box ml-3">
+                            <i class="ion-connection-bars"></i>
+                            <div class="dropdown-common mt-1 sort-dropdown">
+                                <app-common-drop-down [itemList]="sortBy" [defaultSelected]="selectedSortBy" dropDownLabel="SORT BY" (OnSelect)="sorting($event)"></app-common-drop-down>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <hr>
+                </div>
+                <div class="col-12">
+                    <table class="table asset-list-table-main">
+                        <thead>
+                            <tr>
+                                <th width="25%" [translate]="'ASSETS_SUMMARY.TABLE_HEDER.ACCOUNTS'"></th>
+                                <th width="15%" class="hidden-md-down" [translate]="'ASSETS_SUMMARY.TABLE_HEDER.ACCOUNT_TYPE'"></th>
+                                <th width="15%" class="text-left hidden-md-down" [translate]="'ASSETS_SUMMARY.TABLE_HEDER.PORTFOLIO'"></th>
+                                <th width="13%" class="text-right hidden-xs-down" [translate]="'ASSETS_SUMMARY.TABLE_HEDER.ASSETS'"></th>
+                                <th width="13%" class="text-right hidden-xs-down" [translate]="'ASSETS_SUMMARY.TABLE_HEDER.LIABILITIES'"></th>
+                                <th width="13%" class="text-right hidden-md-down" [translate]="'ASSETS_SUMMARY.TABLE_HEDER.TOTAL_SAVINGS'"></th>
+                                <th width="6%">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="accountTypes">
+                            <ng-container *ngFor="let type of accountTypes; let accIndex = index">
+                                <tr>
+                                    <td colspan="4" class="p-0 hidden-md-down">
+                                        <h3 class="pt-3 pb-3" *ngIf="selectedSortBy.id == 1 || selectedSortBy.id == 3">{{ (type) ? 'Managed accounts' : 'Unmanaged accounts' }}</h3>
+                                        <h3 class="pt-3 pb-3" *ngIf="selectedSortBy.id == 2">{{ portfolios[type]['description'] }}</h3>
+                                    </td>
+                                    <td colspan="3" class="p-0 hidden-lg-up hidden-xs-down">
+                                        <h3 class="pt-3 pb-3" *ngIf="selectedSortBy.id == 1 || selectedSortBy.id == 3">{{ (type) ? 'Managed accounts' : 'Unmanaged accounts' }}</h3>
+                                        <h3 class="pt-3 pb-3" *ngIf="selectedSortBy.id == 2">{{ portfolios[type]['description'] }}</h3>
+                                    </td>
+                                    <td colspan="3" class="p-0 hidden-sm-up d-table-cell">
+                                        <h3 class="pt-3 pb-3" *ngIf="selectedSortBy.id == 1">{{ (type) ? 'Managed accounts' : 'Unmanaged accounts' }}</h3>
+                                        <h3 class="pt-3 pb-3" *ngIf="selectedSortBy.id == 2">{{ portfolios[type]['description'] }}</h3>
+                                    </td>
+
+                                    <td colspan="3" class="text-right hidden-md-down td-pr-10">
+                                        <button type="button" class="expandall-btn text-uppercase" (click)="toggleAllAssets(type);isExpanded = !isExpanded" *ngIf="accIndex == 0">
+                                            <span *ngIf="!isExpanded" class="fw-700 mr-3" [translate]="'KYC.EXPAND_ALL'"></span>
+                                            <span *ngIf="isExpanded" class="fw-700 mr-3" [translate]="'KYC.COLLAPSE_ALL'"></span>
+                                            <i [ngClass]="{'ion-ios-arrow-down' : !isExpanded, 'ion-ios-arrow-up': isExpanded}"></i>
+                                        </button>
+                                        <span *ngIf="accIndex > 0">&nbsp;</span>
+                                    </td>
+
+                                    <td class="text-right hidden-lg-up">
+                                        <button type="button" class="expandall-btn text-uppercase" (click)="toggleAllAssets(type);isExpanded = !isExpanded" *ngIf="accIndex == 0">
+                                            <span *ngIf="!isExpanded" class="fw-700 mr-3" [translate]="'KYC.EXPAND_ALL'"></span>
+                                            <span *ngIf="isExpanded" class="fw-700 mr-3" [translate]="'KYC.COLLAPSE_ALL'"></span>
+                                            <i [ngClass]="{'ion-ios-arrow-down' : !isExpanded, 'ion-ios-arrow-up': isExpanded}"></i>
+                                        </button>
+                                        <span *ngIf="accIndex > 0">&nbsp;</span>
+                                    </td>
+                                </tr>
+                                <tr *ngFor="let data of accountList[type].accounts; let i = index">
+                                    <td colspan="7" class="pt-0 pb-0" *ngIf="data">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <td width="25%">
+                                                        <span class="initials">JS</span>
+                                                        <!-- <span class="initials">JS</span> -->
+                                                        <span class="ml-2 fw-400">{{data.description}}</span>
+                                                    </td>
+                                                    <td width="15%" class="fw-400 hidden-md-down">{{data.regulatoryTypeDTO.description}}</td>
+                                                    <td width="15%" class="hidden-md-down" *ngIf="portfolios && portfolios[data.portfolio]">{{portfolios[data.portfolio]['description']}}</td>
+                                                    <td width="13%" class="pt-3 pb-3 hidden-xs-down text-right">
+                                                        <div class="form-group mb-0" *ngIf="!data.assetList || allAssetsDeleted" [ngClass]="{'has-error': totalAssets.errors && (totalAssets.dirty || totalAssets.touched || f.submitted)}">
+                                                            <input type="text" name="totalAssets{{accIndex}}{{i}}" [(ngModel)]="data.totalAssets" #totalAssets="ngModel" style="width: 75%;" (ngModelChange)="totalAccountsAssets(data.totalAssets, type, i);" class="form-control d-inline-block h-25" currencyMask [options]="numberMask" required>
+                                                        </div>
+                                                        <div class="form-group mb-0" *ngIf="data.assetList && !allAssetsDeleted">
+                                                            <span>
+                                                                {{data.totalAssets | currency:'CAD':'symbol-narrow':'0.2-2'}}
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td width="13%" class="pt-3 pb-3 hidden-xs-down text-right">
+                                                        <div class="form-group mb-0" *ngIf="!data.assetList || allAssetsDeleted" [ngClass]="{'has-error': liabilityAmount.errors && (liabilityAmount.dirty || liabilityAmount.touched || f.submitted)}">
+                                                            <input type="text" name="liabilityAmount{{accIndex}}{{i}}" [(ngModel)]="data.liabilityAmount" #liabilityAmount="ngModel" style="width: 75%;" (ngModelChange)="totalLiabilities(data.liabilityAmount, type, i)" class="form-control d-inline-block h-25" currencyMask [options]="numberMask" required>
+                                                        </div>
+                                                        <div class="form-group mb-0" *ngIf="data.assetList && !allAssetsDeleted">
+                                                            <span>
+                                                                {{data.liabilityAmount | currency:'CAD':'symbol-narrow':'0.2-2'}}
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td width="13%" class="text-right hidden-md-down">
+                                                        <span *ngIf="data.currentYearSavings > 0">
+                                                            {{data.currentYearSavings | currency:'CAD':'symbol-narrow':'0.2-2'}}
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center" width="4%">
+                                                        <div class="dropdown-relative">
+                                                            <button class="btn-floating" (click)="toggleActionMenu('dropdownAssetsAction', data.id)">
+                                                                <span class="ion-android-more-vertical"></span>
+                                                            </button>
+                                                            <div [id]="'dropdownAssetsAction_'+data.id" class="dropdown-portfolio-action dropdown-floating hide-ele">
+                                                                <ul class="floating-dropdown">
+                                                                    <li (click)="toggleActionMenu('dropdownAssetsAction', data.id)">
+                                                                        <a [routerLink]="[data.id,'edit-account']">
+                                                                            <i class="ion-android-create"></i>
+                                                                            <span [translate]="'ASSETS_SUMMARY.ACTION.EDIT_ACCOUNT'"></span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li (click)="toggleActionMenu('dropdownAssetsAction', data.id)" class="add-btn">
+                                                                        <a [routerLink]="['/client',clientId,'planning','assets-liabilities', data.id,'holding-account','product-search']">
+                                                                            <i class="ion-android-add-circle"></i>
+                                                                            <span [translate]="'ASSETS_SUMMARY.ACTION.ADD_HOLDINGS'"></span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li (click)="toggleActionMenu('dropdownAssetsAction', data.id)" class="add-btn">
+                                                                        <a [routerLink]="[data.id,'add-savings']">
+                                                                            <i class="ion-android-add-circle"></i>
+                                                                            <span [translate]="'ASSETS_SUMMARY.ACTION.ADD_SAVINGS'"></span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li (click)="toggleActionMenu('dropdownAssetsAction', data.id)">
+                                                                        <a [routerLink]="[data.id,'savings']">
+                                                                            <i class="ion-android-create"></i>
+                                                                            <span [translate]="'ASSETS_SUMMARY.ACTION.EDIT_SAVINGS'"></span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li (click)="toggleActionMenu('dropdownAssetsAction', data.id); deleteAccount(type, data.id);" class="delete-btn">
+                                                                        <a>
+                                                                            <i class="ion-android-cancel"></i>
+                                                                            <span [translate]="'ASSETS_SUMMARY.ACTION.DELETE_ACCOUNT'"></span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center" width="2%">
+                                                        <i [ngClass]="data.isExpand?'ion-ios-arrow-up':'ion-ios-arrow-down'" (click)="toggleAssetsList(data.id);data.isExpand=!data.isExpand"></i>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="data.assetList!= null && data.assetList.length > 0" class="asset-list" id="assetList_{{data.id}}">
+                                                <tr *ngFor="let asset of data.assetList; let list = index;">
+                                                    <td width="25%" class="">
+                                                        <span class="assets-title">{{asset.description}}</span>
+                                                    </td>
+                                                    <td width="15%" class="fw-400">&nbsp;</td>
+                                                    <td width="15%" class="">&nbsp;</td>
+                                                    <td width="13%" class="text-right">${{asset.fmv}}</td>
+                                                    <td width="13%" class="">&nbsp;</td>
+                                                    <td width="13%" class="text-right">&nbsp;</td>
+                                                    <td class="text-center" width="4%">
+                                                        <div class="dropdown-relative assets-list-action">
+                                                            <button class="btn-floating" (click)="toggleActionMenu('dropdownListAction', list)">
+                                                                <span class="ion-android-more-vertical"></span>
+                                                            </button>
+                                                            <div [id]="'dropdownListAction_'+ list" class="dropdown-portfolio-action dropdown-floating hide-ele">
+                                                                <ul class="floating-dropdown">
+                                                                    <li (click)="toggleActionMenu('dropdownListAction', list)">
+                                                                        <a [routerLink]="['/client',clientId,'planning','assets-liabilities', data.id,'holding-account']">
+                                                                            <i class="ion-android-create"></i>
+                                                                            <span [translate]="'ASSETS_SUMMARY.ASSETS_LIST_ACTION.EDIT_HOLDING'"></span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li (click)="toggleActionMenu('dropdownListAction', list)">
+                                                                        <a [routerLink]="['/client',clientId,'planning','assets-liabilities', data.id,'holding-account','product-search',asset.backOfficeId]">
+                                                                            <i class="ion-link"></i>
+                                                                            <span [translate]="'ASSETS_SUMMARY.ASSETS_LIST_ACTION.RELINK_HOLDING'"></span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li (click)="toggleActionMenu('dropdownListAction', list)">
+                                                                        <a [routerLink]="['/client',clientId,'coming-soon']">
+                                                                            <i class="ion-eye"></i>
+                                                                            <span [translate]="'ASSETS_SUMMARY.ASSETS_LIST_ACTION.PRODUCT_INFO'"></span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li (click)="toggleActionMenu('dropdownListAction', list); deleteHolding(type,list, i);" class="delete-btn">
+                                                                        <a>
+                                                                            <i class="ion-android-cancel"></i>
+                                                                            <span [translate]="'ASSETS_SUMMARY.ASSETS_LIST_ACTION.DELETE_HOLDING'"></span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center" width="2%">&nbsp;</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="fw-700 hidden-md-down" *ngIf="selectedSortBy.id == 1 || selectedSortBy.id == 3">
+                                        Total - {{ (type) ? 'Managed account' : 'Unmanaged account' }}
+                                    </td>
+                                    <td class="fw-700 hidden-lg-up" *ngIf="selectedSortBy.id == 1 || selectedSortBy.id == 3">
+                                        Total - {{ (type) ? 'Managed account' : 'Unmanaged account' }}
+                                    </td>
+                                    <td colspan="3" class="fw-700 hidden-md-down" *ngIf="selectedSortBy.id == 2">
+                                        Total - {{ portfolios[type]['description'] }}
+                                    </td>
+                                    <td class="fw-700 hidden-lg-up" *ngIf="selectedSortBy.id == 2">
+                                        Total - {{ portfolios[type]['description'] }}
+                                    </td>
+                                    <!-- <td colspan="3" class="fw-600 hidden-md-down" *ngIf="selectedSortBy.id == 3">
+                                        &nbsp;
+                                    </td>
+                                    <td class="fw-600 hidden-lg-up" *ngIf="selectedSortBy.id == 3">
+                                        &nbsp;
+                                    </td> -->
+                                    <td class="fw-600 text-right">
+                                        {{accountList[type]['totalAssetsSum'] | currency:'CAD':'symbol-narrow':'0.2-2'}}
+                                    </td>
+                                    <td class="fw-600 text-right">
+                                        {{accountList[type]['totalLiabilitiesSum'] | currency:'CAD':'symbol-narrow':'0.2-2'}}
+                                    </td>
+                                    <td class="fw-600 text-right hidden-md-down">
+                                        {{accountList[type]['totalSavingSum'] | currency:'CAD':'symbol-narrow':'0.2-2'}}
+                                    </td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </ng-container>
+                            <tr>
+                                <td colspan="3" class="fw-700 hidden-md-down" [translate]="'ASSETS_SUMMARY.TOTAL_INVESTMENTS'">
+                                </td>
+                                <td class="fw-700 hidden-lg-up" [translate]="'ASSETS_SUMMARY.TOTAL_INVESTMENTS'">
+                                </td>
+                                <td class="fw-600 text-right ">
+                                    {{totalAssetsSum | currency:'CAD':'symbol-narrow':'0.2-2'}}
+                                </td>
+                                <td class="fw-600 text-right ">
+                                    {{totalLiabilitySum | currency:'CAD':'symbol-narrow':'0.2-2'}}
+                                </td>
+                                <td class="fw-600 text-right hidden-md-down">
+                                    {{totalSavings | currency:'CAD':'symbol-narrow':'0.2-2'}}
+                                </td>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="3" class="hidden-md-down">
+                                    <span class="net-worth-text" [translate]="'ASSETS_SUMMARY.NET_WORTH'"></span>
+                                </td>
+                                <td colspan="3" class="hidden-lg-up hidden-xs-down">
+                                    <span class="net-worth-text" [translate]="'ASSETS_SUMMARY.NET_WORTH'"></span>
+                                </td>
+                                <td class="hidden-sm-up d-table-cell">
+                                    <span class="net-worth-text" [translate]="'ASSETS_SUMMARY.NET_WORTH'"></span>
+                                </td>
+                                <td colspan="4" class="hidden-md-down">
+                                    <span class="net-worth-price">{{netTotal | currency:'CAD':'symbol-narrow':'0.2-2'}}</span>
+                                </td>
+                                <td class="hidden-lg-up">
+                                    <span class="net-worth-price">{{netTotal | currency:'CAD':'symbol-narrow':'0.2-2'}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-12 mt-3">
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-success btn-small" [translate]="'FORM.ACTION.SAVE_CHANGES'"></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="view-side-form">
+    <router-outlet></router-outlet>
+</div>

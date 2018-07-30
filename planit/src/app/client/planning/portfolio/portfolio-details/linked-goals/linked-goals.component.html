@@ -1,0 +1,59 @@
+<div class="mt-3" *ngIf="linkedGoals">
+    <div class="row">
+        <div class="col-12">
+            <h6 class="fw-700 d-inline" [translate]="'PORTFOLIO.DETAIL.LINKED_GOALS'"></h6>
+            <h4 class="pull-right">
+                <a [routerLink]="['/client', clientId, 'coming-soon']" class="fs-12">
+                    <i class="action_icon ion-link"></i>
+                    <span [translate]="'PORTFOLIO.ACTION.LINK_GOALS'"></span>
+                </a>
+            </h4>
+        </div>
+    </div>
+    <hr/>
+
+    <table class="table mt-3  td-last-child-50 table-ellipsis-first-child">
+        <thead>
+            <tr>
+                <th [translate]="'PORTFOLIO.TABLE.ASSOCIATED_GOALS'"></th>
+                <th [translate]="'PORTFOLIO.TABLE.GOAL_YEAR'"></th>
+                <th class="text-right" [translate]="'PORTFOLIO.TABLE.FROMT_TO'"></th>
+                <th class="text-right hidden-xs-down" [translate]="'PORTFOLIO.TABLE.AMOUNT'"></th>
+                <th class="text-center" width="50"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let goal of linkedGoals; let i = index;">
+                <td>
+                    <span class="asset_indicator square bg-{{goal.colour}}"></span>
+                    <span class="asset_lbl text-overflow">{{goal.description}}</span>
+                </td>
+                <td class="text-left">
+                    {{goal.year | currency: 'CAD' :'symbol-narrow':'0.0-0'}}
+                </td>
+                <td class="text-right">
+                    {{goal.from_to}}
+                </td>
+                <td class="text-right hidden-xs-down">
+                    {{goal.amount | currency: 'CAD' :'symbol-narrow':'0.0-0'}}
+                </td>
+                <td class="text-center pr-0">
+                    <div class="dropdown-relative">
+                        <a class="btn-floating">
+                            <span class="ion-android-more-vertical"></span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" class="text-right pb-0">
+                    {{'PORTFOLIO.TABLE.PORTFOLIO_ALLOCATION_GOAL' | translate }} {{allocatedGoals / 100 | percent}}
+                </td>
+                <td class="hidden-xs-down"></td>
+            </tr>
+        </tfoot>
+    </table>
+    <div id="linkedGoalChart" class="stacked-chart mt-0"></div>
+</div>

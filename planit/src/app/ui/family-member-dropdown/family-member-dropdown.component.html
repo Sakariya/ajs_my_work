@@ -1,0 +1,15 @@
+<div ngbDropdown class="dropdown-common family-dropdown m-0" *ngIf="familyMembers.length > 1">
+    <a id="familyDropdown" ngbDropdownToggle>
+        {{personDetails['firstName']}} {{personDetails['lastName']}}
+        <i class="ion-arrow-down-b fs-18"></i>
+    </a>
+    <div ngbDropdownMenu aria-labelledby="familyDropdown">
+        <ul>
+            <li *ngFor="let member of familyMembers">
+                <a class="dropdown-item" [ngClass]="{ 'active' : personalId === member.id }" (click)="memberClick(member)">
+                    <span></span>{{member.firstName}} {{member.lastName}}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

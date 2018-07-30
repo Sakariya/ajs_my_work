@@ -1,0 +1,47 @@
+<!-- Client header  -->
+<div class="top-nav">
+    <div class="main-container">
+        <div class="row">
+
+            <div class="left-edge">
+                <div class="avatar-box">
+                    <div class="client-img" *ngIf="clientProfile">
+                        <img [src]="clientProfile" alt="" />
+                    </div>
+                    <button alt="" *ngIf="!clientProfile" class="client-icon btn-circle-blue ion-ios-person"></button>
+
+                    <div class="client-img" *ngIf="spouseProfile">
+                        <img [src]="spouseProfile " alt="" class="" />
+                    </div>
+                    <button *ngIf="!spouseProfile" alt="" class="client-icon btn-circle-lightblue ion-ios-person"></button>
+                </div>
+                <span class="client-name" *ngIf="familyName"[innerHTML]="familyName"></span>
+            </div>
+
+            <div class="right-edge navbar">
+                <ul class="navbar-nav ml-md-auto">
+                    <li class="nav-item">
+                        <a [routerLink]="['overview']" routerLinkActive="active-menu" class="nav-link" [translate]="'BREADCRUMB.OVERVIEW'"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['profile']" routerLinkActive="active-menu" [translate]="'BREADCRUMB.PROFILE'"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['planning']" routerLinkActive="active-menu" [translate]="'BREADCRUMB.PLANNING'"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [translate]="'BREADCRUMB.COLLABORATION'"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['document-centre']" routerLinkActive="active-menu">
+                            <span class="hidden-sm-down" [translate]="'BREADCRUMB.DOCUMENTS'"></span>
+                            <i class="ion-document-text hidden-md-up"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

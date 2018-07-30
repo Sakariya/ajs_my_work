@@ -1,0 +1,28 @@
+<div ngbDropdown class="dropdown-common dropdown-right">
+    <a class="text-uppercase" id="dropdownBasic1" ngbDropdownToggle>
+      <span class="pr-1 selected-text">Profile Modules</span>
+      <i class="ion-arrow-down-b"></i>
+    </a>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <ul *ngIf='progressSummary'>
+            <li>
+                <a class="dropdown-item" [routerLink]="['/client',clientId,'profile','personal-info']" routerLinkActive="active">
+                    <span></span>Personal info
+                    <span class="profile_icon" [ngClass]="{'complete_profile ion-ios-checkmark-empty': progressSummary.personalProgress == 100, 'zero_profile': progressSummary.personalProgress == 0, 'inprogress_profile': (progressSummary.personalProgress > 0 && progressSummary.personalProgress < 100)}"></span>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" [routerLink]="['/client',clientId,'profile','engagement']" routerLinkActive="active">
+                    <span></span>Engagement
+                    <span class="profile_icon" [ngClass]="{'complete_profile ion-ios-checkmark-empty': progressSummary.engagementProgress == 100, 'zero_profile': progressSummary.engagementProgress == 0, 'inprogress_profile': (progressSummary.engagementProgress > 0 && progressSummary.engagementProgress < 100) }"></span>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" [routerLink]="['/client',clientId,'profile','risk-tolerance']" routerLinkActive="active">
+                    <span></span>Risk tolerance and KYC
+                    <span class="profile_icon" [ngClass]="{'complete_profile ion-ios-checkmark-empty': progressSummary.riskKYCProgress == 100, 'zero_profile': progressSummary.riskKYCProgress == 0, 'inprogress_profile': (progressSummary.riskKYCProgress > 0 && progressSummary.riskKYCProgress < 100)}"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

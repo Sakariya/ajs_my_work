@@ -1,0 +1,186 @@
+<div class="side-form side-form-large">
+    <div class="box">
+        <div class="box-header">
+            <span class="sidebar_title">{{ 'ASSET_LIABILITY.PRODUCT_SEARCH.TITLE' | translate }} </span>
+            <span (click)="back()" class="sidebar_action_icon ion-close-circled float-right"></span>
+        </div>
+        <div class="box-body">
+            <form name="form">
+                <h5 class="mb-4 fw-600" *ngIf="accountDetail">{{ accountDetail.description}}</h5>
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <div class="form-group ">
+                            <label class="custom-form-label">{{ 'ASSET_LIABILITY.PRODUCT_SEARCH.SEARCH_LABEL' | translate }} </label>
+                            <div class="right-icon">
+                                <input type="text" class="form-control ion-android-search" (input)="getProductSearch()" name="searchString" [(ngModel)]="searchModel.searchString"
+                                    placeholder="{{ 'ASSET_LIABILITY.PRODUCT_SEARCH.PLACEHOLDER_SEARCH_TEXT' | translate }} ">
+                                <i class="ion-ios-search"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="custom-form-label">{{ 'ASSET_LIABILITY.PRODUCT_SEARCH.FAVOURITES_LIST_LABEL' | translate }} </label>
+                            <p-dropdown name="favouritList" [options]="favourites" [(ngModel)]="searchModel.favourites" (onChange)="getProductSearch()"
+                                placeholder="{{ 'ASSET_LIABILITY.PRODUCT_SEARCH.PLACEHOLDER_FAVOURITES_LIST' | translate }}"
+                                optionLabel="descr"></p-dropdown>
+                        </div>
+                        <ng-container *ngIf="isAdvancedSearch">
+                            <div class="form-group">
+                                <label class="custom-form-label">{{ 'ASSET_LIABILITY.PRODUCT_SEARCH.PRODUCT_TYPE_LABEL' | translate }} </label>
+                                <p-dropdown [options]="productType" (onChange)="getProductSearch()" name="favouritList" [(ngModel)]="searchModel.productType"
+                                    optionLabel="description" placeholder="{{ 'ASSET_LIABILITY.PRODUCT_SEARCH.PLACEHOLDER_PRODUCT_TYPE' | translate }} "></p-dropdown>
+                            </div>
+                            <div class="form-group">
+                                <label class="custom-form-label">{{ 'ASSET_LIABILITY.PRODUCT_SEARCH.ASSET_CLASS_LABEL' | translate }} </label>
+                                <p-dropdown name="assetClass" [options]="assetClass" (onChange)="getProductSearch()" placeholder="{{'ASSET_LIABILITY.PRODUCT_SEARCH.PLACEHOLDER_ASSET_CLASS' | translate}}"
+                                    optionLabel="desc_e"></p-dropdown>
+                            </div>
+                            <div class="form-group">
+                                <label class="custom-form-label">{{ 'ASSET_LIABILITY.PRODUCT_SEARCH.COUNTRY_LABEL' | translate }} </label>
+                                <p-dropdown name="country" [options]="country" (onChange)="getProductSearch()" [(ngModel)]="searchModel.country" placeholder="{{'ASSET_LIABILITY.HOLDING_ACCOUNT.PLACEHOLDER_COUNTRY' | translate}}"
+                                    optionLabel="country"></p-dropdown>
+                            </div>
+                            <div class="form-group">
+                                <label class="custom-form-label">{{ 'ASSET_LIABILITY.PRODUCT_SEARCH.CURRENCY_LABEL' | translate }} </label>
+                                <p-dropdown [options]="currency" name="currencyCode" (onChange)="getProductSearch()" [(ngModel)]="searchModel.currency" required
+                                    optionLabel="isoCode" placeholder="{{'ASSET_LIABILITY.HOLDING_ACCOUNT.PLACEHOLDER_CURRENCY' | translate}}"></p-dropdown>
+                            </div>
+                        </ng-container>
+                        <div *ngIf="!isAdvancedSearch" class="form-group">
+                            <div class="row">
+                                <div class="col-6 col-lg-6">
+                                    <a (click)="isAdvancedSearch=!isAdvancedSearch;getProductSearchUtility();" class="advanced-link cursor-p"> {{ 'ASSET_LIABILITY.PRODUCT_SEARCH.ADVANCED_SEARCH' | translate }}</a>
+                                </div>
+                                <div class="col-6 col-lg-6 text-right">
+                                    <a (click)="addCustom()" class="btn-add">
+                                        <i class="ion-android-add-circle"></i>
+                                        <span> {{ 'ASSET_LIABILITY.PRODUCT_SEARCH.ADD_CUSTOM_LABEL' | translate }}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-12 mb-3" *ngIf="productList">
+                    <h4 class="mb-4 fw-600">Results</h4>
+                    <hr class="mt-3">                 
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th width="30%" class="pl-3 text-left valign-bottom prod-description-xs">{{ 'ASSET_LIABILITY.PRODUCT_SEARCH.TABLE.DESCRIPTION_LABEL' | translate }}</th>
+                                    <th class="hidden-xs-down">&nbsp;</th>
+                                    <th class="text-center valign-bottom hidden-xs-down">{{ 'ASSET_LIABILITY.PRODUCT_SEARCH.TABLE.PRICE_LABEL' | translate }}</th>
+                                    <th width="10%" class="text-center valign-bottom hidden-xs-down">{{ 'ASSET_LIABILITY.PRODUCT_SEARCH.TABLE.AS_OF_DATE_LABEL' | translate }}</th>
+                                    <th class="text-center valign-bottom hidden-xs-down">{{ 'ASSET_LIABILITY.PRODUCT_SEARCH.CURRENCY_LABEL' | translate }}</th>
+                                    <th class="text-left valign-bottom product-code-xs"> {{ 'ASSET_LIABILITY.PRODUCT_SEARCH.TABLE.PRODUCTCODE_LABEL' | translate }} </th>
+                                    <th class="text-left valign-bottom hidden-xs-down">{{ 'ASSET_LIABILITY.PRODUCT_SEARCH.ASSET_CLASS_LABEL' | translate }}</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of productList;">
+                                    <td>
+                                        <a *ngIf="item.prdSubDetails.length>1 &&  item.selectedProductCode" (click)="AddFavourites(content,item)" class="btn-add">
+                                            <i [ngClass]="[item.selectedProductCode.favlistDetails ? 'ion-android-star' : 'ion-android-star-outline']"></i>
+                                        </a>
+                                        <a *ngIf="item.prdSubDetails.length==1" (click)="AddFavourites(content,item)" class="btn-add">
+                                            <i [ngClass]="[item.prdSubDetails[0].favlistDetails ? 'ion-android-star' : 'ion-android-star-outline']"></i>
+                                        </a>
+                                    </td>
+                                    <td width="30%" class="fw-700 prod-description-xs">{{item.prodDescr}}
+                                        <span class="d-block fw-400">({{item.companyDetails.descr}})</span>
+                                    </td>
+                                    <td class="text-center hidden-xs-down">
+                                        <a class="eye-wrapper">
+                                            <i class="ion-ios-eye"></i>
+                                        </a>
+                                    </td>
+                                    <td class="text-center hidden-xs-down"> {{item.fmv | currency:item.curcode:'symbol-narrow':'0.2-2'}}</td>
+                                    <td width="10%" class="text-center hidden-xs-down">{{item.fmvdate | date : "yyyy-MM-dd"}}</td>
+                                    <td class="text-center hidden-xs-down" >{{item.country}}</td>
+                                    <td class="text-left product-code-xs">
+                                        <div *ngIf="item.prdSubDetails.length>1" class="form-group dropdown-right">
+                                            <!-- <p-dropdown [options]="item.prdSubDetails" name="productCode" #productCode="ngModel" [(ngModel)]="item.product_code" required
+                                                optionLabel="prod_code" placeholder="{{'FORM.PLACEHOLDER.SELECT' | translate }}"></p-dropdown> -->
+                                            <app-product-code-dropdown (OnSelect)="productCodeSelect($event,item)" [productCodeList]="item.prdSubDetails"></app-product-code-dropdown>
+                                        </div>
+                                        <div *ngIf="item.prdSubDetails.length==1">
+                                            <span>
+                                                {{item.prdSubDetails[0].prod_code}}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="text-left hidden-xs-down">{{item.assetclass}}</td>
+                                    <td class="text-center pr-0">
+                                        <a (click)="addCustomByProduct(item)" class="btn-add">
+                                            <i class="ion-android-add-circle"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="9" class="text-right">
+                                        <a class="btn-add" (click)="getProductSearch()">
+                                            LOAD MORE
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                </div>
+                <div class="col-12 text-right">
+                    <button (click)="back()" type="button" class="btn btn-small btn-secondary btn-fixwidth mr-2">{{ 'FORM.ACTION.CANCEL' | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #content let-cl="close" let-di="dismiss">
+    <div class="modal-content modal-box">
+        <div class="modal-header">
+            <span class="modal-title"> {{ 'ASSET_LIABILITY.PRODUCT_SEARCH.ADD_FAVOURITES_TITLE' | translate }} </span>
+            <button type="button" class="close" (click)="cl('close')">
+                <i class="ion-close-circled"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form name="form" (ngSubmit)="f.form.valid && addProductFavourite(f)" #f="ngForm" novalidate>
+                <div class="form-group">
+                    <p-messages [(value)]="msgs"></p-messages>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': (addfavouritList.dirty || addfavouritList.touched || f.submitted) && !addfavouritList.valid && !favouritModel}">
+                    <label class="custom-form-label">{{ 'ASSET_LIABILITY.PRODUCT_SEARCH.FAVOURITES_LIST_LABEL' | translate }} </label>
+
+                    <p-dropdown [options]="favourites" name="addfavouritList" [(ngModel)]="favouritModel" required optionLabel="descr" placeholder="{{ 'ASSET_LIABILITY.PRODUCT_SEARCH.PLACEHOLDER_FAVOURITES_LIST' | translate }}"
+                        #addfavouritList="ngModel"></p-dropdown>
+                </div>
+                <div class="form-group text-right">
+                    <button (click)="cl('close')" type="button" class="btn btn-small btn-secondary">{{ 'FORM.ACTION.CANCEL' | translate }}</button>
+                    <button class="btn btn-small btn-success" [disabled]="!f.form.valid && !favouritModel">Save</button>
+                </div>
+            </form>
+            <div class="col-12 mb-3" *ngIf="favouritesByProduct">
+                <div class="form-group" *ngIf="favouritesByProduct.length>0">
+                    <label class="custom-form-label"> {{ 'ASSET_LIABILITY.PRODUCT_SEARCH.FAVOURITES_LIST_TITLE' | translate }} </label>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr *ngFor="let item of favouritesByProduct">
+                            <td>{{item.descr}}</td>
+                            <td class="text-right pr-0">
+                                <i (click)="removeProductFavrouit(this.productId,item.favlistkey)" class="ion-close-circled"></i>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="modal-footer">
+         
+        </div> -->
+    </div>
+</ng-template>

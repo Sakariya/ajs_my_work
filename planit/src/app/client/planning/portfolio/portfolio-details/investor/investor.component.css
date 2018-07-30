@@ -1,0 +1,31 @@
+.investor-table>thead>tr>th {
+    font-size: 12px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+}
+
+.tolerance-box .tolerance-text {
+    width: 70%;
+}
+.risk-tolerance-width {
+    width: 28%;
+}
+table td.invested-td-width{width: 20%; padding-right: 0;}
+
+@media(min-width: 992px){
+   
+    .risk-tolerance-width .tolerance-box{
+        display: inline-block;
+        float: none;
+    }
+    .risk-tolerance-width .tolerance-box .tolerance-text {
+        width: 100%;
+    }
+}
+@media(max-width: 480px){
+   
+    .tolerance-box .tolerance-text{
+        width: 70px;
+        padding: 0;
+    }
+}

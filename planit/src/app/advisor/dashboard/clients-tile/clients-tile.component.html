@@ -1,0 +1,56 @@
+<div class="panel pb-lg-0 mt-lg-0">
+    <div class="d-flex flex-wrap panel-header mb-4">
+        <h4>{{'ADVISOR.DASHBOARD.CLIENTS_TILE.TITLE' | translate}} </h4>
+        <div class="ml-auto d-flex">
+            <a [routerLink]="['add-client']" class="btn-add">
+                <i class="ion-android-add-circle"></i>
+                <span> {{'ADVISOR.DASHBOARD.CLIENTS_TILE.ADD_CLIENT' | translate}} </span>
+            </a>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <form name="form">
+            <div class="form-group">
+                <div class="right-icon">
+                    <input type="text" class="form-control ion-android-search" name="searchString" ([ng-model])="searchString" placeholder=" {{'ADVISOR.DASHBOARD.CLIENTS_TILE.SEARCH_CLIENTS' | translate}}">
+                    <i class="ion-ios-search"></i>
+                </div>
+            </div>
+        </form>
+        <table class="table clients-list-table">
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        <app-common-drop-down [itemList]="itemList" [defaultSelected]="defaultSelected" dropDownLabel="View" (OnSelect)="getFilterClient($event)"></app-common-drop-down>
+                    </th>
+                    <th class="text-right">Updated</th>
+                </tr>
+            </thead>
+
+            <tbody *ngIf="clientList">
+                <tr *ngFor="let item of clientList;">
+                    <td width="80">
+                        <div class="client-avatars">
+                            <!-- <div class="client-img">
+                  <img [src]="" alt="" />
+              </div>
+              <button alt="" class="client-icon btn-circle-blue ion-ios-person"></button> -->
+
+                            <div class="client-img" *ngIf="!clientList">
+                                <img [src]="" alt="" class="" />
+                            </div>
+                            <span *ngIf="clientList" alt="" class="client-icon client ion-ios-person"></span>
+                            <span *ngIf="clientList" alt="" class="client-icon spouse ion-ios-person"></span>
+                        </div>
+                    </td>
+                    <td class="client-name fw-500">{{item.displayName}}</td>
+                    <td class="text-right fw-500">{{item.lastUpdated | date : 'yyyy.MM.dd'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex flex-wrap panel-footer" *ngIf="TotalClients && clientList">
+        <app-pagination [PageSize]='pageSize' [TotalItem]="TotalClients" (OnPageChange)="getPageFilterClient($event)"></app-pagination>
+    </div>
+</div>

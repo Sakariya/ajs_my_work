@@ -1,0 +1,50 @@
+<div class="side-form">
+	<div class="box">
+		<div class="box-header">
+			<span class="sidebar_title">{{ 'PORTFOLIO.ADD_INVESTOR.TITLE' | translate }} </span>
+			<span (click)="back()" class="sidebar_action_icon ion-close-circled float-right"></span>
+		</div>
+		<div class="box-body">
+			<form name="form" (ngSubmit)="f.form.valid && addInvestor()" #f="ngForm" novalidate>
+				<div class="form-group">
+					<label class="custom-form-label">{{ 'PORTFOLIO.ADD_INVESTOR.LABEL.PORTFOLIO_NAME' | translate }}</label>
+					<p class="pl-3">{{ portfolioName }}</p>
+				</div>
+
+				<div class="form-group">
+					<label class="custom-form-label">{{ 'PORTFOLIO.ADD_INVESTOR.LABEL.INVESTOR' | translate }}</label>
+					<table class="table">
+						<tbody *ngIf="familyMembersRisk">
+							<tr *ngFor="let member of familyMembersRisk; let i = index">
+								<td>
+									<p-checkbox binary="true" name="investor{{member.id}}" value="{{member.id}}" [(ngModel)]="member.investor"></p-checkbox>
+								</td>
+								<td>
+									<app-member-avatar [firstName]="member.firstName" [lastName]="member.lastName" [relationClass]="member.btnColor" avatarClass="initials"
+									 [avatarUrl]="">
+									</app-member-avatar>
+									<span>{{ member.firstName }}</span>
+								</td>
+								<td>
+									<div *ngIf="member.memberRisk; else tbdRiskTolerance" class="tolerance-box">
+										<span class="tolerance-number">
+											{{ member.memberRisk['calculatedScore'] }}
+										</span>
+										<button type="button" class="tolerance-text">{{ riskGroup[member['memberRisk']['calculatedRiskGroup']] }}</button>
+									</div>
+									<ng-template #tbdRiskTolerance>
+										<span class="tbd-lbl">TBD</span>
+									</ng-template>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="form-group text-right">
+					<button (click)="back()" type="button" class="btn btn-small btn-secondary mr-2">{{ 'FORM.ACTION.CANCEL' | translate }}</button>
+					<button value="submit" class="btn btn-success btn-small mr-3" [translate]="'FORM.ACTION.SAVE'"></button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

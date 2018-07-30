@@ -1,0 +1,53 @@
+<div class="panel">
+    <div class="d-flex flex-wrap panel-header">
+        <h4 [translate]="'ADVISOR.DASHBOARD.DOCUMENT_CENTER_TILE.TITLE'"></h4>
+        <div class="d-flex ml-auto">
+            <div class="d-flex ml-auto" *ngIf="documentList">
+                <span class="initials btn-circle-mauve ml-2 cursor-p" *ngIf="documentList.badges[1].value > 0" ngbTooltip="Review" placement="bottom" triggers="click" #review="ngbTooltip" (click)="inprogress.close();">
+                    {{documentList.badges[1].value}}
+                </span>
+                <span class="initials btn-circle-Violet ml-2 cursor-p" *ngIf="documentList.badges[0].value > 0" ngbTooltip="In-Progress" placement="bottom" triggers="click" #inprogress="ngbTooltip" (click)="review.close();">
+                    {{documentList.badges[0].value}}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-12">
+                <table class="document-list-table table table-ellipsis">
+                    <thead>
+                        <tr>
+                            <th colspan="2">
+                                <app-common-drop-down [itemList]="itemList" [defaultSelected]="defaultSelected" dropDownLabel="View" (OnSelect)="getFilterDocument($event)"></app-common-drop-down>
+                            </th>
+                            <th class="text-center" [translate]="'CUSTOM.STATUS'"></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="documentList">
+                        <tr *ngFor="let item of documentList.results;">
+                            <td class="fw-600 hidden-xs-down">
+                                <span class="" [appNoOverflowTooltip]="item.Clientname" triggers="manual" placement="bottom">{{item.Clientname}}</span>
+                            </td>
+                            <td class="fw-700 hidden-sm-up" colspan="2">
+                                <span class="" [appNoOverflowTooltip]="item.Clientname" triggers="manual" placement="bottom">{{item.Clientname}}</span>
+                            </td>
+                            <td class="fw-400 hidden-xs-down">
+                                <span class="" [appNoOverflowTooltip]="item.name" triggers="manual" placement="bottom">{{item.name}}</span>
+                            </td>
+                            <td class="text-center">
+                                <div class="circle" [ngClass]="item.status == 'IN_PROGRESS' ? 'bg-mauve' : item.status == 'REVIEW' ? 
+                                'bg-violet':item.status == 'COMPLETE' ? 'bg-blue' :item.status == 'PENDING' ? 'bg-orange' :item.status == 'VIEWED' ? 'bg-green' :'' "></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-wrap panel-footer" *ngIf="TotalClients && documentList">
+        <app-pagination [PageSize]='pageSize' [TotalItem]="TotalClients" (OnPageChange)="getPageFilterClient($event)"></app-pagination>
+    </div>
+
+</div>

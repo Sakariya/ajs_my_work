@@ -1,0 +1,215 @@
+<div class="bg-white pt-4 pb-4">
+    <div class="container" *ngIf="personDetails">
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <h4 class="mb-1">
+                    <a [routerLink]="['/client',clientId,'profile']" [translate]="'BREADCRUMB.CLIENT_PROFILE'"></a> /
+                    <a [routerLink]="['/client',clientId,'profile','risk-tolerance']" [translate]="'BREADCRUMB.RISK_TOLERANCE'"></a> /
+                </h4>
+                <h1 class="fw-500">
+                    <app-family-member-dropdown [clientId]="clientId" [personalId]="personalId" typeId="risk" (memberSwitch)="memberSwitch($event)"></app-family-member-dropdown>
+                </h1>
+            </div>
+            <div class="col-md-6 col-12 text-right dropdown-right">
+                <app-profile-module-drop-down [clientId]="clientId"></app-profile-module-drop-down>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <hr>
+            </div>
+            <div class="col-12">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a [routerLink]="['/client',clientId,'profile','risk-tolerance',personalId,'results']" class="nav-link active" data-toggle="tab"
+                            [translate]="'RISK_RESULTS_PAGE.TITLE'"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a [routerLink]="['/client',clientId,'profile','risk-tolerance',personalId,'know-your-client']" class="nav-link" data-toggle="tab"
+                            [translate]="'RISK_KYC_PAGE.TITLE'"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <hr>
+            </div>
+            <div class="col-12 col-lg-10">
+                <h5 class="fw-700" [translate]="'RISK_RESULTS_PAGE.SCORE'"></h5>
+                <small> {{'RISK_RESULTS_PAGE.DATE_AS_OF' | translate}} {{personDetails['memberRisk']['completedDate'] | date:'yyyy.MM.dd'}}</small>
+            </div>
+            <div class="col-12 col-lg-2 text-lg-right mt-md-2 mt-sm-2">
+                <img class="img-fluid" src="assets/images/finaMetrica.png" width="116">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <hr>
+            </div>
+            <div class="col-6 col-xl-3 col-lg-3 col-md-4 col-sm-5">
+                <div class="tolerance-box score-box" *ngIf="personDetails.memberRisk.calculatedScore;">
+                    <span class="score-lbl" [translate]="'RISK_RESULTS_PAGE.CALC.SCORE'"></span>
+                    <span class="tolerance-number">
+                        {{personDetails['memberRisk']['calculatedScore']}}
+                    </span>
+                    <strong [translate]="'RISK_RESULTS_PAGE.OUT_OF'"></strong>
+                </div>
+            </div>
+            <div class="col-6 col-lg-auto">
+                <div class="tolerance-box score-box" *ngIf="personDetails.memberRisk.calculatedRiskGroup;">
+                    <span class="score-auto" [translate]="'RISK_RESULTS_PAGE.CALC.GROUP'"></span>
+                    <button type="button" class="tolerance-text">{{riskGroup[personDetails['memberRisk']['calculatedRiskGroup']]}}</button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-auto text-lg-right ml-lg-auto dropdown-right">
+                <div ngbDropdown class="dropdown-common m-0" #myDrop="ngbDropdown">
+                    <ng-template #tipContent class="tooltipbox">
+                        <p>{{personDetails.memberRisk.comments}}</p>
+                        <p class="text-right p-0 m-0">
+                            <button class="btn btn-secondary btn-small m-0" (click)="t.close()" [translate]="'RISK_RESULTS_PAGE.WARNING.CLOSE'"></button>
+                        </p>
+                    </ng-template>
+                    <a id="dropdownBasic1" class="text-uppercase" ngbDropdownToggle [ngbTooltip]="tipContent" placement="left" #t="ngbTooltip"
+                        triggers="manual"> {{'RISK_RESULTS_PAGE.CHANGE_SCORE_FORM.TITLE' | translate}}
+                        <i class="ion-arrow-down-b ml-1"></i>
+                    </a>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="p-4 hide-ele">
+                        <form name="form" (ngSubmit)="changeRisk(f) && f.form.valid" #f="ngForm" novalidate>
+                            <div class="form-group" [ngClass]="{'has-error': !riskScore.valid && (riskScore.dirty || riskScore.touched || f.submitted)}">
+                                <label class=custom-form-label [translate]="'RISK_RESULTS_PAGE.CHANGE_SCORE_FORM.RISK_SCORE'"></label>
+                                <input type="text" class="form-control" name="riskScore" [(ngModel)]="agreed.riskScore" #riskScore="ngModel" pattern = "^[1-9][0-9]?$|^100$" required />
+                            </div>
+                            <div class="form-group" [ngClass]="{'has-error': !comment.valid && (comment.dirty || comment.touched || f.submitted)}">
+                                <label class=custom-form-label [translate]="'RISK_RESULTS_PAGE.CHANGE_SCORE_FORM.ADD_COMMENT'"></label>
+                                <textarea type="text" class="form-control" name="comment" [(ngModel)]="agreed.comment" #comment="ngModel" rows="10"> </textarea>
+                            </div>
+                            <div class="form-group text-right m-0">
+                                <button type="submit" class="btn btn-success btn-small" [disabled]="!f.form.valid" (click)="$event.stopPropagation(); myDrop.close();"
+                                    [translate]="'FORM.ACTION.SAVE'"></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-2" *ngIf="personDetails.memberRisk.agreedScore;">
+            <div class="col-6 col-xl-3 col-lg-3 col-md-4 col-sm-5">
+                <div class="tolerance-box score-box">
+                    <span class="score-lbl" [translate]="'RISK_RESULTS_PAGE.AGREED.SCORE'"></span>
+                    <span class="tolerance-number">
+                        {{personDetails['memberRisk']['agreedScore']}}
+                    </span>
+                    <strong [translate]="'RISK_RESULTS_PAGE.OUT_OF'"></strong>
+                </div>
+            </div>
+            <div class="col-6 col-lg-auto">
+                <div class="tolerance-box score-box" *ngIf="personDetails.memberRisk.agreedRiskGroup;">
+                    <span class="score-auto" [translate]="'RISK_RESULTS_PAGE.AGREED.GROUP'"></span>
+                    <button type="button" class="tolerance-text">{{riskGroup[personDetails['memberRisk']['agreedRiskGroup']]}}</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-10 col-xl-8">
+                <div class="graph-image-box mt-4 mb-4">
+                    <img class="img-fluid" src="assets/images/grpah.jpg">
+                </div>
+                <p class="content-montserrat-14 mb-3" [translate]="'RISK_RESULTS_PAGE.GRAPH_CAPTION'"></p>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="riskQuestionnaire">
+            <div class="col-12">
+                <h5 class="fw-700"> {{'RISK_RESULTS_PAGE.KEY_DIFF.TITLE' | translate}}
+                    <span *ngIf="personDetails.memberRisk.keyDifferences">
+                        <ng-template #keyWarning>
+                            <p [translate]="'RISK_RESULTS_PAGE.KEY_DIFF.WARNING.PARA_1'"></p>
+                            <p [translate]="'RISK_RESULTS_PAGE.KEY_DIFF.WARNING.PARA_2'"></p>
+                            <p class="text-right m-0 p-0">
+                                <button class="btn btn-secondary btn-small m-0" (click)="warning.close()" [translate]="'RISK_RESULTS_PAGE.WARNING.CLOSE'"></button>
+                            </p>
+                        </ng-template>
+                        <span class="ion-android-alert" [ngbTooltip]="keyWarning" #warning="ngbTooltip" triggers="manual" placement="bottom" (click)="warning.open()"></span>
+                    </span>
+                </h5>
+                <hr>
+                <div class="row">
+                    <div class="col-12 col-lg-10 col-xl-8">
+                        <p class="content-montserrat-14 pb-2" [translate]="'RISK_RESULTS_PAGE.KEY_DIFF.DESCRIPTION'"></p>
+                    </div>
+
+                    <div class="col-12 col-xl-10">
+                        <hr>
+                        <div class="differences-box d-flex flex-wrap" *ngIf="questions">
+                            <div class="d-flex flex-wrap ml-auto expandall-box">
+                                <span [translate]="'RISK_GROUPS.VERY_LOW'"></span>
+                                <span  [translate]="'RISK_GROUPS.LOW'"></span>
+                                <span class="pt-0">
+                                    <small>{{ 'RISK_GROUPS.TITLE' | translate}}</small>
+                                    {{ 'RISK_GROUPS.AVERAGE' | translate}}
+                                </span>
+                                <span [translate]="'RISK_GROUPS.HIGH'"></span>
+                                <span [translate]="'RISK_GROUPS.VERY_HIGH'"></span>
+                                <button type="button" pButton [icon]="allClosed ? 'fa fa-chevron-down' : 'fa fa-chevron-up'" (click)="allClosed = !allClosed">
+                                    <span class="hidden-xs-down expandall-text fw-700">Expand All</span>
+                                </button>
+                            </div>
+                            <p-accordion [multiple]=allClosed>
+                                <p-accordionTab *ngFor="let question of questions; let i = index" [selected]=allClosed>
+                                    <p-header class="accordion-header">
+                                        <span class="question-title">
+                                            <span class="question-number">Q{{i+1}}</span>
+                                            <span>{{question.title}}</span>
+                                        </span>
+                                        <!-- <div *ngIf = "personAnswers[question.id]['riskGroupLevel'] === 'FM12-G1'; else "></div> -->
+                                        <span *ngIf = "personAnswers[question.id]['riskGroupLevel'] === 'FM12-G1'; else emptySpan" [ngClass]="{'ion-star': personAnswers[question.id]['riskerResponse'], 'ion-checkmark-circled': personAnswers[question.id]['riskGroupLevel'] === personDetails.memberRisk.agreedRiskGroup, 'ion-close-circled': personAnswers[question.id]['riskGroupLevel'] !== personDetails.memberRisk.agreedRiskGroup}"></span>
+                                        <span *ngIf = "personAnswers[question.id]['riskGroupLevel'] === 'FM12-G2'; else emptySpan" [ngClass]="{'ion-star': personAnswers[question.id]['riskerResponse'], 'ion-checkmark-circled': personAnswers[question.id]['riskGroupLevel'] === personDetails.memberRisk.agreedRiskGroup, 'ion-close-circled': personAnswers[question.id]['riskGroupLevel'] !== personDetails.memberRisk.agreedRiskGroup}"></span>
+                                        <span *ngIf = "personAnswers[question.id]['riskGroupLevel'] === 'FM12-G3'; else emptySpan" [ngClass]="{'ion-star': personAnswers[question.id]['riskerResponse'], 'ion-checkmark-circled': personAnswers[question.id]['riskGroupLevel'] === personDetails.memberRisk.agreedRiskGroup, 'ion-close-circled': personAnswers[question.id]['riskGroupLevel'] !== personDetails.memberRisk.agreedRiskGroup}"></span>
+                                        <span *ngIf = "personAnswers[question.id]['riskGroupLevel'] === 'FM12-G4'; else emptySpan" [ngClass]="{'ion-star': personAnswers[question.id]['riskerResponse'], 'ion-checkmark-circled': personAnswers[question.id]['riskGroupLevel'] === personDetails.memberRisk.agreedRiskGroup, 'ion-close-circled': personAnswers[question.id]['riskGroupLevel'] !== personDetails.memberRisk.agreedRiskGroup}"></span>
+                                        <span *ngIf = "personAnswers[question.id]['riskGroupLevel'] === 'FM12-G5'; else emptySpan" [ngClass]="{'ion-star': personAnswers[question.id]['riskerResponse'], 'ion-checkmark-circled': personAnswers[question.id]['riskGroupLevel'] === personDetails.memberRisk.agreedRiskGroup, 'ion-close-circled': personAnswers[question.id]['riskGroupLevel'] !== personDetails.memberRisk.agreedRiskGroup}"></span>
+                                        <ng-template #emptySpan>
+                                            <span></span>
+                                        </ng-template>
+                                        <span class="compare-text">
+                                            <span [ngbPopover]="compare" placement="bottom" triggers="manual" #popOver="ngbPopover" (click)="popOver.open(); makeChart(question.id, $event);">Compare</span>
+                                        </span>
+                                        <ng-template #compare>
+                                            <div (click)="$event.stopPropagation()">
+                                            <div class="d-flex flex-wrap p-3 compare-popup-text">
+                                                <span>Who answered Question {{i+1}} like I did?</span>
+                                                <span (click)="popOver.close()" class="sidebar_action_icon ion-close-circled ml-auto"></span>
+                                            </div>
+                                            <div class="chartContainer text-center">
+                                                <div id="chartdiv" [style.width.%]="100" [style.height.px]="250"></div>
+                                            </div>
+                                            </div>
+                                        </ng-template>
+                                    </p-header>
+                                    {{question.text}}
+                                    <ul class="composure-list">
+                                        <li *ngFor="let option of question.options" [ngClass]="optSelected(option.id,question.id)" [class.active]="IsSelected">{{option.text}}</li>
+                                    </ul>
+                                </p-accordionTab>
+                            </p-accordion>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+              <div class="legend-box">
+                  <h6 [translate]="'RISK_RESULTS_PAGE.LEGEND.TITLE'"></h6>
+                  <p><span class="ion-checkmark-circled"></span>{{'RISK_RESULTS_PAGE.LEGEND.POINT_1' | translate}}</p>
+                  <p><span class="ion-close-circled"></span>{{'RISK_RESULTS_PAGE.LEGEND.POINT_2' | translate}}</p>
+                  <p><span class="ion-star"></span>{{'RISK_RESULTS_PAGE.LEGEND.POINT_3' | translate}}</p>
+              </div>
+            </div>
+
+        </div>
+    </div>
+</div>

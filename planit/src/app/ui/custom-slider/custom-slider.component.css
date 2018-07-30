@@ -1,0 +1,20 @@
+.judgement-matrix {
+    z-index: 2;
+    width: 5px;
+    bottom: 24px;
+    height: 45px;
+    margin-left: -2px;
+    background: #000;
+    position: absolute;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.slider-contain > div {
+    display: inline-block;
+    text-align: center;
+    font-size: 12px;
+    color: #788588;
+    font-weight: 700;
+}
+

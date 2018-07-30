@@ -1,0 +1,214 @@
+<div class="bg-white pt-4 pb-4 document-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 [translate]="'CLIENT_OVERVIEW.DOCUMENT_CENTER'"></h1>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-6 col-12">
+                        <p class="content" [translate]="'CONTENT.DOCUMENT_CONTENT'"></p>
+                    </div>
+                </div>
+                <hr class="mt-4">
+            </div>
+
+            <div class="col-md-6 col-12">
+                <div class="d-sm-flex flex-wrap">
+                    <div routerLink="generate" class="document-box text-center">
+                        <span [translate]="'CUSTOM.GENERATE_DOCUMENT'"></span>
+                        <i class="ion-android-add-circle"></i>
+                    </div>
+                    <div routerLink="upload" class="document-box text-center">
+                        <span [translate]="'CUSTOM.UPLOAD_DOCUMENT'"></span>
+                        <i class="ion-android-upload"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-12">
+                <div class="form-group mt-lg-5 mt-md-0 mt-3">
+                    <div class="input-group">
+                        <input type="text" [(ngModel)]="searchString" placeholder="Search document" class="form-control" (keyup)="serachDocument()">
+                        <div class="input-group-addon">
+                            <i class="ion-android-search"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-main d-flex flex-wrap">
+                    <div class="filter-box mr-auto">
+                        <app-common-drop-down [itemList]="filterBy" [defaultSelected]="selectedFilter" dropDownLabel="Filter BY" (OnSelect)="getFilterDocument($event)"></app-common-drop-down>
+                    </div>
+                    <div class="sort-box ml-auto">
+                        <i class="ion-connection-bars"></i>
+                        <div class="dropdown-common mt-1 sort-dropdown">
+                            <app-common-drop-down [itemList]="sortBy" class="dropdown-right" [defaultSelected]="selectedSort" dropDownLabel="Sort By" (OnSelect)="getSortDocument($event)"></app-common-drop-down>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <hr>
+                <table class="table document-table">
+                    <thead>
+                        <tr>
+                            <th [translate]="'TABLE.DOCUMENT'" class="doc-title"></th>
+                            <th width="15%" [translate]="'TABLE.ADDED'" class="hidden-md-down"></th>
+                            <th class="doc-status" [translate]="'TABLE.STATUS'"></th>
+                            <th width="15%" class="text-left hidden-md-down" [translate]="'TABLE.SHARED'"></th>
+                            <th width="20%" class="text-left hidden-xs-down" [translate]="'TABLE.VIEWEDBY'"></th>
+                            <th width="50" class="text-center" [translate]="'TABLE.ACTIONS'"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="6" class="p-0 full-td">
+                                <table cellspacing="0" cellpadding="0" border="0" *ngFor="let category of documentList;let i = index;">
+                                    <thead>
+                                        <th colspan="6" class="document-title">{{category.categoryId}}</th>
+                                    </thead>
+                                    <tbody *ngIf="category.documents.length > 0">
+                                        <tr *ngFor="let document of category.documents;let j = index;">
+                                            <td class="doc-title">
+                                                {{document.name}}
+                                                <span class="new" *ngIf="document.newDocument" [translate]="'CUSTOM.NEW'">new</span>
+                                            </td>
+                                            <td width="15%" class="text-left fw-400 hidden-md-down">
+                                                {{document.addedDate | date:'yyyy.MM.dd'}}
+                                            </td>
+                                            <td width="15%" class="text-left doc-status">
+                                                <span class="circle bg-{{document.color}} mr-2"></span> {{document.docStatus}}
+                                            </td>
+                                            <td width="15%" class="text-left hidden-md-down">
+                                                <div *ngIf="document.sharedDate; else notShared">{{document.sharedDate | date:'yyyy.MM.dd'}}</div>
+                                                <ng-template #notShared>N/A</ng-template>
+                                            </td>
+                                            <td width="20%" class="text-left hidden-xs-down">
+                                                <ng-container *ngIf="document.sharedDate && document.viewedByMember">
+                                                    <app-member-avatar [firstName]="document.viewedByMember.firstName" [lastName]="document.viewedByMember.lastName" [relationClass]="document.viewedByMember.btnColor" avatarClass="initials" [avatarUrl]=""></app-member-avatar>
+                                                    <span class="ml-2">{{document.viewedByMember.firstName + ' ' + document.viewedByMember.lastName}}</span>
+                                                </ng-container>
+                                            </td>
+                                            <td width="50" class="text-center">
+                                                <div class="dropdown-relative">
+                                                    <button class="btn-floating" (click)="changeDocumentAction(i,j)">
+                                                        <span class="ion-android-more-vertical"></span>
+                                                    </button>
+                                                    <div [id]="'dropdownDocumentAction_'+i+'_'+j" class="dropdown-document-action dropdown-floating hide-ele">
+                                                        <ul class="floating-dropdown">
+                                                            <li (click)="changeDocumentAction(i,j)">
+                                                                <a [routerLink]="[category.documentId, 'rename', document.id]">
+                                                                    <i class="ion-edit"></i>
+                                                                    <span [translate]="'CUSTOM.RE_NAME'"></span>
+                                                                </a>
+                                                            </li>
+                                                            <li (click)="changeDocumentAction(i,j)">
+                                                                <a (click)="downloadClientDocument(document.id, document.name)">
+                                                                    <i class="ion-android-download"></i>
+                                                                    <span [translate]="'CUSTOM.DOWNLOAD'"></span>
+                                                                </a>
+                                                            </li>
+                                                            <li (click)="changeDocumentAction(i,j)" *ngIf="!document.sharedDate;" [ngClass]="{'not-active': document.status !== 'COMPLETE'}">
+                                                                <a (click)="shareClientDocument(category.documentId, document.id)" *ngIf="document.status === 'COMPLETE'; else notSharable">
+                                                                    <i class="ion-android-share-alt"></i>
+                                                                    <span [translate]="'CUSTOM.SHARED'"></span>
+                                                                </a>
+                                                                <ng-template #notSharable>
+                                                                    <i class="ion-android-share-alt"></i>
+                                                                    <span [translate]="'CUSTOM.SHARED'"></span>
+                                                                </ng-template>
+                                                            </li>
+                                                            <li (click)="changeDocumentAction(i,j)" *ngIf="document.sharedDate;" [ngClass]="{'not-active': document.status !== 'COMPLETE'}">
+                                                                <a (click)="unshareClientDocument(category.documentId, document.id)" *ngIf="document.status === 'COMPLETE'; else notUnSharable">
+                                                                    <i class="ion-android-share-alt"></i>
+                                                                    <span [translate]="'CUSTOM.UNSHARED'"></span>
+                                                                </a>
+                                                                <ng-template #notUnSharable>
+                                                                    <i class="ion-android-share-alt"></i>
+                                                                    <span [translate]="'CUSTOM.UNSHARED'"></span>
+                                                                </ng-template>
+                                                            </li>
+                                                            <li (click)="changeDocumentAction(i,j)" *ngIf="document.sharedDate" [ngClass]="{'not-active': document.status !== 'COMPLETE'}">
+                                                                <a [routerLink]="[document.viewedByMember ? document.viewedByMember.id : 'CLIENT','send-reminder']" *ngIf="document.status === 'COMPLETE'; else sendReminder">
+                                                                    <i class="ion-android-notifications"></i>
+                                                                    <span [translate]="'CUSTOM.SEND_REMINDER'"></span>
+                                                                </a>
+                                                                <ng-template #sendReminder>
+                                                                    <i class="ion-android-notifications"></i>
+                                                                    <span [translate]="'CUSTOM.SEND_REMINDER'"></span>
+                                                                </ng-template>
+                                                            </li>
+                                                            <li (click)="changeUpdateStatus(i,j);">
+                                                                <a>
+                                                                    <i class="ion-android-sync"></i>
+                                                                    <span [translate]="'CUSTOM.UPDATE_STATUS'"></span>
+                                                                </a>
+                                                            </li>
+                                                            <li (click)="changeDocumentAction(i,j)" [ngClass]="{'not-active': document.status !== 'IN_PROGRESS'}">
+                                                                <a (click)="deleteDocument(category.documentId, document.id)" *ngIf="document.status === 'IN_PROGRESS'; else notDeletable">
+                                                                    <i class="ion-android-delete grey-bkground"></i>
+                                                                    <span [translate]="'CUSTOM.DELETE'"></span>
+                                                                </a>
+                                                                <ng-template #notDeletable>
+                                                                    <i class="ion-android-delete grey-bkground"></i>
+                                                                    <span [translate]="'CUSTOM.DELETE'"></span>
+                                                                </ng-template>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <div [id]="'dropdownUpdateStatus_'+i+'_'+j" class="dropdown-status-action dropdown-floating hide-ele">
+                                                        <ul class="floating-dropdown">
+                                                            <li (click)="changeUpdateStatus(i,j)">
+                                                                <a (click)="updateDocumentStatus(category.documentId, document.id, 'IN_PROGRESS')" [ngClass]="{'not-active': document.status === 'IN_PROGRESS'}">
+                                                                    <span class="circle bg-mauve mr-2"></span>
+                                                                    <span [translate]="'CUSTOM.IN_PROGRESS'"></span>
+                                                                </a>
+                                                            </li>
+                                                            <li (click)="changeUpdateStatus(i,j)">
+                                                                <a (click)="updateDocumentStatus(category.documentId, document.id, 'REVIEW')" [ngClass]="{'not-active': document.status === 'REVIEW'}">
+                                                                    <span class="circle bg-violet mr-2"></span>
+                                                                    <span [translate]="'CUSTOM.UNDER_REVIEW'"></span>
+                                                                </a>
+                                                            </li>
+                                                            <li (click)="changeUpdateStatus(i,j)">
+                                                                <a (click)="updateDocumentStatus(category.documentId, document.id, 'COMPLETE')" [ngClass]="{'not-active': (document.status === 'COMPLETE' || document.status === 'IN_PROGRESS')}">
+                                                                    <span class="circle bg-blue mr-2"></span>
+                                                                    <span [translate]="'CUSTOM.COMPLETED'"></span>
+                                                                </a>
+                                                            </li>
+                                                            <!-- <li (click)="changeUpdateStatus(i,j)">
+                                                                <a>
+                                                                    <span [translate]="'CUSTOM.SHARED_PENDING'"></span>
+                                                                </a>
+                                                            </li>
+                                                            <li (click)="changeUpdateStatus(i,j)">
+                                                                <a>
+                                                                    <span [translate]="'CUSTOM.SHARED_VIEWED'"></span>
+                                                                </a>
+                                                            </li> -->
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="category.documents.length === 0">
+                                        <tr>
+                                            <td colspan="6" class="no-document text-center">
+                                                <i class="ion-alert mr-2"></i>No results
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="view-side-form">
+    <router-outlet></router-outlet>
+</div>

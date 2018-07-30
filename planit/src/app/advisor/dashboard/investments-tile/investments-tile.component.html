@@ -1,0 +1,82 @@
+<div class="panel" *ngIf="investment">
+
+    <div class="d-flex flex-wrap panel-header">
+        <h4 [translate]="'CLIENT_OVERVIEW.INVESTMENTS'"></h4>
+        <div class="price-box d-flex">
+            <span class="price">{{investment.accountTypeTotal | currency:'':'symbol':'1.0-0'}}</span>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-12 mt-3">
+                <h6 [translate]="'CLIENT_OVERVIEW.ASSET_ALLOCATION'"></h6>
+                <div id="allocation_chart_div" class="stacked-chart"></div>
+                <table class="table account-table mt--15">
+                    <tbody>
+                        <tr *ngFor="let category of investment.categoryRollup;let i = index">
+                            <td class="fw-600" width="33.33%">
+                                <span class="square bg-{{category.colour}} mr-2"></span> {{category.itemLabel}}
+                            </td>
+                            <td width="33.33%" class="text-right fw-400">{{category.value | currency:'':'symbol':'1.0-0'}}</td>
+                            <td width="33.33%" class="text-right hidden-xs-down">{{category.value/investment.assetCategoryTotal | percent}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mt-3">
+                <h6 [translate]="'CUSTOM.MANAGED_UNMANAGED'"></h6>
+                <div id="manage_chart_div" class="stacked-chart"></div>
+                <table class="table account-table mt--15">
+                    <tbody>
+                        <tr>
+                            <td class="fw-600" width="33.33%">
+                                <span class="square bg-mauve mr-2"></span>
+                                <span [translate]="'CUSTOM.MANAGED'"></span>
+                            </td>
+                            <td width="33.33%" class="text-right fw-400">{{investment.totalManaged | currency:'':'symbol':'1.0-0'}}</td>
+                            <td width="33.33%" class="text-right hidden-xs-down">{{investment.totalManaged/investment.totalManageNonManage | percent}}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-600" width="33.33%">
+                                <span class="square bg-green mr-2"></span>
+                                <span [translate]="'CUSTOM.UNMANAGED'"></span>
+                            </td>
+                            <td width="33.33%" class="text-right fw-400">{{investment.totalNonManaged | currency:'':'symbol':'1.0-0'}}</td>
+                            <td width="33.33%" class="text-right hidden-xs-down">{{investment.totalNonManaged/investment.totalManageNonManage | percent}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mt-3">
+                <h6 [translate]="'CUSTOM.PLANNED_FOR'"></h6>
+                <div id="planned_chart_div" class="stacked-chart"></div>
+                <table class="table account-table">
+                    <tbody>
+                        <tr>
+                            <td class="fw-600" width="33.33%">
+                                <span class="square bg-blue mr-2"></span>
+                                <span [translate]="'CUSTOM.PLANNED'"></span>
+                            </td>
+                            <td width="33.33%" class="text-right fw-400">{{investment.totalPlanned | currency:'':'symbol':'1.0-0'}}</td>
+                            <td width="33.33%" class="text-right hidden-xs-down">{{investment.totalPlanned/investment.totalPlanUnplan | percent}}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-600" width="33.33%">
+                                <span class="square bg-cyan mr-2"></span>
+                                <span [translate]="'CUSTOM.UNPLANNED'"></span> 
+                            </td>
+                            <td width="33.33%" class="text-right fw-400">{{investment.totalUnPlanned | currency:'':'symbol':'1.0-0'}}</td>
+                            <td width="33.33%" class="text-right hidden-xs-down">{{investment.totalUnPlanned/investment.totalPlanUnplan | percent}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

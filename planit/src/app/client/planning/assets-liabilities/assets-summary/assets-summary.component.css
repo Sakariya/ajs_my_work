@@ -1,0 +1,146 @@
+.assets-summary-bg i.ion-ios-arrow-down,
+.assets-summary-bg i.ion-ios-arrow-up {
+    float: right;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.assets-summary-bg i.ion-android-more-vertical {
+    line-height: 1;
+    cursor: pointer;
+}
+
+.assets-summary-bg .assets-title {
+    padding-left: 60px;
+}
+
+.expandall-btn {
+    cursor: pointer;
+    outline: none;
+}
+
+.expandall-btn {
+    border: 0px;
+    background: none;
+    padding: 0px;
+    margin: 0px;
+    font-size: 11px;
+    font-family: 'Montserrat', sans-serif;
+    color: #556677;
+    font-weight: 300;
+}
+
+.net-worth-text {
+    font-size: 22px;
+    font-weight: 400;
+    color: #789;
+}
+
+.net-worth-price {
+    font-size: 22px;
+    font-weight: 400;
+    color: #789;
+}
+
+.asset-list {
+    display: none;
+}
+
+.dropdown-relative {
+    position: relative;
+    width: 45px;
+    display: block;
+    margin: 0 auto;
+}
+
+.dropdown-common .dropdown-menu::before {
+    left: 132px;
+}
+
+.dropdown-common .dropdown-menu::after {
+    left: 132px;
+}
+
+.text-capitalize {
+    text-transform: capitalize !important;
+}
+
+.sort-dropdown {
+    text-transform: initial;
+}
+
+.add-btn i {
+    background: none;
+    color: #88aa33;
+    font-size: 23px;
+}
+
+.delete-btn i {
+    background: none;
+    color: #789;
+    font-size: 21px;
+}
+
+.table .table>thead>tr:first-child>td,
+.table .table>tbody>tr:last-child>td {
+    border-bottom: none;
+}
+
+.assets-list-action button {
+    color: #88aa33;
+}
+.table .asset-list > tr:last-child > td{
+    border-bottom: none !important;
+}
+.asset-list-table-main.table tr > td[colspan="7"]:last-child{
+    padding-right: 0;
+}
+.td-pr-10{
+    padding-right: 10px !important;
+}
+/* responsive */
+
+@media (max-width: 1199px) {
+    .table>thead>tr>th:nth-child(1),
+    .table>thead>tr>td:nth-child(1) {
+        width: 20%;
+    }
+    .table>thead>tr>th:nth-child(2),
+    .table>thead>tr>td:nth-child(2) {
+        width: 10%;
+    }
+    .table>thead>tr>th:nth-child(3),
+    .table>thead>tr>td:nth-child(3) {
+        width: 20%;
+    }
+}
+
+@media (max-width: 992px) {
+    .table>thead>tr>th:nth-child(1) {
+        width: 55%;
+    }
+    .table>thead>tr>th:nth-child(4) {
+        width: 25%;
+    }
+    .table>thead>tr>th:nth-child(5) {
+        width: 25%;
+    }
+    .table>thead>tr>th:nth-child(7) {
+        width: 10%;
+    }
+    .table>thead>tr>td:nth-child(1) {
+        width: 40%;
+    }
+    .table>thead>tr>td:nth-child(4) {
+        width: 20%;
+    }
+    .table>thead>tr>td:nth-child(5) {
+        width: 20%;
+    }
+    .table>thead>tr>td:nth-child(7) {
+        width: 13%;
+    }
+    .table>thead>tr>td:nth-child(8) {
+        width: 5%;
+    }
+}

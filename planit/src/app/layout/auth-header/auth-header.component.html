@@ -1,0 +1,58 @@
+<header class="navbar navbar-expand sticky-top " role="navigation">
+    <div class="main-container">
+        <!-- Logo -->
+        <a class="navbar-brand" [routerLink]="['/login']">
+            <!--<span class="logo">
+                 {{'HEADER.PLANPLUS' | translate}}<span>{{'HEADER.PLAN' | translate}}<i>{{'HEADER.IT' | translate}}</i></span>
+            </span> -->
+            <span class="logo">
+                PlanPlus
+                <span>Plan
+                    <i>it</i>
+                </span>
+            </span>
+        </a>
+        <div class="navbar-collapse">
+            <ul class="navbar-nav right-navbar ml-auto">
+                <li class="nav-item user-menu">
+                    <div class="language hidden-md-down" ngbDropdown>
+                        <div class="language-text" ngbDropdownToggle id="langMenu">
+                            <a>{{translate.currentLang}}</a>
+                        </div>
+
+                        <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="langMenu">
+                            <ul>
+                                <li *ngFor="let lang of translate.getLangs()">
+                                    <a class="dropdown-item" [ngClass]="{'active': lang === translate.currentLang}" (click)="translate.use(lang)">
+                                        {{lang}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="user-profile hidden-lg-up" ngbDropdown placement="bottom-right">
+                        <div class="user-main" ngbDropdownToggle id="smallMenu">
+                            <div class="user-box">
+
+                                <a class="ion-android-menu"></a>
+                            </div>
+
+                            <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="smallMenu">
+                                <ul>
+                                    <li *ngFor="let lang of translate.getLangs()">
+                                        <a class="dropdown-item" [ngClass]="{'active': lang === translate.currentLang}" (click)="translate.use(lang)" i18n="Short English Language@@language.en">
+                                            {{lang}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</header>

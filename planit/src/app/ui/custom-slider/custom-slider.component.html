@@ -1,0 +1,10 @@
+<div class="mb-3">
+    <div class="slider-contain">
+        <div *ngFor="let sliderVal of sliderValue" [style.width.%]="sliderVal.percent">{{sliderVal.name}}</div>
+    </div>
+</div>
+<div class="p-slider">
+    <span class="judgement-matrix" *ngIf="judgementMatrix > 0" [style.left.%]="judgementMatrix">|</span>
+    <ion-range-slider #sliderElement type="single" min="0" max="100" to="50" [disable]="!isEditableRoute" [from]="fromPoint" grid="true" step="1" grid_num="5" hide_min_max="true" hide_from_to="true" (onChange)="myOnChange($event)">
+    </ion-range-slider>
+</div>

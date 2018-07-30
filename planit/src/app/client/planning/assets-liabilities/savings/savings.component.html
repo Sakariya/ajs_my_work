@@ -1,0 +1,67 @@
+<div class="bg-white pt-4 pb-4 assets-summary-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-7">
+                <h4 class="mb-1">
+                    <a [routerLink]="['/client',clientId,'planning']" [translate]="'BREADCRUMB.PLANNING'"></a> /
+                </h4>
+                <h1 class="d-inline-block fw-500" [translate]="'BREADCRUMB.ASSETS_LIABILITIES'"></h1>
+            </div>
+            <div class="col-lg-5 col-5 text-right">
+                <app-planning-module-drop-down class="dropdown-right" [clientId]="clientId"></app-planning-module-drop-down>
+            </div>
+            <div class="col-12">
+                <hr>
+            </div>
+            <div class="col-12">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item mb-lg-0">
+                        <a [routerLink]="['/client',clientId,'planning', 'assets-liabilities']" data-toggle="tab" class="nav-link p-lr-40" [translate]="'ASSETS.SUMMARY'"></a>
+                    </li>
+                    <li class="nav-item mb-lg-0">
+                        <a [routerLink]="['/client',clientId,'planning', 'assets-liabilities-savings']" class="nav-link active p-lr-40" data-toggle="tab"
+                            [translate]="'ASSETS.SAVINGS'"></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-12">
+                <hr>
+            </div>
+            <div class="col-12">
+                <div>
+                    <a routerLink="add-savings" class="btn-add ">
+                        <i class="ion-android-add-circle"></i>
+                        <span [translate]="'ASSETS_SUMMARY.ACTION.ADD_SAVINGS'"></span>
+                    </a>
+                </div>
+                <div class="d-flex flex-wrap pb-2 hidden-xs-down">
+
+                    <div class="sort-dropdown ml-0">
+                        <app-common-drop-down [itemList]="viewBy" [defaultSelected]="selectedViewBy" dropDownLabel="{{'VIEW_BY_DROPDOWN' | translate}}"
+                            (OnSelect)="displayViewBy($event)"></app-common-drop-down>
+                    </div>
+                    <div class="sort-box ml-auto">
+                        <i class="ion-connection-bars"></i>
+                        <div class="sort-dropdown">
+                            <app-common-drop-down class="dropdown-right" [itemList]="sortBy" [defaultSelected]="selectedSortBy" dropDownLabel="{{'SORT_BY_DROPDOWN' | translate}}"
+                                (OnSelect)="sorting($event)"></app-common-drop-down>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-12">
+                <hr class="mt-0">
+            </div>
+            <h4 *ngIf="allSavings.length == 0" [translate]="'SAVINGS.NO_SAVINGS_TO_DISPLAY'">
+            </h4>
+            <div class="col-12" *ngIf="allSavings.length > 0">
+                <app-savings-list-html [clientId]="clientId" [accountId]="" [allSavings]="allSavings" [sortBy]="sortBy" [selectedSortBy]="selectedSortBy"
+                    [selectedViewBy]="selectedViewBy"></app-savings-list-html>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="view-side-form">
+    <router-outlet></router-outlet>
+</div>

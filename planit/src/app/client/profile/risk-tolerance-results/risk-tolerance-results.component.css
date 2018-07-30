@@ -1,0 +1,81 @@
+.tolerance-box.score-box {display: flex; padding: 0px; line-height: 28px;}
+.tolerance-box.score-box .score-lbl {max-width: 130px; flex: 0 0 130px; font-size: 14px; color: #333;} 
+.tolerance-box.score-box .score-auto {max-width: inherit; flex: 0 0 auto; padding-right: 10px; font-size: 14px; color: #333;} 
+.tolerance-box.score-box .tolerance-number {position: relative; height: 28px; max-width: 28px; flex: 0 0 28px; line-height: 28px; font-weight: 600;}
+.tolerance-box.score-box strong {font-weight: 600; flex: 0 0 auto; padding: 0 0 0 6px; font-size: 18px; font-family: 'Montserrat', sans-serif;}
+.tolerance-box.score-box .tolerance-text {padding: 0 27px; font-size: 13px;}
+
+.content-montserrat-14 {font-size: 14px; line-height: 18px; color: #3b3b3b; font-weight: 300; font-family: 'Montserrat', sans-serif;}
+
+/* accordion */
+.differences-box .expandall-box { padding: 0 8.3% 0 0; flex: 0 0 74%; }
+.differences-box .expandall-box span {max-width: inherit; text-align: center; flex: 0 0 17%; font-size: 11px; text-transform: uppercase; color: #778899; font-weight: 400; font-family: 'Montserrat', sans-serif; padding:17px 0px 0;}
+.differences-box .expandall-box span small {display: block; font-size: 11px; text-transform: capitalize; font-weight: 600;}
+.differences-box .expandall-box .expandall-text {flex: 0 0 auto; padding: 0px; color: #556677; max-width: inherit;}
+
+.differences-box .expandall-box .ui-button-icon-only {max-width: 95px; flex: 0 0 auto; border: 0px; background: none; width: auto; padding: 0px 15px 0 0; display: flex; color: #556677; font-size: 11px; text-transform: uppercase; font-weight: 600; margin-left: auto;}
+
+
+.legend-box {display: block; margin: 30px 0 65px 0;}
+.legend-box h6 {display: block; margin: 0 0 20px 0;}
+.legend-box p {display: block; font-size: 12px; line-height: 15px; color: #6b6b6b; margin: 0 0 20px}
+.legend-box p span {width: 36px; display: inline-block; font-size: 16px; text-align: center;}
+.legend-box p span.ion-checkmark-circled {color: #88aa33;}
+.legend-box p span.ion-close-circled, .legend-box p span.ion-star {color: #ee1111;}
+
+
+
+
+/* responsive */
+
+@media (max-width: 1199px) {
+  .differences-box .expandall-box span {flex: 0 0 16.5%; max-width: 16.5%;}
+}
+
+@media (max-width: 992px) {
+  .differences-box .expandall-box {padding: 0px; flex: 0 0 65%;}
+  .differences-box .expandall-box span {flex: 0 0 15.5%; max-width: 15.5%;}
+  .differences-box .expandall-box .ui-button-icon-only {margin-left: auto; padding: 0 10px 0 0;}
+}
+
+@media (max-width: 767px) {
+  .differences-box .expandall-box {flex: 0 0 100%; max-width: 100%; padding: 0 0 0 30px;}
+  .differences-box .expandall-box span {flex: 0 0 16.2%; max-width: 16.2%;}
+}
+
+@media (max-width: 575px) {
+  .tolerance-box.score-box {line-height: 18px;}
+  .tolerance-box.score-box .score-lbl {max-width: 80px; flex: 0 0 80px; font-size: 10px;}
+  .tolerance-box.score-box .tolerance-number {flex: 0 0 18px; max-width: 18px; height: 18px; line-height: 18px;}
+  .tolerance-box.score-box strong {font-size: 11px;}
+  .tolerance-box.score-box .score-auto {font-size: 10px; flex: 0 0 75px; padding-right: 5px; line-height: 11px;}
+  .tolerance-box.score-box .tolerance-text {padding: 0; font-size: 9px;}
+
+  .differences-box .expandall-box span {font-size: 8px; padding: 12px 0px 0; flex: 0 0 18%; max-width: 18%;}
+  .differences-box .expandall-box span small {font-size: 8px;}
+
+  .differences-box .expandall-box .ui-button-icon-only {flex: 0 0 18px; padding: 0px;}
+  .tolerance-box.score-box .tolerance-text {height: 18px;}
+
+}
+
+.popover{
+    width: 400px !important;
+    max-width: 400px !important;
+    background: #fff;
+}
+
+@media (max-width:992px){
+.dropdown-common .dropdown-menu {
+    left: 1px !important;
+}
+
+.dropdown-common .dropdown-menu::before {
+    right: 8rem;
+    left: 128px;
+}
+.dropdown-common .dropdown-menu::after {
+    right: 8rem;
+    left: 128px;
+}
+}

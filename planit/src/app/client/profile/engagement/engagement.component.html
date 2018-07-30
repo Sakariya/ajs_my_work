@@ -1,0 +1,25 @@
+<div class="bg-white pt-4 pb-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <h4 class="mb-1">
+                    <a [routerLink]="['/client',clientId,'profile']">Client profile </a> /
+                </h4>
+                <h1>Engagement</h1>
+            </div>
+            <div class="col-md-6 col-12 text-right">
+                <app-profile-module-drop-down class="dropdown-right" [clientId]="clientId"></app-profile-module-drop-down>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <hr>
+            </div>
+            <div class="col-12">
+                <p>
+                    engagement coming soon!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,183 @@
+<div class="side-form">
+    <div class="box">
+        <div class="box-header">
+            <span class="sidebar_title" [translate]="'PORTFOLIO.EDIT_POLICY.TITLE'"> </span>
+            <span (click)="back()" class="sidebar_action_icon ion-close-circled float-right"></span>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h5 [translate]="'PORTFOLIO.EDIT_POLICY.LABEL.TARGET'"></h5>
+                    <div id="chartdiv" style="height:200px; width: 200px; display: inline-block;"></div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-4">
+                    <label class="custom-form-label" [translate]="'PORTFOLIO.EDIT_POLICY.LABEL.ASSET_CLASSES'"></label>
+                </div>
+                <div class="col-4">
+                    <label class="custom-form-label" [translate]="'PORTFOLIO.EDIT_POLICY.LABEL.TARGET'"></label>
+                </div>
+                <div class="col-4">
+                    <a class="btn-add" [routerLink]="['/client', clientId, 'planning', 'portfolios', portfolioId, 'details','analytics','target']">
+                        <i class="ion-android-add-circle"></i>
+                        <span [translate]="'PORTFOLIO.EDIT_POLICY.LABEL.ANALYTICS'"> </span>
+                    </a>
+                </div>
+            </div>
+            <hr/>
+            <div *ngIf="assetsBreakdown" class="row">
+                <div class="col-12">
+                    <form name="form" (ngSubmit)="f.form.valid && savePolicy(f)" #f="ngForm" novalidate>
+                        <div class="form-group">
+                            <table class="table bt-none">
+                                <thead>
+                                    <tr>
+                                        <th class="p-2 " width="30%"> {{'PORTFOLIO.EDIT_POLICY.TABLE.CLASS' | translate}}</th>
+                                        <th class="text-right p-2 ">{{'PORTFOLIO.EDIT_POLICY.TABLE.MIN' | translate}} % </th>
+                                        <th class="text-right p-2 ">%</th>
+                                        <th class="text-right p-2 ">{{'PORTFOLIO.EDIT_POLICY.TABLE.MAX' | translate}} %</th>
+                                    </tr>
+                                </thead>
+                                <ng-container *ngFor="let item of assetsBreakdown.allocations;">
+                                    <tr>
+                                        <td class="p-2 " width="20%">
+                                            <span class="square" [style.background]="chartColors[item.displayOrder-1]"></span>
+                                            {{item.id}}
+                                        </td>
+                                        <td class="p-2  text-right bg-blueGray08">
+                                            <span *ngIf="!IsAccessRight"> {{item.minimumRange | number : "1.2-2"}} %</span>
+                                            <div *ngIf="IsAccessRight" class="form-group  mb-0 text-right" [ngClass]="{ 'has-error': assetsBreakdownMin.invalid || f.submitted  }">
+                                                <input class="form-control d-inline-block text-right h-25" min="0" max="100" #assetsBreakdownMin="ngModel" currencyMask [options]="percentMask"
+                                                    style="width: 80px" [(ngModel)]="item.minimumRange" name="assetsBreakdownMin{{item.id}}"
+                                                    pattern="^100(\.0{0,2})? *%?$|^\d{1,2}(\.\d{1,2})? *%?$" required/>
+                                            </div>
+                                        </td>
+                                        <td class="p-2 text-right">
+                                            <div class="form-group  mb-0 text-right" [ngClass]="{ 'has-error':  assetsBreakdown.invalid  || f.submitted }">
+                                                <input class="form-control d-inline-block text-right h-25" min="0" max="100" (blur)="totalAllocation()" #assetsBreakdown="ngModel"
+                                                    currencyMask [options]="percentMask" style="width: 80px" [(ngModel)]="item.standardDeviation"
+                                                    name="assetsBreakdown{{item.id}}" pattern="^100(\.0{0,2})? *%?$|^\d{1,2}(\.\d{1,2})? *%?$"
+                                                    required/>
+                                            </div>
+                                        </td>
+                                        <td class="p-2  text-right bg-blueGray08">
+                                            <span *ngIf="!IsAccessRight"> {{item.maximumRange | number : "1.2-2"}} %</span>
+                                            <div *ngIf="IsAccessRight" class="form-group  mb-0 text-right" [ngClass]="{ 'has-error': assetsBreakdownMax.invalid  || item.minimumRange >item.maximumRange || f.submitted }">
+                                                <input class="form-control d-inline-block text-right h-25" min="0" max="100" #assetsBreakdownMax="ngModel" currencyMask [options]="percentMask"
+                                                    style="width: 80px" [(ngModel)]="item.maximumRange" name="assetsBreakdownMax{{item.allocationBreakdownId}}"
+                                                    pattern="^100(\.0{0,2})? *%?$|^\d{1,2}(\.\d{1,2})? *%?$" required/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+
+                                <tr>
+                                    <td colspan="2" class="text-center p-2">
+                                        <b [translate]="'ASSET_LIABILITY.HOLDING_ACCOUNT.TOTAL'"> </b>
+                                    </td>
+                                    <td class="fw-400 p-2">
+                                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted ||  totalBreakDown!==100  }">
+                                            <label class="custom-form-label text-right">{{totalBreakDown | number : "1.2-2" }}%</label>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <div id="moreDetai" class="hide-ele">
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table class="table bt-none">
+                                            <tr>
+                                                <td class="border-0">{{'PORTFOLIO.EDIT_POLICY.LABEL.RETURN' | translate}} </td>
+                                                <td class="border-0 pb-2">
+                                                    <span class="text-right" style="width: 80px;display:block ">{{assetsBreakdown.currentSummary.rateOfReturn}}%</span>
+                                                </td>
+                                                <td class="border-0"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border-0">{{'PORTFOLIO.EDIT_POLICY.LABEL.RISK' | translate}}</td>
+                                                <td class="border-0 pb-2">
+                                                    <span class="text-right" style="width: 80px;display:block ">{{assetsBreakdown.currentSummary.risk}}%</span>
+                                                </td>
+                                                <td class="border-0"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border-0">{{'PORTFOLIO.EDIT_POLICY.LABEL.SHARP_RATIO' | translate}} </td>
+                                                <td class="border-0 pb-2">
+                                                    <span class="text-right" style="width: 80px;display:block ">{{assetsBreakdown.currentSummary.sharpRation}}%</span>
+                                                </td>
+                                                <td class="border-0"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border-0">{{'PORTFOLIO.EDIT_POLICY.LABEL.FEES_COSTS' | translate}}</td>
+                                                <td class="border-0 pb-2">
+                                                    <span *ngIf="!isfeesCosts" class="text-right" style="width: 80px;display:block ">{{assetsBreakdown.currentSummary.fees}}%</span>
+
+                                                    <div *ngIf="isfeesCosts" class="form-group  mb-0" [ngClass]="{ 'has-error':  !feesCosts.valid || f.submitted }">
+                                                        <input class="form-control d-inline-block text-right h-25" min="0" max="100" #feesCosts="ngModel" currencyMask [options]="percentMask"
+                                                            style="width: 80px" [(ngModel)]="assetsBreakdown.currentSummary.fees"
+                                                            name="feesCosts" pattern="^100(\.0{0,2})? *%?$|^\d{1,2}(\.\d{1,2})? *%?$"
+                                                            required/>
+                                                    </div>
+                                                </td>
+                                                <td class="text-right border-0">
+                                                    <p-checkbox name="assetLiabilityDetail" [(ngModel)]='isfeesCosts' binary="true"></p-checkbox>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <h5 class="fw-700" [translate]="'PORTFOLIO.EDIT_POLICY.LABEL.INCOME_DISTRIBUTION'"> </h5>
+                                                </td>
+                                                <td class="text-right">
+                                                    <p-checkbox name="InvestmentIncome" [(ngModel)]='isInvestmentIncome' binary="true"></p-checkbox>
+                                                </td>
+                                            </tr>
+                                            <ng-container *ngFor="let incomeItem of  assetsBreakdown.currentSummary.incomeDistribution">
+                                                <tr>
+                                                    <td>{{incomeItem.id}}</td>
+                                                    <td>
+                                                        <span *ngIf="!isInvestmentIncome" class="text-right p-2 " style="width: 80px;display:block ">{{incomeItem.percent}}%</span>
+                                                        <div *ngIf="isInvestmentIncome" class="form-group  mb-0" [ngClass]="{ 'has-error':  !investmentIncome.valid || f.submitted }">
+                                                            <input class="form-control d-inline-block text-right h-25" min="0" max="100" #investmentIncome="ngModel" currencyMask [options]="percentMask"
+                                                                style="width: 80px" [(ngModel)]="incomeItem.percent" name="investmentIncome{{incomeItem.id}}"
+                                                                pattern="^100(\.0{0,2})? *%?$|^\d{1,2}(\.\d{1,2})? *%?$" required/>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-right">
+
+                                                    </td>
+                                                </tr>
+                                            </ng-container>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <a class="moredetail-button cursor-p" (click)="toggle();isDetailExpand = !isDetailExpand ">
+                                        <span *ngIf="isDetailExpand" [translate]="'PLANNING.LESS_DETAIL'"> </span>
+                                        <span *ngIf="!isDetailExpand" [translate]="'PLANNING.MORE_DETAIL'"> </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-right">
+                            <button (click)="back()" type="button" class="btn btn-small btn-secondary mr-2">{{ 'FORM.ACTION.CANCEL' | translate }}</button>
+                            <button [disabled]="f.form.invalid  || totalBreakDown!==100 " class="btn btn-small btn-success">{{ 'FORM.ACTION.SAVE' | translate }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

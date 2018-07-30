@@ -1,0 +1,28 @@
+<div ngbDropdown class="dropdown-common">
+    <a class="text-uppercase" id="dropdownBasic1" ngbDropdownToggle>
+        <span class="pr-1 selected-text">Planning Modules</span>
+        <i class="ion-arrow-down-b"></i>
+    </a>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <ul *ngIf='planningSummary'>
+            <li>
+                <a class="dropdown-item" [routerLink]="['/client',clientId,'planning','assets-liabilities']" routerLinkActive="active">
+                    <span></span>{{ 'PLANNING_SUMMARY.ASSETS_LIABILITIES.TITLE' | translate}}
+                    <span class="profile_icon" [ngClass]="{'complete_profile ion-ios-checkmark-empty': planningSummary.assetsAndLiabilitiesProgress == 100, 'zero_profile': planningSummary.assetsAndLiabilitiesProgress == 0, 'inprogress_profile': (planningSummary.assetsAndLiabilitiesProgress > 0 && planningSummary.assetsAndLiabilitiesProgress < 100)}"></span>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" [routerLink]="['/client',clientId,'planning','portfolios']" routerLinkActive="active">
+                    <span></span>{{ 'PLANNING_SUMMARY.PORTFOLIOS.TITLE' | translate}}
+                    <span class="profile_icon" [ngClass]="{'complete_profile ion-ios-checkmark-empty': planningSummary.portfoliosProgress == 100, 'zero_profile': planningSummary.portfoliosProgress == 0, 'inprogress_profile': (planningSummary.portfoliosProgress > 0 && planningSummary.portfoliosProgress < 100)}"></span>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" [routerLink]="['/client',clientId,'planning','product-recommendation']" routerLinkActive="active">
+                    <span></span>{{ 'PLANNING_SUMMARY.PRODUCT_RECOMM.TITLE' | translate}}
+                    <span class="profile_icon" [ngClass]="{'complete_profile ion-ios-checkmark-empty': planningSummary.productRecommendationsProgress == 100, 'zero_profile': planningSummary.productRecommendationsProgress == 0, 'inprogress_profile': (planningSummary.productRecommendationsProgress > 0 && planningSummary.productRecommendationsProgress < 100)}"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

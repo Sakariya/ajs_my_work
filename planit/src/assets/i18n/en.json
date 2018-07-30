@@ -1,0 +1,783 @@
+{
+	"ACCOUNT": {
+		"ACCOUNT_NAME": "Account name:",
+		"ACCOUNT_TYPE": "Account type:",
+		"PORTFOLIO": "Portfolio:"
+	},
+	"ADD_ACCOUNT": {
+		"ACCOUNT_NAME": "Account name",
+		"ACCOUNT_TYPE": "Account type",
+		"ADD_ACCOUNT": "ADD ACCOUNT",
+		"ADD_AN_ACCOUNT": "ADD AN ACCOUNT",
+		"ASSET_VALUE": "Asset Value",
+		"ASSOCIATED_PORTFOLIO": "Associated portfolio",
+		"LIABILITY_VALUE": "Liability Value"
+	},
+	"ADD_FAMILY_MEMBER": {
+		"TITLE": "ADD A FAMILY MEMBER"
+	},
+	"ADVISOR": {
+		"DASHBOARD": {
+			"CLIENTS_TILE": {
+				"ADD_CLIENT": "Add a client",
+				"ADD_NEW_CLIENT": "ADD A NEW CLIENT",
+				"SEARCH_CLIENTS": "Search clients",
+				"TITLE": "Clients"
+			},
+			"COLLABORATION_TILE": {
+				"TITLE": "Collaboration centre"
+			},
+			"DEMOGRAPHICS_TILE": {
+				"TITLE": "Demographics"
+			},
+			"DOCUMENT_CENTER_TILE": {
+				"TITLE": "Document centre"
+			},
+			"QUESTIONNAIRES_ADJUSTED": "Adjusted risk groups",
+			"QUESTIONNAIRES_COMPLETED": "Questionnaires completed",
+			"QUESTIONNAIRES_SENT": "Questionnaires sent",
+			"RISK_TOLERANCE_DISTRIBUTION_TILE": {
+				"TITLE": "Risk tolerance distribution"
+			},
+			"SUITABILITY_BANDS_TILE": {
+				"TITLE": "Suitability bands"
+			},
+			"TASK_NOTIFICATION_TILE": {
+				"TITLE": "Tasks & notifications"
+			},
+			"WORKFLOW_TILE": {
+				"COMPLETED": "Completed",
+				"IN_PROGRESS": "In Progress",
+				"MONITORING": "Monitoring",
+				"SHARED": "Shared",
+				"TITLE": "Workflow",
+				"UNDER_REVIEW": "Under Review"
+			}
+		}
+	},
+	"ALERT_MESSAGE": {
+		"CONFIRM_BUTTON_TEXT": "Yes",
+		"ERROR_TITLE": "Error!",
+		"SUCCESS_DELETED_TITLE": "Deleted!",
+		"SUCCESS_TITLE": "Success!",
+		"WARNING_MESSAGE": "You won't be able to revert this!"
+	},
+	"ASSETS": {
+		"SAVINGS": "SAVINGS",
+		"SUMMARY": "SUMMARY"
+	},
+	"ASSETS_SUMMARY": {
+		"ACTION": {
+			"ADD_HOLDINGS": "ADD HOLDING",
+			"ADD_SAVINGS": "ADD SAVINGS",
+			"DELETE_ACCOUNT": "DELETE ACCOUNT",
+			"EDIT_ACCOUNT": "EDIT ACCOUNT",
+			"EDIT_SAVINGS": "EDIT SAVINGS"
+		},
+		"ADD_AN_ACCOUNT": "ADD AN ACCOUNT",
+		"ASSETS_LIST_ACTION": {
+			"DELETE_HOLDING": "DELETE HOLDING",
+			"EDIT_HOLDING": "EDIT HOLDING",
+			"PRODUCT_INFO": "PRODUCT INFO",
+			"RELINK_HOLDING": "RELINK HOLDING"
+		},
+		"NET_WORTH": "Net worth",
+		"TABLE_HEDER": {
+			"ACCOUNTS": "Accounts",
+			"ACCOUNT_TYPE": "Account Type",
+			"ASSETS": "Assets",
+			"LIABILITIES": "Liabilities",
+			"PORTFOLIO": "Portfolio",
+			"TOTAL_SAVINGS": "Total Savings"
+		},
+		"TOTAL_INVESTMENTS": "Total investments"
+	},
+	"ASSET_LIABILITY": {
+		"HOLDING_ACCOUNT": {
+			"ACCOUNT_NUMBER": "Account number",
+			"ADD_HOLDING": "ADD A HOLDING",
+			"ALLOCATION_BREAKDOWN": "Allocation breakdown",
+			"ALLOCATION_BREAKDOWN_ERROR": "Sum of all allocation breakdown percent must be total 100%",
+			"ASSET_INFORMATION": "Asset information",
+			"ASSET_NAME": "Asset name",
+			"ASSET_VALUE": "Asset value",
+			"AS_OF_DATE": "As of date",
+			"COMPANY": "Company",
+			"COMPOUNDING": "Compounding",
+			"CURRENCY": "Currency",
+			"CURRENT_INTEREST_RATE": "Current interest rate",
+			"CURRENT_LOAN_BALANCE": "Current loan balance",
+			"DELETE_HOLDING": "DELETE HOLDING",
+			"DESCRIPTION": "Description",
+			"FREQUENCY": "Frequency",
+			"HOLDING_DELETED_MESSAGE": "Holding has been deleted successfully.",
+			"HOLDING_DELETE_WARNING": "Are you sure want to delete holding?",
+			"INCEPTION_DATE": "Inception date",
+			"INCLUDE_IN_PLANNING": "Include in planning",
+			"INITIAL_LOAN_AMOUNT": "Initial loan amount",
+			"LIABILITY_INFORMATION": "Liability information",
+			"LINKED_CLIENT_ACCOUNT": "Linked client account",
+			"LIQUID": "Liquid",
+			"LOAN_NUMBER": "Loan number",
+			"LOAN_TYPE": "Loan type",
+			"MARKET_VALUE": "Market value",
+			"PAYMENT_AMOUNT": "Payment amount",
+			"PAYMENT_TYPE": "Payment type",
+			"PLACEHOLDER_ACCOUNT_NUMBER": "Enter valid account number",
+			"PLACEHOLDER_COUNTRY": "Choose country",
+			"PLACEHOLDER_CURRENCY": "Choose currency",
+			"PLACEHOLDER_FREQUENCY": "Choose frequency",
+			"PLACEHOLDER_PAYMENT_TYPE": "Choose payment type",
+			"PLACEHOLDER_PRODUCT_TYPE": "Choose product type",
+			"PRODUCT_CODE": "Product code",
+			"PRODUCT_INFO": "PRODUCT INFO",
+			"PRODUCT_TYPE": "Product type",
+			"RELINK_HOLDING": "RELINK HOLDING",
+			"RENEWAL_DATE": "Renewal date",
+			"SAVE_CHANGES_MESSAGE": "Holding detail save successful.",
+			"SELECT_COMPOUNDING": "Choose compounding",
+			"SELECT_LOAN_TYPE": "Choose loan type",
+			"TABLE_HEADING": {
+				"ACTION": "Actions",
+				"ASSET": "Asset",
+				"LIABILITIES": "Liabilities",
+				"MARKET_VALUE": "Market value",
+				"UNITS": "Units"
+			},
+			"TOTAL": "Total"
+		},
+		"PRODUCT_SEARCH": {
+			"ADD_CUSTOM_LABEL": "Add custom",
+			"ADD_FAVOURITES_TITLE": "ADD PRODUCT TO A FAVOURITES LIST",
+			"ADD_FAVOURITE_MESSAGE": "Product added to favourite successful.",
+			"ADVANCED_SEARCH": "Advanced search",
+			"ASSET_CLASS_LABEL": "Asset class",
+			"COUNTRY_LABEL": "Country",
+			"CURRENCY_LABEL": "Currency",
+			"DELETED_FROM_FAVOURITE_MESSAGE": "Product deleted from this favourite list.",
+			"DELETED_FROM_FAVOURITE_WARNING": "Are you sure you want to delete product from this favourite list.",
+			"EXIST_FAVOURITE_MESSAGE": "Product already exist in selected favourite list",
+			"FAVOURITES_LIST_LABEL": "Choose favourites list",
+			"FAVOURITES_LIST_TITLE": "This product is already in the following list(s):",
+			"PLACEHOLDER_ASSET_CLASS": "Choose asset class",
+			"PLACEHOLDER_FAVOURITES_LIST": "Choose favourites list",
+			"PLACEHOLDER_PRODUCT_TYPE": "Choose product type",
+			"PLACEHOLDER_SEARCH_TEXT": "Start typing to search by code, description or company",
+			"PRODUCT_TYPE_LABEL": "Product type",
+			"SEARCH_LABEL": "Search by code, description or company",
+			"SELECT_PRODUCT_CODE_WARNING": "Please select product code.",
+			"TABLE": {
+				"AS_OF_DATE_LABEL": "As of date",
+				"CODE_TYPE": "Code type",
+				"DESCRIPTION_LABEL": "Description",
+				"FEE_TYPE": "Fee type",
+				"PRICE_LABEL": "Price",
+				"PRODUCTCODE_LABEL": "Product code"
+			},
+			"TITLE": "PRODUCT SEARCH"
+		}
+	},
+	"BREADCRUMB": {
+		"ADD_FAMILY_MEMBER": "Add A Family Member",
+		"ASSETS_LIABILITIES": "Assets & liabilities",
+		"CLIENT_PROFILE": "Client profile",
+		"COLLABORATION": "Collaboration",
+		"DOCUMENTS": "Documents",
+		"EDIT_SAVINGS": "Edit savings",
+		"OVERVIEW": "Overview",
+		"PERSONAL_INFO": "Personal info",
+		"PLANNING": "Planning",
+		"PORTFOLIOS": "Portfolios",
+		"PROFILE": "Profile",
+		"RISK_TOLERANCE": "Risk tolerance and KYC"
+	},
+	"CLIENT_OVERVIEW": {
+		"ASSET_ALLOCATION": "Asset allocation",
+		"COLLABORATION": "Collaboration center",
+		"DOCUMENT_CENTER": "Document center",
+		"DOCUMENT_VAULT": "Document Vault",
+		"FAMILY": "Family",
+		"INVESTMENTS": "Investments",
+		"LAST_UPDATE": "Last update",
+		"NET_WORTH": "Net worth",
+		"RISK_TOLERANCE": "Risk tolerance",
+		"RISK_TOLERANCEKYC": "Risk Tolerance & KYC",
+		"TASK_NOTIFICATION": "Tasks & notifications"
+	},
+	"CONTENT": {
+		"APPLT_MODEL_DETAIL": "Choose the model portfolio to be implemented for this account. You may adjust the amount to be deployed as required.",
+		"DOCUMENT_CONTENT": "The Document centre allows you to generate reports and documents, upload every file pertaining your client planning and share your documents securely with your client. It also allows you to securely receive files from your client.",
+		"FAMILY_PORTFOLIO_DETAIL": "By default, every new account is included in a portfolio called “Family portfolio”. If you prefer, you can pick or create another portfolio here. Note that all portfolios can be viewed and analyzed in the Portfolios module",
+		"TOTAL_LIABILITY_DETAIL": "To change the Total holdings value or the Total Liability value you must edit the underlying account holdings."
+	},
+	"CUSTOM": {
+		"ACCOUNT_TYPES": "Account types",
+		"ACTIONS": "Actions",
+		"ADD_FROM_FAVOURITES": "Add From Favourites",
+		"ADD_PRODUCT": "Add Product",
+		"AGE": "Age",
+		"APPLY_MODEL": "Apply Model",
+		"ASSETS": "Assets",
+		"CASH": "Cash",
+		"CLIENT": "Client",
+		"COMPLETED": "Completed",
+		"CURRENT": "Current",
+		"DELETE": "Delete",
+		"DOWNLOAD": "Download",
+		"EDIT_GOAL": "Edit Goal",
+		"EDIT_GOAL_REVENUES": "Edit Goal Revenues",
+		"END_DATE": "End date",
+		"EQUITY": "Equity",
+		"FIXED_INCOME": "Fixed Income",
+		"FUNDED_BY": "Funded by",
+		"GENERATE_DOCUMENT": "Generate a document",
+		"GOALS": "Goals",
+		"GOALS_FUNDED": "Goals funded",
+		"GOAL_RESULT": "Goal results",
+		"INVESTMENT_STRATEGY": "Investment Strategy",
+		"IN_PROGRESS": "In Progress",
+		"KEEP_CURRENT_HOLDINGS": "Keep Current Holdings",
+		"LIABILITIES": "Liabilities",
+		"LINK_PORTFOLIO_GOALS": "Link portfolios to goals",
+		"MANAGED": "Managed",
+		"MANAGED_UNMANAGED": "Managed / Unmanged",
+		"NEW": "New",
+		"OWNERS": "Owners",
+		"PLANNED": "Planned",
+		"PLANNED_FOR": "Planned for",
+		"PLANTRAC_STATUS": "PlanTrac status",
+		"PORTFOLIO": "Portfolio",
+		"PORTFOLIOS": "Portfolios",
+		"REMOVE_ACCESS": "Remove Access",
+		"RESET": "Reset",
+		"RE_NAME": "Rename",
+		"RISK_LEVEL": "Risk level",
+		"SEND_REMINDER": "Send Reminder",
+		"SHARED": "Share",
+		"START_DATE": "Start date",
+		"STATUS": "Status",
+		"SUITABILITY": "Suitability",
+		"TARGET": "Target",
+		"TOTAL_ASSETS": "Total assets",
+		"UNDER_REVIEW": "Under Review",
+		"UNLOCK_RESET": "Unlock and Reset",
+		"UNMANAGED": "Unmanaged",
+		"UNPLANNED": "Unplanned",
+		"UNSHARED": "Unshare",
+		"UPDATE_STATUS": "Update status",
+		"UPLOAD_DOCUMENT": "Upload a Document",
+		"VIEW_MORE": "View more",
+		"VIEW_PLAN_TRAC": "View plan trac",
+		"YEAR": "$/year"
+	},
+	"DOCUMENT": {
+		"DOCUMENT_UPLOAD": {
+			"CHOOSE_FILE_UNDER": "Choose file under",
+			"DOCUMENT_NAME": "Document name",
+			"ERROR_FILE_EXIST": "Document name already exist. Choose different document name.",
+			"ERROR_FILE_NOT_SELECT": "Select a valid file.",
+			"FILE_UNDER": "File under",
+			"TITLE": "UPLOAD A DOCUMENT",
+			"UPLOADED_SUCCESS_MESSAGE": "Upload successful!"
+		},
+		"GENERATE_DOCUMENT": {
+			"CHOOSE_CATEGORY": "Choose a category ",
+			"CHOOSE_CATEGORY_PALACEHOLDER": "Choose a category",
+			"CHOOSE_DOCUMENT": "Choose a document",
+			"CHOOSE_PORTFOLIO": "Choose a portfolio",
+			"CHOOSE_PORTFOLIO_PALACEHOLDER": "Choose a portfolio",
+			"CHOOSE_SECTION_INCLUDE": "Choose sections to include",
+			"DUCUMENT_GENERATED_MESSAGE": "Document generated successful and is available to be viewed/downloaded.",
+			"ERROR_DOCUMENT_NOT": "Please upload any document first in this category.",
+			"PAGE_NOT_SELECT_MESSAGE": "You haven't select any page from Choose sections to include.",
+			"SELECT_EXIST_TEMPLATE_ERROR": "You can not select template name as None or Default.",
+			"TEMPLATE_CONFIRM": {
+				"CONFIRMBUTTONTEXT": "Yes, overwrite it!",
+				"TEXT": "You will be overwrite exist template!",
+				"TITLE": "Template Already exist?"
+			},
+			"TEMPLATE_NAME": "Template name",
+			"TEMPLATE_SAVE_MESSAGE": "Template save successful.",
+			"TEMPLATE_UPDATED_MESSAGE": "Template updated successful.",
+			"TITLE": "GENERATE A DOCUMENT"
+		},
+		"RENAME_DOCUMENT": "Rename Document"
+	},
+	"EDIT_CURRENT": {
+		"ERROR_MESSAGE": {
+			"TOTAL_MUST_BE_EQUAL_TO_100": "Total must be equal to 100"
+		},
+		"INVESTMENT_INCOME_DISTRIBUTION": "Investment income distribution",
+		"TITLE": {
+			"EDIT_CURRENT_ALLOCATION": "EDIT CURRENT ALLOCATION"
+		}
+	},
+	"EDIT_SAVINGS": {
+		"DELETE_TIER": " Delete Tier",
+		"ERROR_1": "End Year cannot be earlier than Start Year",
+		"ERROR_2": "End Age cannot be less than Start Age",
+		"ERROR_3": "Select any Goal or select any other End Year Link Type.",
+		"ERROR_4": "Enter a valid year(YYYY).",
+		"ERROR_5": "Enter a valid age"
+	},
+	"FAMILY_MEMBER_EDIT": {
+		"CLIENT": "CLIENT",
+		"FAMILY_MEMBER_DETAILS": "FAMILY MEMBER DETAILS"
+	},
+	"FILEUPLOAD": {
+		"BROWSE_IMAGE": "browse",
+		"DROP_FILE_HERE": "Drop file here",
+		"DROP_IMAGE_HERE": "Drop image here",
+		"ERROR": {
+			"FILE_SIZE": "File size should be less than {{value}} MB.",
+			"INVALID_FILE": "Invalid file type selected.",
+			"MAX_FILE": "At a time you can upload only {{value}} files."
+		}
+	},
+	"FORM": {
+		"ACCOUNT_NAME": "Account name",
+		"ACCOUNT_NUMBER": "Account number",
+		"ACCOUNT_TYPE": "Account type",
+		"ACTION": {
+			"ADD_PORTFOLIO": "Add Portfolio",
+			"ADD_PRODUCTS": "Add Products",
+			"APPLY": "APPLY",
+			"BACK_TO_ASSETS": "BACK TO ASSETS & LIABILITIES",
+			"CANCEL": "Cancel",
+			"CLOSE": "Close",
+			"GENERATE": "Generate",
+			"LOGIN": "LOGIN",
+			"SAVE": "Save",
+			"SAVE/ADD_FAMILY_MEMBER": "SAVE / Add Family Member",
+			"SAVE/ADD_MORE": "SAVE / ADD MORE",
+			"SAVE/EDIT": "SAVE / EDIT",
+			"SAVETEMPLATE": "Save as template",
+			"SAVE_CHANGES": "SAVE CHANGES",
+			"SEND": "Send",
+			"UPLOAD": "Upload",
+			"UPLOAD_NEW": "UPLOAD A NEW FILE"
+		},
+		"ADDRESS": "Address",
+		"AGE": "Age",
+		"AMOUNT": "Amount",
+		"ASSOCIATED_GOAL": "Associated Goal:",
+		"ASSOCIATED_PORTFOLIO": "Associated portfolio",
+		"CELL_PHONE": "Cell Phone",
+		"CHOOSE_MODEL": "Choose Model",
+		"CITY": "City",
+		"CLIENT_STATUS": "Client status",
+		"COUNTRY": "Country",
+		"DATE_OF_BIRTH": "Date of birth",
+		"DATE_OF_CREATION": "Date of creation (YYYY-MM-DD)",
+		"EMAIL": "Email",
+		"FIRST_NAME": "First name",
+		"FREQUENCY": "Frequency:",
+		"GENDER": "Gender",
+		"HOME_PHONE": "Home Phone",
+		"INDEX": "Index:",
+		"INFLATION": "Inflation",
+		"INITIALS": "Initials",
+		"LANGUAGE": "Language",
+		"LAST_NAME": "Last name",
+		"MARITAL_STATUS": "Marital status",
+		"MESSAGE": "Message",
+		"NAME": "Name",
+		"NEW_DOCUMENT_NAME": "New Document Name",
+		"NEW_PORTFOLIO_NAME": "New Portfolio Name",
+		"OFFICE_PHONE": "Office Phone",
+		"OLD_DOCUMENT_NAME": "Old Document Name",
+		"OLD_PORTFOLIO_NAME": "Old Portfolio Name",
+		"OWNERSHIP": "Ownership",
+		"PASSWORD": "Password",
+		"PLACEHOLDER": {
+			"SELECT": "Select",
+			"SELECT_A_COUNTRY": "Select a country",
+			"SELECT_A_LANGUAGE": "Select a Language",
+			"SELECT_A_MARITAL_STATUS": "Select a Marital status",
+			"SELECT_A_PROVINCE": "Select a Province",
+			"SELECT_A_STATUS": "Select Status"
+		},
+		"PLAN_ASSUMPTION": "Plan assumptions",
+		"PORTFOLIO": "Portfolio",
+		"POSTAL_CODE": "Postal code",
+		"PROCESS": {
+			"UPLOADING": "Uploading"
+		},
+		"PROVINCE": "Province",
+		"RETIRED": "Retired",
+		"SELECT_ALL": "Select all",
+		"SELECT_FAVOURITES_LIST": "Select Favourites List",
+		"SELECT_NONE": "Select none",
+		"SELECT_STATUS": "Select a status",
+		"SELECT_TITLE": "Select a title",
+		"SEND_TO": "Send To",
+		"STATUS": "Status",
+		"SUBJECT": "Subject",
+		"TITLE": "Title",
+		"TOTAL_HOLDING_VALUE": "Total holdings value",
+		"TOTAL_LIABILITY": "Total liability value"
+	},
+	"HEADER": {
+		"CLIENTS": "Clients",
+		"DASHBOARD": "Dashboard",
+		"IT": "it",
+		"LOGOUT": "Log out",
+		"MY_PROFILE": "My profile",
+		"PLAN": "Plan",
+		"PLANPLUS": "PlanPlus",
+		"SETTINGS": "Settings",
+		"SWITCH_TO_CLASSIC": "Switch to classic PlanPlus interface"
+	},
+	"KYC": {
+		"COLLAPSE_ALL": "Collapse All",
+		"EXPAND_ALL": "Expand All",
+		"RISK_TOLERANCE": "Risk tolerance"
+	},
+	"LOGIN": {
+		"FORGOT_PASSWORD": "Forgot password?",
+		"NEED_HELP": "Need help?",
+		"SUB_HEADER": "BECAUSE GREAT ADVICE BEGINS WITH GREAT PLANNING",
+		"WELCOME_TO": "Welcome to"
+	},
+	"PERSONAL_INFO": {
+		"FAMILY_MEMBERS": "Family members",
+		"TITLE": "Personal Info"
+	},
+	"PLANNING": {
+		"LESS_DETAIL": "Less detail",
+		"MORE_DETAIL": "More detail"
+	},
+	"PLANNING_SUMMARY": {
+		"ANALYSIS": {
+			"DESCRIPTION": "Create and compare scenarios. Fine-tune your strategy.",
+			"TITLE": "Analysis"
+		},
+		"ASSETS_LIABILITIES": {
+			"DESCRIPTION": "View and edit all your client's holdings. Group in portfolios. Access investment product details.",
+			"TITLE": "Assets & liabilities"
+		},
+		"DESCRIPTION": {
+			"PARA_1": "You are a few minutes away from builiding a goal-based investment plan for this client.",
+			"PARA_2": "These modules need to be populated with information. Depending on your back-office setup, some of them may automatically populate."
+		},
+		"GOALS": {
+			"DESCRIPTION": "Set your client's financial goals, dollar-amount needs and specific dates.",
+			"TITLE": "Goals"
+		},
+		"PORTFOLIOS": {
+			"DESCRIPTION": "Create portfolios to group your client's accounts. Assess objectives and develop an Investment Strategy.",
+			"TITLE": "Portfolios"
+		},
+		"PRODUCT_RECOMM": {
+			"DESCRIPTION": "Select specific products to implement the strategy.",
+			"TITLE": "Product recommendations"
+		},
+		"REVENUES": {
+			"DESCRIPTION": "Include income the client will receive during retirement, such as a private or public pension plan, or part-time work.",
+			"TITLE": "Revenues"
+		},
+		"TITLE": "Planning summary"
+	},
+	"PORTFOLIO": {
+		"ACTION": {
+			"ANALYTICS": "ANALYTICS",
+			"DELETE_PORTFOLIO": "Delete Portfolio",
+			"EDIT": "Edit",
+			"EDIT_CURRENT": "EDIT CURRENT",
+			"EDIT_POLICY": "EDIT POLICY",
+			"LINK_GOALS": "LINK GOALS"
+		},
+		"ADD_INVESTOR": {
+			"LABEL": {
+				"INVESTOR": "INVESTOR",
+				"PORTFOLIO_NAME": "PORTFOLIO NAME"
+			},
+			"TITLE": "ADD AN INVESTOR"
+		},
+		"ANALYTICS": {
+			"LABEL": {
+				"ADDITIONAL_LIQUIDITY": "Additional liquidity needed",
+				"ASSET_CLASSES": "Asset classes",
+				"BIGGEST_POTENTIAL": "Biggest potential losses",
+				"BIGGEST_POTENTIAL_LABEL": "Top 3 losses for a similar portfolio",
+				"CASH_WEDGE": "Cash wedge",
+				"CASH_WEDGE_DETAIL": "To have sufficient liquidity to fund the associated goal(s) this portfolio requires -26% or $260352 to be liquid over the next 3 years. Based on the investments, $53,817 of this portfolio is projected to be liquid.",
+				"EXCESS_LIQUIDITY": "Excess liquidity",
+				"FALLING_DETAIL": "The value of the portfolio was below its most recent high.",
+				"ILLQUID": "Illquid",
+				"MARGINALLY_SUITABLE": "Marginally suitable",
+				"NOT_SUITABLE": " Not suitable",
+				"RECOVERING_DETAIL": "The value of the portfolio was above its most recent low, but not yet above its most recent high.",
+				"RISING": "Rising",
+				"RISING_DETAIL": "The value of the portfolio is above its most recent high.",
+				"SUITABLE": "Suitable",
+				"TARGET": "Target",
+				"UPS_AND_DOWNS": "Ups and downs"
+			},
+			"PANEL": {
+				"ALLOCATION": "Allocation",
+				"BACK_TEST": "Back Test",
+				"CASH_WEDGE": "Cash Wedge",
+				"EFFICIENT_FRONTIER": "Efficient Frontier",
+				"SUITABILITY_TITLE": "Suitability"
+			},
+			"TABLE": {
+				"AMOUNT": "Amount",
+				"CLASS": "Class",
+				"HOW_LONG": "How Long (Months)",
+				"LOSS": "Loss",
+				"RECOVERY": "Recovery (Months)",
+				"WHEN": "When"
+			},
+			"TITLE": "ANALYTICS"
+		},
+		"DETAIL": {
+			"ALLOCATION": "Allocation",
+			"CURRENT": "Current",
+			"EXPLANATION_CONSTRAINTS": "No constraints identified for this portfolio.",
+			"EXPLANATION_CONTAIN": "Please document any considerations that have been discussed and agreed to in arrining at the Adjusted Suitability Score.",
+			"EXPLANATION_DOCUMENTATION": "Explanation & documentation",
+			"INVESTOR": "Investor",
+			"LINKED_ACCOUNTS": "Linked accounts",
+			"LINKED_GOALS": "Linked goals",
+			"PORTFOLIO_SUITABILITY_SCORE": "Portfolio suitability score",
+			"PRO_JUDGEMENT_MATRIX": "Professional Judgement Matrix constraints",
+			"TIME_HORIZON": "Time horizon",
+			"TIME_HORIZON_ACCORDIN_DESC": "When do you expect to need to withdraw a significant part (1/3 or more) of the money in your investment portfolio?",
+			"TIME_HORIZON_CONTAIN": "Based on the goal(s) associated with this portfolio, 1/3 or more of the money is needed in approximately 14 years.",
+			"WARNINGS": "Warnings",
+			"WARNINGS_LABEL": "Above professional judgement matrix limit of"
+		},
+		"EDIT_POLICY": {
+			"LABEL": {
+				"ANALYTICS": "ANALYTICS",
+				"ASSET_CLASSES": "Asset classes",
+				"FEES_COSTS": " Fees/Costs",
+				"INCOME_DISTRIBUTION": "Investment income distribution",
+				"RETURN": "Return",
+				"RISK": "Risk",
+				"SHARP_RATIO": "Sharp Ratio",
+				"TARGET": "Target"
+			},
+			"SAVE_MESSAGE": "Policy save successfully.",
+			"TABLE": {
+				"CLASS": "Class",
+				"MAX": "Max",
+				"MIN": "Min"
+			},
+			"TITLE": "POLICY"
+		},
+		"TABLE": {
+			"ACCOUNTS": "Accounts",
+			"ACCOUNT_TYPE": "Type",
+			"AMOUNT": "Amount",
+			"ASSETS": "Assets",
+			"ASSOCIATED_GOALS": "Associated goals",
+			"DECISION_MAKER": "Decision maker",
+			"FROMT_TO": "From-to",
+			"GOAL_YEAR": "$/Year",
+			"INVESTED": "Invested",
+			"INVESTOR": "Investor",
+			"PERCENT_PORTFOLIO": "% of portfolio",
+			"PORTFOLIO_ALLOCATION_GOAL": "Portfolio allocated to goals",
+			"RISK_TOLERANCE": "Risk tolerance",
+			"TOTAL": "Total:"
+		}
+	},
+	"PORTFOLIOS": {
+		"ACTIONS": {
+			"ADD_PORTFOLIO": "Add a portfolio",
+			"DELETE_PORTFOLIO": "Delete Portfolio",
+			"EDIT_ASSET_ALLOCATION": "Edit Asset Allocation",
+			"EDIT_PORTFOLIO": "Edit Portfolio",
+			"IMPLEMENTATION": "Implementation",
+			"LINK_GOALS": "Link Portfolio to Goals",
+			"PORTFOLIO_DETAILS": "Portfolio Details",
+			"RENAME_PORTFOLIO": "Rename Portfolio"
+		},
+		"ASSET_CLASSES_DROPDOWN": "Asset Classes",
+		"NAME": "Portfolio name",
+		"TITLE": "Portfolios",
+		"TOTAL": "Total",
+		"VIEW_DROPDOWN": "View"
+	},
+	"PORTFOLIO_ALLOCATION": {
+		"CURRENT": "Current",
+		"IMPLEMENTED": "Implemented",
+		"INVESTMENT_DETAILS": {
+			"HEADING": "Investment income distribution"
+		},
+		"RECOMMENDED": "Recommended",
+		"SUGGESTED": "Suggested",
+		"TABLE": {
+			"AMOUNT": "Amount",
+			"ASSET_CLASS": "Asset Classes",
+			"CLASS": "Class",
+			"FEES_COSTS": "Fees/ Costs",
+			"OUT_OF_RANGE": "Out of range",
+			"RETURN": "Return",
+			"RISK": "Risk",
+			"SHARPE_RATIO": "Sharpe ratio",
+			"VARIANCE": "Variance"
+		},
+		"TARGET": "Target",
+		"TITLE": "Portfolio allocation"
+	},
+	"PRODUCT_RECOMM": {
+		"TAB": {
+			"DETAILED_RECOMM": "Detailed Recommendations",
+			"INVESTMENT_PROD": "Investment Products",
+			"REBALACING_SUMMARY": "Rebalancing Summary"
+		},
+		"TABLE": {
+			"ACCOUNTS": "Accounts",
+			"ACCOUNT_NUMBER": "Account number",
+			"ACCOUNT_TYPE": "Type",
+			"ACTION": "Actions",
+			"ADD_ACCOUNT": "Add an Account",
+			"AMOUNT": "Amount",
+			"ASSET_CLASS": "Asset class",
+			"CURRENT": "Current",
+			"CURRENT_ALLOCATION": "Current allocation",
+			"MODEL_WEIGHTING": "Model weighting",
+			"PERCENT": "Percent",
+			"RECOMMMENDED": "Recommended",
+			"TOTAL_ACCOUNTS": "Total - selected accounts",
+			"VARIANCE": "Variance",
+			"YOUR_RECOMMENDATION": "Your recommendation",
+			"YOUR_WEIGHTING": "Your weighting"
+		},
+		"TITLE": {
+			"ADD_FROM_FAV_LIST": "Add from Favourit Product Lists",
+			"ALL_PRODUCTS": "All Products",
+			"APPLT_MODEL": "Apply Model",
+			"INVESTMENT_STRATEGY": "Investment Strategy",
+			"SELECT_ACCOUNT_MANAGE": "Select accounts to manage"
+		}
+	},
+	"RISK_GROUPS": {
+		"AVERAGE": "Average",
+		"HIGH": "High",
+		"LOW": "Low",
+		"TITLE": "Risk group",
+		"VERY_HIGH": "Very High",
+		"VERY_LOW": "Very Low"
+	},
+	"RISK_KYC_PAGE": {
+		"TITLE": "Know Your Client"
+	},
+	"RISK_RESULTS_PAGE": {
+		"AGREED": {
+			"GROUP": "Agreed risk tolerance group: ",
+			"SCORE": "Agreed score:"
+		},
+		"CALC": {
+			"GROUP": "Risk tolerance group: ",
+			"SCORE": "Calculated score:"
+		},
+		"CHANGE_SCORE_FORM": {
+			"ADD_COMMENT": "Add Comment",
+			"RISK_SCORE": "Risk Score",
+			"TITLE": "Change Risk Score To "
+		},
+		"DATE_AS_OF": "As of",
+		"GRAPH_CAPTION": "Respondents in the High risk group are only prepared to take a medium degree of risk with their financial decisions When faced with a major financial decision they are usually more concerned about the possible gains than the possible losses. It is somewhat too much more important that the value of their investments retain its purchasing power versus that it does not fall. For some a fall of 20% in the total value of their investments would make them feel uncomfortable but for most it would take a fall of 33%.",
+		"KEY_DIFF": {
+			"DESCRIPTION": "It is not uncommon for some of the answers given in the risk profile questionnaire to differ from those typically given by people in your same risk group. Sometimes the answer indicates more risk tolerance can be accepted, and sometimes less. In your questionnaire, you gave 3 different answer(s) as shown below.",
+			"TITLE": "Key differences overview",
+			"WARNING": {
+				"PARA_1": "With regards to the key differences noted below, it is recommended that you discuss your client's risk profile report.",
+				"PARA_2": "If you wish, you can manually change your client's risk score using the CHANGE RISK SCORE TO menu at the top right."
+			}
+		},
+		"LEGEND": {
+			"POINT_1": "Your answer was typically given by those in your Risk Group",
+			"POINT_2": "Your answer was not typically given by those in your Risk Group",
+			"POINT_3": "Your answer was actually riskier than the most risky typically given by those in your Risk Group",
+			"TITLE": "Legend"
+		},
+		"OUT_OF": "of 100",
+		"SCORE": "Risk tolerance score",
+		"TITLE": "Results",
+		"WARNING": {
+			"CLOSE": "Close"
+		}
+	},
+	"RISK_TOLERANCE_PAGE": {
+		"FORM": {
+			"TITLE": {
+				"SEND_INVITE": "SEND AN INVITE",
+				"SEND_REMINDER": "SEND A REMINDER"
+			}
+		},
+		"TABLE": {
+			"ACTIONS": {
+				"COMPLETE_QUEST": "Complete Questionnaire",
+				"EXTERNAL_SOURCE": "External Source",
+				"SEND_INVITE": "Send Invite",
+				"SEND_REMINDER": "Send Reminder",
+				"UNLOCK_RESET": "Unlock & Reset",
+				"VIEW_RESULTS": "View Results"
+			},
+			"HEADING": {
+				"ACTIONS": "Actions",
+				"FAMILY_MEMBER": "Family Member",
+				"INVITE_SENT": "Invite sent",
+				"LAST_UPDATE": "Last completed",
+				"QUESTIONNAIRE": "Questionnaire",
+				"RISK_TOLERANCE": "Risk tolerance"
+			},
+			"PENDING": "Pending"
+		},
+		"TITLE": "Risk Tolerance and KYC"
+	},
+	"SAVINGS": {
+		"ACCOUNT_NAME": "Account Name",
+		"ACCOUNT_TYPE": "Account Type",
+		"ACTION": {
+			"DELETE_SAVINGS": "Delete Savings"
+		},
+		"ADD_TIER": "Add Tier",
+		"CLIENT_SAVINGS": "Client Savings",
+		"END": "End",
+		"GOAL": "Goal",
+		"NO_SAVINGS_ADDED": "No savings yet added for this account.",
+		"NO_SAVINGS_TO_DISPLAY": "No savings to display.",
+		"START": "Start",
+		"THIRD_PARTY_SAVINGS": "3rd Party Savings"
+	},
+	"SORT_BY_DROPDOWN": "Sort By",
+	"TABLE": {
+		"ACTIONS": "Actions",
+		"ADDED": "Added",
+		"DOCUMENT": "Document",
+		"SHARED": "Shared",
+		"STATUS": "Status",
+		"VIEWEDBY": "Viewed by"
+	},
+	"TASK_AND_NOTIFICATION": {
+		"TASK_NOTIFICATION": {
+			"ASSIGNED": "Assigned",
+			"BACK_TO_PREVIOUS": "BACK TO PREVIOUS",
+			"CLIENT_NAME": "Client Name",
+			"COMPLETED": "Completed",
+			"DESCRIPTION": "Description",
+			"FORM": "FROM:",
+			"NOTES": "Notes",
+			"STATUS": "Status",
+			"TASKAND_NOTIFICATION": "Tasks & Notifications",
+			"TO": "TO:"
+		}
+	},
+	"TASK_NOTIFICATION": {
+		"ADD_TASK": {
+			"DESCRIPTION": "Description",
+			"DUE_DATE": "Due date",
+			"TITLE": {
+				"ADD_A_TASK": "ADD A TASK"
+			},
+			"TYPE": "Type"
+		}
+	},
+	"VIEW_BY_DROPDOWN": "View By"
+}

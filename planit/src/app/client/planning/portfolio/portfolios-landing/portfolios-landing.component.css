@@ -1,0 +1,244 @@
+.m-6 {
+   margin-left: 7rem; 
+   margin-right: 6rem;
+}
+
+.m-custom {
+    margin-left: 12rem; 
+    margin-right: 6rem;
+}
+
+.portfolios-table.table h3 {
+    width: 60%;
+}
+
+.portfolios-table.table span.defaultPortfolio-text {
+    width: 39%;
+}
+
+.portfolios-table.table .images-box {
+    width: 150px;
+    height: 26px;
+    overflow: hidden;
+    position: relative;
+    display: block;
+}
+
+.portfolios-table.table .images-box img {
+    position: absolute;
+    left: -10px;
+    top: -11px;
+}
+
+.portfolios-table.table .total-text {
+    padding-right: 8%;
+}
+
+.portfolios-table.table .tolerance-box .tolerance-text {
+    width: 90%;
+}
+
+.allocation-box h3 {
+    font-size: 18px;
+    color: #123;
+}
+
+.allocation-box .dropdown-common a {
+    font-size: 18px;
+    color: #123 !important;
+}
+
+.allocation-box .dropdown-common .dropdown-menu ul li a {
+    font-size: 13px;
+}
+
+.sort-dropdown app-common-drop-down {display: flex; padding-top: 0.4rem;}
+
+h4 {
+    font-size: 13px;
+    color: #789;
+    font-weight: 400; 
+}
+
+h4 a i {
+    width: 20px;
+    height: 20px;
+    padding: 2px 4px;
+    font-size: 14px;
+    color: #FFFFFF;
+    border-radius: 50%;
+    text-align: center;
+    font-weight: bold;
+    background: #88aa33;
+}
+
+.allocationsdata-box {
+    display: block;
+}
+
+.allocationsdata-box .data-title {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #6e6e6c;
+    padding: 10px 0px;
+    line-height: 1;
+    text-align: center;
+}
+
+/* .allocationsdata-box .table {
+    border-top: 1px solid #dee2e6;
+} */
+
+.allocationsdata-box .table>thead>tr>th {
+    padding: 13px 0;
+    line-height: 19px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #789;
+}
+
+.allocationsdata-box .table>thead>tr>th.bg-grey {
+    color: #fff;
+    background: #567;
+}
+
+.allocationsdata-box .table>tbody>tr>td.bg-grey {
+    color: #fff;
+    background: #567;
+}
+
+.allocationsdata-total {
+    margin-top: -1px;
+}
+
+.moredetail-button {
+    font-size: 14px;
+    color: #58d;
+    text-decoration: none;
+    font-weight: 400;
+    padding: 10px 0px;
+    display: inline-block;
+}
+
+.orange-text {
+    /* color: #fa2; */
+    color: #FF6644;
+}
+
+.delete-btn i {
+    background: none;
+    color: #789;
+    font-size: 21px;
+}
+.delete-btn {
+    cursor: pointer;
+}
+.current-table-w-range tbody tr > td.blue-bg{
+    background-color: #cbddee;
+}
+.current-table-w-range tbody tr > td:last-child{
+    padding-right: 0;
+}
+
+.width-40px{
+    width: 40px;
+}
+table tr > td.pr-15,table tr > th.pr-15{
+    padding-right: 15px !important;
+    
+}
+table tr > td.pr-0{
+    padding-right: 0px !important;
+}
+.table > tbody > tr:last-child > td.border-bottom-0 {
+    border-bottom: none !important;
+}
+/* responsive */
+
+@media(min-width: 991px){
+    .row-flex{
+        display: flex;
+    }
+    .row-flex > div{
+        flex: 1;
+    }
+    .mt-216{
+        margin-top: 216px;
+    }
+}
+@media (max-width: 1499px) {
+    .portfolios-table.table .total-text {
+        padding-right: 4%;
+    }
+}
+
+@media (max-width: 1335px) {
+    .portfolios-table.table .total-text {
+        padding-right: 2%;
+    }
+    .allocationsdata-box .table>thead>tr>th {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 1199px) {
+    .table td:last-child {
+        padding-right: 0px;
+    }
+    .portfolios-table.table>thead>tr>th:nth-child(1),
+    .portfolios-table.table>tbody>tr>td:nth-child(1) {
+        width: 25%;
+    }
+    .portfolios-table.table>thead>tr>th:nth-child(4),
+    .portfolios-table.table>tbody>tr>td:nth-child(4) {
+        width: 150px;
+    }
+    .portfolios-table.table h3 {
+        width: 100%;
+        font-size: 16px;
+    }
+    .portfolios-table.table span.defaultPortfolio-text {
+        width: 100%;
+    }
+    .chartContainer h5 {
+        margin-bottom: 10px;
+    }
+    .allocationsdata-box .table>thead>tr>th {
+        font-size: 8px;
+    }
+}
+
+@media (max-width: 992px) {
+    .portfolios-table.table>thead>tr>th:nth-child(1),
+    .portfolios-table.table>tbody>tr>td:nth-child(1) {
+        width: 37%;
+    }
+    .allocationsdata-box .current-table.table>thead>tr>th:nth-child(1),
+    .allocationsdata-box .current-table.table>tbody>tr>td:nth-child(1) {
+        width: 50%;
+    }
+}
+
+@media (max-width: 767px) {
+    .portfolios-table.table .total-text {
+        padding-right: 14%;
+    }
+}
+
+@media (max-width: 575px) {
+    .portfolios-table.table>thead>tr>th:nth-child(1),
+    .portfolios-table.table>tbody>tr>td:nth-child(1) {
+        width: 60%;
+    }
+    .portfolios-table.table .total-text {
+        padding-right: 15px;
+    }
+    .allocation-box .dropdown-common a {
+        font-size: 15px;
+    }
+    .allocationsdata-box .current-table.table>thead>tr>th:nth-child(1),
+    .allocationsdata-box .current-table.table>tbody>tr>td:nth-child(1) {
+        width: 30%;
+    }
+}

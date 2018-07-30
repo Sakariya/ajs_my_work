@@ -1,0 +1,12 @@
+.delete-link, .delete-link span{
+    line-height: 26px;
+    display: inline-block;
+}
+
+.dropdown-common .dropdown-menu ul li {
+    border-top: none;
+}
+
+.dropdown-common .dropdown-menu ul li a {
+    line-height: 30px;
+}

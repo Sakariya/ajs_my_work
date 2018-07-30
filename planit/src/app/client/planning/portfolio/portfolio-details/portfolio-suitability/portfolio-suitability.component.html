@@ -1,0 +1,39 @@
+<div class="mt-5">
+    <div class="row">
+        <div class="col-lg-7">
+            <h6 class="fw-700 d-inline">
+                {{'PORTFOLIO.DETAIL.PORTFOLIO_SUITABILITY_SCORE' | translate}}
+                <span class="ion-android-alert" [ngbTooltip]="keyWarning" #warning="ngbTooltip" triggers="manual" placement="bottom" (click)="warning.open()"></span>
+                <ng-template #keyWarning>
+                    <p>{{'PORTFOLIO.DETAIL.PORTFOLIO_SUITABILITY_SCORE' | translate}} </p>
+                    <p class="text-right m-0 p-0">
+                        <button class="btn btn-secondary btn-small m-0" (click)="warning.close()" [translate]="'RISK_RESULTS_PAGE.WARNING.CLOSE'"></button>
+                    </p>
+                </ng-template>
+            </h6>
+        </div>
+        <div class="col-lg-5 text-right">
+            <div class="tolerance-box">
+                <span class="tolerance-number">
+                    54
+                </span>
+                <button type="button" class="tolerance-text">Balanced</button>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-12">
+            <app-custom-slider [isEditableRoute]="isEditableRoute" [sliderValue]="sliderValue" [fromPoint]="fromPoint" [ngcontent]="ngcontent" [judgementMatrix]="judgementMatrix" (fromPointChange)="fromPointChange($event)"></app-custom-slider>
+        </div>
+    </div>
+    <div class="row warnings-row" *ngIf="changedFromPoint > judgementMatrix">
+        <div class="col-12">
+            <p class="mt-5 mb-0 fw-700" [translate]="'PORTFOLIO.DETAIL.WARNINGS'"></p>
+            <ul class="warning-list pl-0">
+                <li> {{'PORTFOLIO.DETAIL.WARNINGS_LABEL' | translate }} {{judgementMatrix}}</li>
+            </ul>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,75 @@
+<div class="summary-main bg-white">
+    <div class="row no-gutters h-100">
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+            <div class="profile_summary">
+                <h1 class="profile_title" [translate]="'PLANNING_SUMMARY.TITLE'"></h1>
+                <p class="profile_text" [translate]="'PLANNING_SUMMARY.DESCRIPTION.PARA_1'"></p>
+                <p class="profile_text" [translate]="'PLANNING_SUMMARY.DESCRIPTION.PARA_2'"></p>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-8 col-xl-9">
+            <div class="profile_actions" *ngIf="planningSummary">
+                <div class="profile_action" [routerLink]="['/client',clientId,'coming-soon']">
+                    <span class="profile_icon" [ngClass]="{'complete_profile ion-ios-checkmark-empty': planningSummary.goalsProgress == 100, 'zero_profile': planningSummary.goalsProgress == 0, 'inprogress_profile': (planningSummary.goalsProgress > 0 && planningSummary.goalsProgress < 100)}"></span>
+                    <div class="content">
+                        <h5 [translate]="'PLANNING_SUMMARY.GOALS.TITLE'"></h5>
+                        <p [translate]="'PLANNING_SUMMARY.GOALS.DESCRIPTION'"></p>
+                    </div>
+                    <a>
+                        <span class="action_icon ion-chevron-right"></span>
+                    </a>
+                </div>
+                <div class="profile_action" [routerLink]="['/client',clientId,'planning','assets-liabilities']">
+                    <span class="profile_icon" [ngClass]="{'complete_profile ion-ios-checkmark-empty': planningSummary.assetsAndLiabilitiesProgress == 100, 'zero_profile': planningSummary.assetsAndLiabilitiesProgress == 0, 'inprogress_profile': (planningSummary.assetsAndLiabilitiesProgress > 0 && planningSummary.assetsAndLiabilitiesProgress < 100)}"></span>
+                    <div class="content">
+                        <h5 [translate]="'PLANNING_SUMMARY.ASSETS_LIABILITIES.TITLE'"></h5>
+                        <p [translate]="'PLANNING_SUMMARY.ASSETS_LIABILITIES.DESCRIPTION'"></p>
+                    </div>
+                    <a>
+                        <span class="action_icon ion-chevron-right"></span>
+                    </a>
+                </div>
+                <div class="profile_action" [routerLink]="['/client',clientId,'planning','portfolios']">
+                    <span class="profile_icon" [ngClass]="{'complete_profile ion-ios-checkmark-empty': planningSummary.portfoliosProgress == 100, 'zero_profile': planningSummary.portfoliosProgress == 0, 'inprogress_profile': (planningSummary.portfoliosProgress > 0 && planningSummary.portfoliosProgress < 100)}"></span>
+                    <div class="content">
+                        <h5 [translate]="'PLANNING_SUMMARY.PORTFOLIOS.TITLE'"></h5>
+                        <p [translate]="'PLANNING_SUMMARY.PORTFOLIOS.DESCRIPTION'"></p>
+                    </div>
+                    <a>
+                        <span class="action_icon ion-chevron-right"></span>
+                    </a>
+                </div>
+                <div class="profile_action" [routerLink]="['/client',clientId,'coming-soon']">
+                    <span class="profile_icon" [ngClass]="{'complete_profile ion-ios-checkmark-empty': planningSummary.revenuesProgress == 100, 'zero_profile': planningSummary.revenuesProgress == 0, 'inprogress_profile': (planningSummary.revenuesProgress > 0 && planningSummary.revenuesProgress < 100)}"></span>
+                    <div class="content">
+                        <h5 [translate]="'PLANNING_SUMMARY.REVENUES.TITLE'"></h5>
+                        <p [translate]="'PLANNING_SUMMARY.REVENUES.DESCRIPTION'"></p>
+                    </div>
+                    <a>
+                        <span class="action_icon ion-chevron-right"></span>
+                    </a>
+                </div>
+                <div class="profile_action" [routerLink]="['/client',clientId,'coming-soon']">
+                    <span class="profile_icon" [ngClass]="{'complete_profile ion-ios-checkmark-empty': planningSummary.analaysisProgress == 100, 'zero_profile': planningSummary.analaysisProgress == 0, 'inprogress_profile': (planningSummary.analaysisProgress > 0 && planningSummary.analaysisProgress < 100)}"></span>
+                    <div class="content">
+                        <h5 [translate]="'PLANNING_SUMMARY.ANALYSIS.TITLE'"></h5>
+                        <p [translate]="'PLANNING_SUMMARY.ANALYSIS.DESCRIPTION'"></p>
+                    </div>
+                    <a>
+                        <span class="action_icon ion-chevron-right"></span>
+                    </a>
+                </div>
+                <div class="profile_action" [routerLink]="['/client', clientId, 'planning', 'product-recommendation']">
+                    <span class="profile_icon" [ngClass]="{'complete_profile ion-ios-checkmark-empty': planningSummary.productRecommendationsProgress == 100, 'zero_profile': planningSummary.productRecommendationsProgress == 0, 'inprogress_profile': (planningSummary.productRecommendationsProgress > 0 && planningSummary.productRecommendationsProgress < 100)}"></span>
+                    <div class="content">
+                        <h5 [translate]="'PLANNING_SUMMARY.PRODUCT_RECOMM.TITLE'"></h5>
+                        <p [translate]="'PLANNING_SUMMARY.PRODUCT_RECOMM.DESCRIPTION'"></p>
+                    </div>
+                    <a>
+                        <span class="action_icon ion-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

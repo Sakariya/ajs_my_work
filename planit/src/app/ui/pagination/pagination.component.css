@@ -1,0 +1,35 @@
+.pagination li {
+    background: #fff;
+    padding: 6px 10px 7px;
+    line-height: 1;
+    color: #789;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: monospace;
+}
+.pagination li:hover {
+    color: #556677;
+    font-weight: 600;
+}
+.pagination li.active {
+    color: #556677;
+    font-weight: 600;
+}
+
+.pagination li a {
+    cursor: pointer;
+}
+.pagination li a i{
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit
+}
+
+.pagination li.disabled a {   
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+@media (max-width: 575px) {
+  .pagination li {padding: 5px; font-size: 13px;}
+}

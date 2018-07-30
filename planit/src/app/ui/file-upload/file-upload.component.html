@@ -1,0 +1,37 @@
+<div class="text-center upload-image-icon" *ngIf="!isFileselected && isFilePreview" draggable="true" ngClass="{{dragAreaClass}}">
+    <i [ngClass]="iconClass"></i>
+</div>
+<!-- input file Put out of any ng if condtion  -->
+<input type="file" #fileInput [multiple]="(maxFiles == 1)" (change)="showFilelected($event)" style="display:none" />
+<div class="upload-image-icon" *ngIf="isFileselected && isFilePreview">
+    <div class="remove-selected" *ngIf="isFileselected">
+        <i class="ion-close-circled" (click)="removeSelected()"></i>
+    </div>
+    <img class="imageWidth" src="{{base64Image}}" />
+</div>
+<div *ngIf="isFileselected && !isFilePreview">
+    <div class=" text-center upload-image-icon">
+        <i class="ion-document-text"></i>
+        <div class="remove-selected" *ngIf="isFileselected">
+            <i class="ion-close-circled" (click)="removeSelected()"></i>
+        </div>
+    </div>
+    <span class="ellipsis-text file-name" [appNoOverflowTooltip]="fileName" triggers="manual" placement="bottom">{{fileName}}</span>
+    <!-- <span class="">{{fileName}}</span> -->
+</div>
+<div class="upload-image-text text-center">
+    <p *ngIf="!dropHereLabel" class="mt-lg-2">{{ 'FILEUPLOAD.DROP_IMAGE_HERE' | translate }}</p>
+    <p *ngIf="dropHereLabel" class="mt-lg-2">{{ dropHereLabel }}</p>
+    
+    <p>
+        or
+        <span class="green" (click)="browseFile()">{{ 'FILEUPLOAD.BROWSE_IMAGE' | translate }}</span>
+    </p>
+</div>
+<div class="row upload-error text-center" *ngIf="errors.length > 0">
+    <div class="col-12">
+        <ul>
+            <li *ngFor="let err of errors">{{err}}</li>
+        </ul>
+    </div>
+</div>

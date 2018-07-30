@@ -1,0 +1,106 @@
+<div class="side-form" *ngIf="accountsData && portfoliosData">
+    <div class="box">
+        <div class="box-header">
+            <span class="sidebar_title text-uppercase" [translate]="'ASSETS_SUMMARY.ACTION.ADD_SAVINGS'"></span>
+            <span (click)="back()" class="sidebar_action_icon ion-close-circled float-right"></span>
+        </div>
+
+        <div class="box-body" *ngIf="accountId && currentAccount && goalsList.length > 1 && selectedGoalsList.length > 1">
+            <form name="form" (ngSubmit)="f.form.valid && addSavings(1)" #f="ngForm" novalidate>
+                <div class="form-group">
+                    <label class="custom-form-label form-fixed-label" [translate]="'ACCOUNT.ACCOUNT_NAME'"></label>
+                    <span class="form-fixed-value">{{currentAccount['description']}}</span>
+                </div>
+                <div class="form-group">
+                    <label class="custom-form-label form-fixed-label" [translate]="'ACCOUNT.ACCOUNT_TYPE'"></label>
+                    <span class="form-fixed-value">
+                        {{currentAccount['regulatoryTypeDTO']['description']}}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label class="custom-form-label form-fixed-label" [translate]="'ACCOUNT.PORTFOLIO'"></label>
+                    <span class="form-fixed-value" *ngIf="portfoliosData && portfoliosData[currentAccount['portfolio']]">
+                        {{portfoliosData[currentAccount['portfolio']]['description']}}
+                    </span>
+                </div>
+                <div class="form-group" [ngClass]="{'has-error': !clientSavings.valid && (clientSavings.dirty || f.submitted) }">
+                    <label class="custom-form-label" [translate]="'SAVINGS.CLIENT_SAVINGS'"></label>
+                    <input type="text" class="form-control text-right" name="clientSavings" placeholder="$ 0.00" [(ngModel)]="savings.tier1AmountPerYear"
+                    currencyMask [options]="numberMask" #clientSavings="ngModel" required />
+
+                </div>
+                <div *ngIf="currentAccount['regulatoryTypeDTO']['description'] === 'RESP - FP' || currentAccount['regulatoryTypeDTO']['description'] === 'RESP - IP'">
+                    <div class="form-group" [ngClass]="{'has-error': !thirdPartySavings.valid && (thirdPartySavings.dirty || f.submitted)}">
+                        <label class=custom-form-label [translate]="'SAVINGS.THIRD_PARTY_SAVINGS'"></label>
+                        <input type="text" class="form-control text-right" name="thirdPartySavings" placeholder="$ 0.00" [(ngModel)]="savings.tier1EmployerContribAmt"
+                        currencyMask  [options]="numberMask" #thirdPartySavings="ngModel" required />
+                    </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': !associatedGoal.valid && (associatedGoal.dirty || f.submitted)}">
+                    <label class="custom-form-label" [translate]="'FORM.ASSOCIATED_GOAL'"></label>
+                    <p-dropdown placeholder="Select Goal" [options]="currentAccount['regulatoryType'] === 'RESP - FP' || currentAccount['regulatoryType'] === 'RESP - IP' ? selectedGoalsList : goalsList"
+                        optionLabel="description" name="associatedGoal" [(ngModel)]="savings.linkedGoal" #associatedGoal="ngModel"
+                        required></p-dropdown>
+                </div>
+                <div class="form-group mt-5 text-right">
+                    <button type="submit" class="btn btn-small btn-success mr-2" [translate]="'ASSETS_SUMMARY.ACTION.ADD_SAVINGS'" [disabled]="f.form.invalid"></button>
+                    <button (click)="back()" type="button" class="btn btn-secondary btn-small" [translate]="'FORM.ACTION.CANCEL'"></button>
+                </div>
+            </form>
+        </div>
+        <div class="box-body" *ngIf="!accountId && accountsDropdown.length > 0 && goalsList.length > 1 && selectedGoalsList.length > 1">
+            <form name="form" #f="ngForm" novalidate>
+                <div class="form-group" [ngClass]="{ 'has-error': !accountName.valid && (accountName.dirty || f.submitted)}">
+                    <label class="custom-form-label" [translate]="'ACCOUNT.ACCOUNT_NAME'"></label>
+                    <p-dropdown placeholder="Select Account" [options]="accountsDropdown" optionLabel="value" name="accountName" [(ngModel)]="savings.linkedAccountKey"
+                        #accountName="ngModel" required>
+                    </p-dropdown>
+                </div>
+                <div class="form-group" *ngIf="savings.linkedAccountKey">
+                    <label class="custom-form-label form-fixed-label" [translate]="'ACCOUNT.ACCOUNT_TYPE'"></label>
+                    <span class="form-fixed-value">
+                        {{savings.linkedAccountKey.regType}}
+                    </span>
+                </div>
+                <div class="form-group" *ngIf="savings.linkedAccountKey">
+                    <label class="custom-form-label form-fixed-label" [translate]="'ACCOUNT.PORTFOLIO'"></label>
+                    <span class="form-fixed-value" *ngIf="portfoliosData && portfoliosData[savings.linkedAccountKey.portfolio]">
+                        {{savings.linkedAccountKey.portfolio ? portfoliosData[savings.linkedAccountKey.portfolio]['description'] : 'none'}}
+                    </span>
+                </div>
+                <div class="form-group" [ngClass]="{'has-error': !clientSavings.valid && (clientSavings.dirty || f.submitted) }">
+                    <label class="custom-form-label" [translate]="'SAVINGS.CLIENT_SAVINGS'"></label>
+                    <input type="text" class="form-control text-right" name="clientSavings" placeholder="$ 0.00" [(ngModel)]="savings.tier1AmountPerYear"
+                    currencyMask [options]="numberMask" #clientSavings="ngModel" required />
+
+                </div>
+                <div *ngIf="savings.linkedAccountKey && (savings.linkedAccountKey.regType === 'RESP - FP' || savings.linkedAccountKey.regType === 'RESP - IP')">
+                    <div class="form-group" [ngClass]="{'has-error': !thirdPartySavings.valid && (thirdPartySavings.dirty || f.submitted)}">
+                        <label class=custom-form-label [translate]="'SAVINGS.THIRD_PARTY_SAVINGS'"></label>
+                        <input type="text" class="form-control text-right" name="thirdPartySavings" placeholder="$ 0.00" [(ngModel)]="savings.tier1EmployerContribAmt"
+                        currencyMask [options]="numberMask" #thirdPartySavings="ngModel" required />
+                    </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': !associatedGoal.valid && (associatedGoal.dirty || f.submitted)}">
+                    <label class="custom-form-label" [translate]="'FORM.ASSOCIATED_GOAL'"></label>
+                    <p-dropdown placeholder="Select Goal" [options]="savings.linkedAccountKey && (savings.linkedAccountKey.regType === 'RESP - FP' || savings.linkedAccountKey.regType === 'RESP - IP') ? selectedGoalsList : goalsList"
+                        optionLabel="description" name="associatedGoal" [(ngModel)]="savings.linkedGoal" #associatedGoal="ngModel"
+                        required></p-dropdown>
+                </div>
+                <div class="form-group mt-5 text-right">
+                    <button (click)="back()" type="button" class="btn btn-secondary btn-small mr-2" [translate]="'FORM.ACTION.CANCEL'"></button>
+
+                    <button type="button" [disabled]="f.form.invalid" class="btn btn-small btn-success pl-4 pr-4" (click)="addSavings(1);" [translate]="'FORM.ACTION.SAVE'"></button>
+                    <div class="btn-group btn-save" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                        <button [disabled]="f.form.invalid" class="btn btn-small btn-success dropdown-toggle-split" ngbDropdownToggle></button>
+                        <div class="dropdown-menu" ngbDropdownMenu>
+                            <button class="dropdown-item" (click)="addSavings(1);" [translate]="'FORM.ACTION.SAVE'"></button>
+                            <button class="dropdown-item" (click)="addSavings(2);" [translate]="'FORM.ACTION.SAVE/EDIT'"></button>
+                            <button class="dropdown-item" (click)="addSavings(3);" [translate]="'FORM.ACTION.SAVE/ADD_MORE'"></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

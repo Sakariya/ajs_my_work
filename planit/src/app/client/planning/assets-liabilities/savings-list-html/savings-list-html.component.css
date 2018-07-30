@@ -1,0 +1,25 @@
+.add-btn i {
+    background: none;
+    color: #88aa33;
+    font-size: 23px;
+}
+
+.delete-btn i {
+    background: none;
+    color: #789;
+    font-size: 21px;
+}
+
+.delete-btn {
+    cursor: pointer;
+}
+
+.client-avatars .client-icon + .client-icon{
+    margin-left: -7px;
+    z-index: 0;
+}
+
+.text-red {
+    color:red;
+}
+

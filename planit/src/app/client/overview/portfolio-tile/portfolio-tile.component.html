@@ -1,0 +1,100 @@
+<div class="panel">
+
+    <div class="panel-body">
+        <table class="table table-ellipsis portfolios-table">
+            <thead>
+                <tr>
+                    <th class="pt-0">
+                        <h4 [translate]="'CUSTOM.PORTFOLIOS'"></h4>
+                    </th>
+                    <th class="pt-0 hidden-xs-down" [translate]="'CUSTOM.CLIENT'"></th>
+                    <th class="pt-0 hidden-sm-down" [translate]="'CUSTOM.RISK_LEVEL'"></th>
+                    <th class="pt-0 hidden-sm-down text-left" [translate]="'CUSTOM.GOALS_FUNDED'"></th>
+                    <th class="pt-0 text-left" [translate]="'CUSTOM.INVESTMENT_STRATEGY'"></th>
+                    <th class="pt-0 text-left" [translate]="'CUSTOM.TOTAL_ASSETS'"></th>
+                    <th class="pt-0" [translate]="'CUSTOM.ACTIONS'" width="50"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let portfolio of data; let i = index">
+                    <td>
+                        <span [appNoOverflowTooltip]="portfolio.description" triggers="manual" placement="right">
+                            {{portfolio.description}}
+                        </span>
+                    </td>
+
+                    <td class="hidden-xs-down">
+                        <div class="dropdown-relative-full">
+                            <span class="d-flex">
+                                <button type="button" class="btn-default btn-circle btn-circle-blue ion-ios-person mr-2" [ngClass]="{ 'btn-circle-blue' : portfolio.portfolioOwned[0].relation  == 'CLIENT','btn-circle-lightblue': portfolio.portfolioOwned[0].relation =='SPOUSE', 'btn-circle-lightblue2': portfolio.portfolioOwned[0].relation =='SON'} "></button>
+
+                                <button type="button" *ngIf="portfolio.portfolioOwned.length>1" class="btn-default btn-circle ion-ios-person mr-2" [ngClass]="{ 'btn-circle-blue' : portfolio.portfolioOwned[1].relation  == 'CLIENT','btn-circle-lightblue': portfolio.portfolioOwned[1].relation =='SPOUSE', 'btn-circle-lightblue2': portfolio.portfolioOwned[1].relation =='SON'} "></button>
+                                            
+                                <span *ngIf="portfolio.portfolioOwned.length>2" (click)="changePortfolioOwnedAction(i)" class="ion-android-more-horizontal action-ellipses-icon-color set-ellipses"></span>
+                            </span>
+
+                            <div *ngIf="portfolio.portfolioOwned.length>2" [id]="'dropdownPortfolioOwnedAction'+i" class="dropdown-portfolio-owned-action dropdown-floating hide-ele">
+                                <div class="floating-dropdown">
+                                    <ng-container *ngFor="let portOwned of portfolio.portfolioOwned; let i = index">
+                                        <button type="button" class="btn-default btn-circle ion-ios-person" [ngClass]="{ 'btn-circle-blue' : portOwned.relation  == 'CLIENT','btn-circle-lightblue':portOwned.relation =='SPOUSE', 'btn-circle-lightblue2': portOwned.relation =='SON'} "></button>&nbsp;
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td class="hidden-sm-down" *ngIf="portfolio.finametrica==1">
+                        <button type="button" class="btn-square-portfolios risk-level">{{getCategoryText(portfolio.combinedRiskTolerance)}}</button>
+                    </td>
+
+                    <td class="text-left hidden-sm-down">
+                        <span [appNoOverflowTooltip]="getGoalName(portfolio.linkedGoals)" triggers="manual" placement="bottom">{{getGoalName(portfolio.linkedGoals)}}</span>
+                    </td>
+
+                    <td class="text-left">
+                        {{getInvestmentStrategy(portfolio.portSelected)}}
+                    </td>
+
+                    <td class="text-left">
+                        {{portfolio.totalAssetInPortfolio | currency:'CAD':'symbol-narrow':'0.0-0':lang}}
+                    </td>
+
+                    <td width="50" class="text-center">
+                        <div class="dropdown-relative">
+                            <button class="btn-floating" (click)="changePortfolioAction(i)">
+                                <span class="ion-android-more-vertical"></span>
+                            </button>
+                            <div [id]="'dropdownPortfolioAction'+i" class="dropdown-portfolio-action dropdown-floating hide-ele">
+                                <ul class="floating-dropdown">
+                                    <li (click)="changePortfolioAction(i)">
+                                        <a [routerLink]="['/client',clientId,'coming-soon']">
+                                            <i class="ion-chevron-right"></i>
+                                            <span [translate]="'PORTFOLIOS.ACTIONS.EDIT_PORTFOLIO'"></span>
+                                        </a>
+                                    </li>
+                                    <li (click)="changePortfolioAction(i)">
+                                        <a [routerLink]="['/client',clientId,'coming-soon']">
+                                            <i class="ion-pie-graph"></i>
+                                            <span [translate]="'PORTFOLIOS.ACTIONS.EDIT_ASSET_ALLOCATION'"></span>
+                                        </a>
+                                    </li>
+                                    <li (click)="changePortfolioAction(i)">
+                                        <a [routerLink]="['/client',clientId,'coming-soon']">
+                                            <i class="ion-link"></i>
+                                            <span [translate]="'PORTFOLIOS.ACTIONS.LINK_GOALS'"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex flex-wrap panel-footer">
+        <a [routerLink]="['/client',clientId,'coming-soon']" class="btn btn-link ion-arrow-right-b" [translate]="'CUSTOM.VIEW_MORE'"></a>
+    </div>
+
+</div>

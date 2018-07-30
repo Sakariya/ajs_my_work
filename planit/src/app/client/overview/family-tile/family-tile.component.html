@@ -1,0 +1,44 @@
+<div class="panel mt-0">
+
+  <div class="d-flex flex-wrap panel-header">
+    <h4 [translate]="'CLIENT_OVERVIEW.FAMILY'"></h4>
+    <div class="ml-auto d-flex">
+      <span class="initials btn-circle-green ml-2 cursor-p" ngbTooltip="Total Entities" placement="bottom" triggers="click" #entities="ngbTooltip" (click)="fmembers.close();">2</span>
+      <span class="initials btn-circle-skyblue ml-2 cursor-p" *ngIf="familyMembers" ngbTooltip="Total Family Members" placement="bottom" triggers="click" #fmembers="ngbTooltip" (click)="entities.close();">
+          {{familyMembers.length}}
+        </span>
+    </div>
+    <div class="address-box mt-3" *ngIf="clientAddresses && clientAddresses.length > 0">
+        {{clientAddresses[0].line1}} &nbsp;{{clientAddresses[0].line2}}<br/>{{clientAddresses[0].city}}, {{clientAddresses[0].province}} {{clientAddresses[0].postalCode}}
+    </div>
+  </div>
+
+  <div class="panel-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th [translate]="'CUSTOM.CLIENT'"></th>
+                <th [translate]="'CUSTOM.STATUS'"></th>
+                <th class="text-center" [translate]="'CUSTOM.AGE'"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let person of familyMembers; let i = index;">
+                <tr *ngIf="i < 3">
+                    <td class="fw-700">
+                        <span class="initials mr-1 mr-md-3" [ngClass]="person.btnColor">{{person.firstName[0]}}{{person.lastName[0]}}</span>
+                        {{person.firstName + " " + person.lastName}}
+                    </td>
+                    <td>{{getRelation(person.relation)}}</td>
+                    <td class="text-center">{{person.age}}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex flex-wrap panel-footer">
+    <a [routerLink]="['/client',clientId,'profile','personal-info']" class="btn btn-link ion-arrow-right-b" i18n="View More on a Tile@@tile.general.view.more">View more</a>
+  </div>
+
+</div>
